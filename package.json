@@ -1,0 +1,27 @@
+{
+  "name": "pa-website-validator-ng-gui",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "build": "electron-builder build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.7"
+  },
+  "build": {
+    "appId": "com.myapp.app",
+    "productName": "MyElectronApp",
+    "win": {
+      "target": ["nsis", "zip"]
+    }
+  }
+}
