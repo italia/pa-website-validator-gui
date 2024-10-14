@@ -1,19 +1,10 @@
-#alert-container {
-  display: block;
-}
-
-#logs-container {
-  display: none;
-}
-
 #logs {
   width: 100%;
   height: 300px;
   overflow-y: scroll;
 }
 
-#iframe-container {
-  display: none;
+#report-container {
   margin-top: 20px;
   width: 100%;
   height: 400px;

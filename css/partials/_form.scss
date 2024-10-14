@@ -1,0 +1,22 @@
+.input-group {
+  width: 50%;
+  min-width: 360px;
+  position: relative;
+  margin-bottom: 50px;
+
+  .more-info {
+    position: absolute;
+    top: 45px;
+    left: 8px;
+    color: $text-secondary;
+  }
+
+  #progress-spinner {
+    position: absolute;
+    top: 0;
+    right: -60px;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+  }
+}

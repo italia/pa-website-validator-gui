@@ -184,6 +184,27 @@ footer a:hover, footer a:visited {
   color: #ffffff;
 }
 
+.input-group {
+  width: 50%;
+  min-width: 360px;
+  position: relative;
+  margin-bottom: 50px;
+}
+.input-group .more-info {
+  position: absolute;
+  top: 45px;
+  left: 8px;
+  color: var(--bs-gray);
+}
+.input-group #progress-spinner {
+  position: absolute;
+  top: 0;
+  right: -60px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+}
+
 /* MAIN */
 main {
   min-height: calc(100vh - 120px - 56px);
@@ -291,22 +312,13 @@ iframe {
   display: block;
 }
 
-#alert-container {
-  display: block;
-}
-
-#logs-container {
-  display: none;
-}
-
 #logs {
   width: 100%;
   height: 300px;
   overflow-y: scroll;
 }
 
-#iframe-container {
-  display: none;
+#report-container {
   margin-top: 20px;
   width: 100%;
   height: 400px;
