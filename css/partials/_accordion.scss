@@ -1,0 +1,79 @@
+.accordion-collapse.collapse.show {
+  padding-bottom: 2rem;
+}
+
+.accordion-header .accordion-button {
+  display: block;
+  color: $black;
+
+  &.focus--mouse {
+    border-color: $border-color !important;
+  }
+  &:not(.collapsed) {
+    color: $black;
+    background-color: $bg-light;
+    border-bottom: 1px solid $border-color;
+  }
+  &:after {
+    color: $border-color;
+  }
+}
+
+.accordion-body {
+  padding: 0;
+  .row {
+    margin-right: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 12px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active {
+      border-right-color: $primary !important;
+      background-color: $bg-light;
+    }
+
+    .title {
+      display: flex;
+      flex-flow: column;
+      align-items: start;
+      gap: 6px;
+
+      span {
+        font-size: 10px;
+        color: $black;
+      }
+    }
+
+    .result {
+      display: flex;
+      flex-flow: column;
+      align-items: end;
+      gap: 6px;
+      font-size: 12px;
+
+      .circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+
+        &.fail {
+          background-color: $error;
+        }
+        &.pass {
+          background-color: $success;
+        }
+        &.average {
+          background-color: $warning;
+        }
+      }
+    }
+  }
+}

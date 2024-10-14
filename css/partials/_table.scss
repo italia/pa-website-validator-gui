@@ -1,0 +1,39 @@
+.table-wrapper {
+  max-height: 500px;
+  overflow: auto;
+
+  .table {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 1rem;
+
+    thead {
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      background-color: $white;
+
+      th {
+        border-bottom: 3px solid $secondary;
+        white-space: nowrap;
+      }
+    }
+
+    tr {
+      th,
+      td {
+        padding: 0.75rem;
+      }
+
+      th:first-child,
+      td:first-child {
+        padding-left: 1.5rem;
+      }
+
+      th:last-child,
+      td:last-child {
+        padding-right: 1.5rem;
+      }
+    }
+  }
+}

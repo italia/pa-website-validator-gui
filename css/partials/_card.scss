@@ -1,0 +1,86 @@
+.top-text p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.cards-container {
+  margin-block: 42px;
+
+  .card-wrapper {
+    width: 50%;
+
+    .card {
+      &::after {
+        display: none;
+      }
+
+      .card-body {
+        padding: 46px;
+
+        &.error {
+          background-color: $error;
+
+          .card-title {
+            color: $white;
+          }
+        }
+
+        .card-title {
+          font-size: 20px;
+          margin: 0;
+          color: $primary;
+        }
+
+        .card-content {
+          .result-point {
+            width: 130px;
+            height: 130px;
+            border-radius: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $white;
+            font-size: 44px;
+            font-weight: bold;
+            text-transform: uppercase;
+
+            &.ko {
+              background-color: $error;
+            }
+            &.ok {
+              background-color: $success;
+            }
+            &.error {
+              background-color: $white;
+              svg {
+                width: 50px;
+                height: 50px;
+                font-weight: 700;
+                fill: $error;
+              }
+            }
+          }
+
+          .progress-donut-wrapper {
+            &::before {
+              background: $error;
+            }
+          }
+
+          .result-donut {
+            font-size: 16px;
+            margin-top: 16px;
+            text-align: center;
+
+            span {
+              font-size: 18px;
+              font-weight: bold;
+              color: $success;
+            }
+          }
+        }
+      }
+    }
+  }
+}

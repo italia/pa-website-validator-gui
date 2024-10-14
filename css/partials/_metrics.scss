@@ -1,0 +1,76 @@
+section.metrics {
+  .donut-container {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .legend-item {
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      position: relative;
+      top: 3.5px;
+      border-radius: 100%;
+      background-color: $error;
+      margin-right: 12px;
+    }
+
+    &.average::before {
+      background-color: $warning;
+    }
+    &.pass::before {
+      background-color: $success;
+    }
+  }
+}
+
+.metrics-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem 2rem;
+  padding-bottom: 2rem;
+
+  .metric-wrapper {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $border-color;
+
+    .d-flex {
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+
+      &.result {
+        font-size: 32px;
+        font-weight: 700;
+      }
+    }
+
+    .pass {
+      color: $success;
+      stroke: $success;
+    }
+    .fail {
+      color: $error;
+      stroke: $error;
+    }
+    .average {
+      color: $warning;
+      stroke: $warning;
+    }
+
+    .icon {
+      width: 28px;
+      height: 28px;
+      position: relative;
+      bottom: 2px;
+      margin-right: 6px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+footer {
+  padding: 1rem 0;
+  background-color: $bg-dark;
+  color: $white;
+
+  a {
+    color: $white;
+    text-decoration: none;
+    margin-right: 12px;
+
+    &:hover,
+    &:visited {
+      text-decoration: underline;
+      color: $white;
+    }
+  }
+}
