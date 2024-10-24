@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Node Program GUI</title>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-italia@2.9.1/dist/css/bootstrap-italia.min.css" />
+  <link rel="stylesheet" href="<%- publicPath %>css/style.css" />
+</head>
+
+<body>
+  <%- include('partials/icons'); %>
+  <!-- HEADER -->
+  <%- include('partials/header'); %>
+
+  <!-- MAIN SECTION -->
+  <main>
+    <div class="container">
+      <%- include('partials/url-input'); %>
+
+      <!-- SECTIONS -->
+      <%- include('partials/steps/settings'); %>
+      <%- include('partials/steps/logs'); %>
+      <%- include('partials/steps/result'); %>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <%- include('partials/footer'); %>
+
+  <!-- JS DEPENDENCIES -->
+  <script src=" https://unpkg.com/bootstrap-italia@2.9.1/dist/js/bootstrap-italia.bundle.min.js"></script>
+  <script src="<%- publicPath %>js/renderer.js"></script>
+  <script src="<%- publicPath %>js/stepper.js"></script>
+</body>
+
+</html>

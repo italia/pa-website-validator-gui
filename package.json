@@ -11,7 +11,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-
+    "ejs": "^3.1.10",
+    "express": "^4.21.1"
   },
   "devDependencies": {
     "electron": "^32.2.0",
@@ -21,7 +22,10 @@
     "appId": "com.myapp.app",
     "productName": "MyElectronApp",
     "win": {
-      "target": ["nsis", "zip"]
+      "target": [
+        "nsis",
+        "zip"
+      ]
     }
   }
 }
