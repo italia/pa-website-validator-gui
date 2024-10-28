@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label for="input-<%= label %>" class="input-number-label active"><%= label %></label>
+  <div class="input-group input-number">
+    <input type="number" class="form-control" data-bs-input id="input<%= label %>" value="<%= defaultValue %>" step="any" name="<%= name %>" />
+    <span class="input-group-text align-buttons flex-column">
+      <button class="input-number-add">
+        <span class="visually-hidden">Aumenta valore</span>
+      </button>
+      <button class="input-number-sub">
+        <span class="visually-hidden">Diminuisci valore</span>
+      </button>
+    </span>
+  </div>
+</div>

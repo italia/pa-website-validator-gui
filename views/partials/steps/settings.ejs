@@ -1,18 +1,36 @@
-      <!-- ALERT SECTION -->
-      <div id="alert-container">
-        <div class="alert alert-primary" role="alert">
-          <p class="h5">Informazioni generali</p>
-          <p>
-            Inserire il link che si desidera scansionare e attendere il
-            risultato
-          </p>
-          <div class="separator"></div>
-          <p>
-            Una volta ultimata la scansione verrà messo a disposizione il link
-            a Report per poter essere consultato
-          </p>
-          <p>
-            <a href="#" target="_blank">Documentazione delle App di valutazione</a>
-          </p>
-        </div>
-      </div>
+<!-- ALERT SECTION -->
+<div id="alert-container">
+  <div class="alert alert-primary" role="alert">
+    <p class="h5">Informazioni generali</p>
+    <p>
+      Inserire il link che si desidera scansionare e attendere il
+      risultato
+    </p>
+    <div class="separator"></div>
+    <p>
+      Una volta ultimata la scansione verrà messo a disposizione il link
+      a Report per poter essere consultato
+    </p>
+    <p>
+      <a href="#" target="_blank">Documentazione delle App di valutazione</a>
+    </p>
+  </div>
+</div>
+<!-- SETTINGS -->
+<div id="settings-container">
+  <h2>Settings</h2>
+  <form id="settingsForm" class="setting-wrapper">
+    <%- include('../components/radio', {label: "Type", name: "type" ,options: ["Municipality", "School"], checked: "Municipality"});  %>
+    <%- include('../components/radio', {label: "Scope", name: "scope" ,options: ["online", "local"], checked: "online"});  %>
+    <%- include('../components/radio', {label: "Accuracy", name: "accuracy" ,options: ["all", "suggested", "min"], checked: "suggested"});  %>
+    <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages"});  %>
+    <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout"});  %>
+
+    <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
+</div>
+<script src="../../<%- publicPath %>js/settingsForm.js"></script>
+
+<!-- --destination (path)
+  --report (filename) -->
+
+</div>

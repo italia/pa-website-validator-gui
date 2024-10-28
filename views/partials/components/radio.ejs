@@ -1,0 +1,9 @@
+<fieldset>
+  <legend><%= label %></legend>
+  <% options.forEach((opt, i) => { %>
+  <div class="form-check">
+    <input name="<%= name %>" type="radio" value="<%= opt %>" id="<%= label %>-<%= i %>" <%= opt === checked ? "checked" : "" %>>
+    <label for="<%= label %>-<%= i %>"><%= opt %></label>
+  </div>
+  <% }); %>
+</fieldset>

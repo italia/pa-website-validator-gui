@@ -205,6 +205,23 @@ footer a:hover, footer a:visited {
   border-radius: 100%;
 }
 
+form.setting-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+form.setting-wrapper button {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+form .form-group,
+form fieldset {
+  margin-bottom: 1rem;
+}
+form .form-group {
+  margin-top: 2rem;
+}
+
 /* MAIN */
 main {
   min-height: calc(100vh - 120px - 56px);
