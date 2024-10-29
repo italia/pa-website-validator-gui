@@ -5,7 +5,7 @@ const START_BUTTON = document.getElementById('startBtn');
 const PROGRESS_SPINNER = document.getElementById('progress-spinner');
 
 // STEP 1
-const ALERT_CONTAINER = document.getElementById('settings-container');
+const FULL_SETTINGS_CONTAINER = document.getElementById('full-settings-container');
 const SETTINGS_FORM = document.getElementById('settingsForm');
 const AUDITS_FORM = document.getElementById('auditsForm');
 

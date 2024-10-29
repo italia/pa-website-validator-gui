@@ -1100,9 +1100,9 @@
 </form>
 
       <!-- SECTIONS -->
-      <!-- ALERT SECTION -->
-<div id="settings-container">
-  <div class="alert alert-primary" role="alert">
+      <div id="full-settings-container">
+  <!-- ALERT SECTION -->
+  <div class="alert alert-primary" role="alert" id="alert-container">
     <p class="h5">Informazioni generali</p>
     <p>
       Inserire il link che si desidera scansionare e attendere il
@@ -1172,7 +1172,7 @@
       <div class="form-group">
   <label for="input-Concurrent pages" class="input-number-label active">Concurrent pages</label>
   <div class="input-group input-number">
-    <input type="number" class="form-control" data-bs-input id="inputConcurrent pages" value="10" step="any" name="concurrentPages" />
+    <input type="number" class="form-control" data-bs-input id="inputConcurrent pages" value="10" step="1" name="concurrentPages" />
     <span class="input-group-text align-buttons flex-column">
       <button class="input-number-add">
         <span class="visually-hidden">Aumenta valore</span>
@@ -1186,7 +1186,7 @@
       <div class="form-group">
   <label for="input-Timeout (ms)" class="input-number-label active">Timeout (ms)</label>
   <div class="input-group input-number">
-    <input type="number" class="form-control" data-bs-input id="inputTimeout (ms)" value="30000" step="any" name="timeout" />
+    <input type="number" class="form-control" data-bs-input id="inputTimeout (ms)" value="30000" step="1000" name="timeout" />
     <span class="input-group-text align-buttons flex-column">
       <button class="input-number-add">
         <span class="visually-hidden">Aumenta valore</span>
@@ -1198,7 +1198,7 @@
   </div>
 </div>
 
-      <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
+      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm</button>
     </form>
   </div>
 

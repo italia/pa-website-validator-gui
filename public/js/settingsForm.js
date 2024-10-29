@@ -17,20 +17,22 @@ const getAuditsFormValues = () => {
   return finalAudits;
 }
 
-const submitForm = (e) => {
-  e?.preventDefault();
-  
-  const settings = getSettinngsFormValues();
-  getAuditsFromSettings(settings);
-};
+//! TODO capire se stare in ascolto sui singoli input (--> eliminare submit)
+//! o se lasciare form submit (--> eliminare eventListener)
+SETTINGS_FORM.addEventListener('input', () => {
+  getAuditsFromSettings();
+})
+
 const audits = [];
-const getAuditsFromSettings = (form) => {
+const getAuditsFromSettings = (e) => {
+  e?.preventDefault();
+  const settings = getSettinngsFormValues();
   // get Audits according to selected settings
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((json) => {
       audits.splice(0, audits.length);      
-      audits.push(...json.splice(Math.round(Math.random() * 100), form.concurrentPages));
+      audits.push(...json.splice(Math.round(Math.random() * 100), settings.concurrentPages));
       // console.log('audits', audits);
 
       if (AUDITS_FORM) {
@@ -50,4 +52,4 @@ const getAuditsFromSettings = (form) => {
 };
 
 // first submit with default settings
-submitForm();
+getAuditsFromSettings();

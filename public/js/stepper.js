@@ -46,19 +46,19 @@ URL_FORM.addEventListener('submit', (e) => {
 function showStep(step) {
   switch (step) {
     case 2:
-      ALERT_CONTAINER.classList.add('d-none');
+      FULL_SETTINGS_CONTAINER.classList.add('d-none');
       LOGS_CONTAINER.classList.remove('d-none');
       REPORT_CONTAINER.classList.add('d-none');
       break;
     case 3:
-      ALERT_CONTAINER.classList.add('d-none');
+      FULL_SETTINGS_CONTAINER.classList.add('d-none');
       LOGS_CONTAINER.classList.add('d-none');
       REPORT_CONTAINER.classList.remove('d-none');
       break;
 
     case 1:
     default:
-      ALERT_CONTAINER.classList.remove('d-none');
+      FULL_SETTINGS_CONTAINER.classList.remove('d-none');
       LOGS_CONTAINER.classList.add('d-none');
       REPORT_CONTAINER.classList.add('d-none');
       break;

@@ -2,7 +2,6 @@
   width: 50%;
   min-width: 360px;
   position: relative;
-  margin-bottom: 50px;
 
   .more-info {
     position: absolute;
@@ -24,22 +23,31 @@
 form {
   &.setting-wrapper {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
 
-    button {
-      grid-column-start: 1;
-      grid-column-end: 2;
+    button[type="submit"] {
+      max-height: fit-content;
+      align-self: end;
+      width: 250px;
     }
   }
- 
-  .form-group,
-  fieldset {
-    margin-bottom: 1rem; 
+  &.audits-wrapper {
+    margin-bottom: 2rem;
   }
 
-  .form-group{
+  .form-group,
+  fieldset {
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group {
     margin-top: 2rem;
   }
 
+  legend,
+  .form-group label.active {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
 }

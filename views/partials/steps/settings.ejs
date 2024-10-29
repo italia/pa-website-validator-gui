@@ -1,6 +1,6 @@
-<!-- ALERT SECTION -->
-<div id="settings-container">
-  <div class="alert alert-primary" role="alert">
+<div id="full-settings-container">
+  <!-- ALERT SECTION -->
+  <div class="alert alert-primary" role="alert" id="alert-container">
     <p class="h5">Informazioni generali</p>
     <p>
       Inserire il link che si desidera scansionare e attendere il
@@ -23,10 +23,10 @@
       <%- include('../components/radio', {label: "Type", name: "type" ,options: ["Municipality", "School"], checked: "Municipality"});  %>
       <%- include('../components/radio', {label: "Scope", name: "scope" ,options: ["online", "local"], checked: "online"});  %>
       <%- include('../components/radio', {label: "Accuracy", name: "accuracy" ,options: ["all", "suggested", "min"], checked: "suggested"});  %>
-      <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages"});  %>
-      <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout"});  %>
+      <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages", step: 1});  %>
+      <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout", step: 1000});  %>
 
-      <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
+      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm (?)</button>
     </form>
   </div>
 

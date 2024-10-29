@@ -188,7 +188,6 @@ footer a:hover, footer a:visited {
   width: 50%;
   min-width: 360px;
   position: relative;
-  margin-bottom: 50px;
 }
 .input-group .more-info {
   position: absolute;
@@ -210,16 +209,26 @@ form.setting-wrapper {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
 }
-form.setting-wrapper button {
-  grid-column-start: 1;
-  grid-column-end: 2;
+form.setting-wrapper button[type=submit] {
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  align-self: end;
+  width: 250px;
+}
+form.audits-wrapper {
+  margin-bottom: 2rem;
 }
 form .form-group,
 form fieldset {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 form .form-group {
   margin-top: 2rem;
+}
+form legend,
+form .form-group label.active {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 /* MAIN */
@@ -327,6 +336,12 @@ section.metrics .legend-item.pass::before {
 
 iframe {
   display: block;
+}
+
+#alert-container,
+#settings-container,
+#audits-wrapper {
+  margin-bottom: 3rem;
 }
 
 #logs {
