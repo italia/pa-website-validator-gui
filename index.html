@@ -1078,7 +1078,7 @@
   <!-- MAIN SECTION -->
   <main>
     <div class="container">
-      <div class="form-group pt-4">
+      <form id="urlForm" class="form-group pt-4">
   <div class="input-group">
     <span class="input-group-text"><svg class="icon icon-sm">
         <use href="#it-search"></use>
@@ -1086,7 +1086,7 @@
     <label for="inputUrl">Url sito</label>
     <input type="text" class="form-control" id="inputUrl" name="inputUrl" />
     <div class="input-group-append">
-      <button class="btn btn-primary" type="button" id="startBtn">
+      <button class="btn btn-primary" type="submit" id="startBtn" disabled>
         Avvia scansione
       </button>
     </div>
@@ -1097,11 +1097,11 @@
       Inserisci l'url del sito che si vuole scansionare
     </div>
   </div>
-</div>
+</form>
 
       <!-- SECTIONS -->
       <!-- ALERT SECTION -->
-<div id="alert-container">
+<div id="settings-container">
   <div class="alert alert-primary" role="alert">
     <p class="h5">Informazioni generali</p>
     <p>
@@ -1117,12 +1117,12 @@
       <a href="#" target="_blank">Documentazione delle App di valutazione</a>
     </p>
   </div>
-</div>
-<!-- SETTINGS -->
-<div id="settings-container">
-  <h2>Settings</h2>
-  <form id="settingsForm" class="setting-wrapper">
-    <fieldset>
+
+  <!-- SETTINGS -->
+  <div id="settings-container">
+    <h2>Settings</h2>
+    <form id="settingsForm" class="setting-wrapper">
+      <fieldset>
   <legend>Type</legend>
   
   <div class="form-check">
@@ -1136,7 +1136,7 @@
   </div>
   
 </fieldset>
-    <fieldset>
+      <fieldset>
   <legend>Scope</legend>
   
   <div class="form-check">
@@ -1150,7 +1150,7 @@
   </div>
   
 </fieldset>
-    <fieldset>
+      <fieldset>
   <legend>Accuracy</legend>
   
   <div class="form-check">
@@ -1169,7 +1169,7 @@
   </div>
   
 </fieldset>
-    <div class="form-group">
+      <div class="form-group">
   <label for="input-Concurrent pages" class="input-number-label active">Concurrent pages</label>
   <div class="input-group input-number">
     <input type="number" class="form-control" data-bs-input id="inputConcurrent pages" value="10" step="any" name="concurrentPages" />
@@ -1183,7 +1183,7 @@
     </span>
   </div>
 </div>
-    <div class="form-group">
+      <div class="form-group">
   <label for="input-Timeout (ms)" class="input-number-label active">Timeout (ms)</label>
   <div class="input-group input-number">
     <input type="number" class="form-control" data-bs-input id="inputTimeout (ms)" value="30000" step="any" name="timeout" />
@@ -1197,13 +1197,18 @@
     </span>
   </div>
 </div>
-    <button type="submit" onclick="formSubmit(event)">Submit</button>
-</div>
-<script src="../../public/js/settingsForm.js"></script>
 
-<!-- --destination (path)
-  --report (filename) -->
+      <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
+    </form>
+  </div>
 
+  <!-- AUDITS -->
+  <div id="audits-container">
+    <h2>Audits</h2>
+
+    <form id="auditsForm" class="audits-wrapper">
+    </form>
+  </div>
 </div>
       <!-- LOGS SECTION -->
 <div id="logs-container" class="d-none">
@@ -1247,6 +1252,7 @@ riga 2
   <script src=" https://unpkg.com/bootstrap-italia@2.9.1/dist/js/bootstrap-italia.bundle.min.js"></script>
   <script src="public/js/renderer.js"></script>
   <script src="public/js/stepper.js"></script>
+  <script src="public/js/settingsForm.js"></script>
 </body>
 
 </html>

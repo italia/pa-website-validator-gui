@@ -1,5 +1,7 @@
-const formSubmit = document.getElementById('startBtn');
-const alertContainer = document.getElementById('alert-container');
+const urlForm = document.getElementById('urlForm');
+const inputUrl = document.getElementById('inputUrl');
+const formSubmitBtn = document.getElementById('startBtn');
+const alertContainer = document.getElementById('settings-container');
 const logsContainer = document.getElementById('logs-container');
 const reportContainer = document.getElementById('report-container');
 const progressSpinner = document.getElementById('progress-spinner');
@@ -7,8 +9,17 @@ const progressSpinner = document.getElementById('progress-spinner');
 const progressBar = logsContainer.querySelector('.progress-bar');
 const percentage = logsContainer.querySelector('#progress-percentage');
 
+inputUrl.addEventListener('input', (e) => {
+  const value = e.target.value
+  if (value.length) formSubmitBtn.removeAttribute('disabled');
+  else formSubmitBtn.setAttribute('disabled', true);
+  
+});
+
+
 let progress = 0;
 function updateProgress() {
+  showStep(2);
   console.log('start');
   setIsLoading(true);
 
@@ -16,7 +27,6 @@ function updateProgress() {
   const interval = 500; // 0,5 secondi in millisecondi
 
   const timer = setInterval(() => {
-    showStep(2);
     progress += increment;
 
     progress = Math.min(progress, 100);
@@ -37,7 +47,12 @@ function updateProgress() {
   }, interval);
 }
 
-formSubmit.addEventListener('click', () => updateProgress());
+urlForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  getSettinngsFormValues();
+  getAuditsFormValues();
+  updateProgress();
+});
 
 function showStep(step) {
   switch (step) {
@@ -64,9 +79,9 @@ function showStep(step) {
 function setIsLoading(status) {
   if (status) {
     progressSpinner.classList.remove('d-none');
-    formSubmit.setAttribute('disabled', true);
+    formSubmitBtn.setAttribute('disabled', true);
   } else {
     progressSpinner.classList.add('d-none');
-    formSubmit.removeAttribute('disabled');
+    formSubmitBtn.removeAttribute('disabled');
   }
 }

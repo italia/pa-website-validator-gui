@@ -1,5 +1,5 @@
 <!-- ALERT SECTION -->
-<div id="alert-container">
+<div id="settings-container">
   <div class="alert alert-primary" role="alert">
     <p class="h5">Informazioni generali</p>
     <p>
@@ -15,22 +15,26 @@
       <a href="#" target="_blank">Documentazione delle App di valutazione</a>
     </p>
   </div>
-</div>
-<!-- SETTINGS -->
-<div id="settings-container">
-  <h2>Settings</h2>
-  <form id="settingsForm" class="setting-wrapper">
-    <%- include('../components/radio', {label: "Type", name: "type" ,options: ["Municipality", "School"], checked: "Municipality"});  %>
-    <%- include('../components/radio', {label: "Scope", name: "scope" ,options: ["online", "local"], checked: "online"});  %>
-    <%- include('../components/radio', {label: "Accuracy", name: "accuracy" ,options: ["all", "suggested", "min"], checked: "suggested"});  %>
-    <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages"});  %>
-    <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout"});  %>
 
-    <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
-</div>
-<script src="../../<%- publicPath %>js/settingsForm.js"></script>
+  <!-- SETTINGS -->
+  <div id="settings-container">
+    <h2>Settings</h2>
+    <form id="settingsForm" class="setting-wrapper">
+      <%- include('../components/radio', {label: "Type", name: "type" ,options: ["Municipality", "School"], checked: "Municipality"});  %>
+      <%- include('../components/radio', {label: "Scope", name: "scope" ,options: ["online", "local"], checked: "online"});  %>
+      <%- include('../components/radio', {label: "Accuracy", name: "accuracy" ,options: ["all", "suggested", "min"], checked: "suggested"});  %>
+      <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages"});  %>
+      <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout"});  %>
 
-<!-- --destination (path)
-  --report (filename) -->
+      <button class="btn btn-primary" type="submit" onclick="submitForm(event)">Confirm</button>
+    </form>
+  </div>
 
+  <!-- AUDITS -->
+  <div id="audits-container">
+    <h2>Audits</h2>
+
+    <form id="auditsForm" class="audits-wrapper">
+    </form>
+  </div>
 </div>
