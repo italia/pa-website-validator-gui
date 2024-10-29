@@ -1,15 +1,12 @@
-const settingsForm = document.getElementById('settingsForm');
-const auditsForm = document.getElementById('auditsForm');
-
 const getSettinngsFormValues = () => {
-  const formData = new FormData(settingsForm);
+  const formData = new FormData(SETTINGS_FORM);
   const formObject = Object.fromEntries(formData.entries());
   console.log('settings', formObject);
   return formObject;
 }
 const getAuditsFormValues = () => {
   // Seleziona tutte le checkbox con il nome "options"
-  const checkboxes = auditsForm.querySelectorAll(
+  const checkboxes = AUDITS_FORM.querySelectorAll(
     'input[name="audits"]:checked'
   );
   const finalAudits = [];
@@ -36,10 +33,10 @@ const getAuditsFromSettings = (form) => {
       audits.push(...json.splice(Math.round(Math.random() * 100), form.concurrentPages));
       // console.log('audits', audits);
 
-      if (auditsForm) {
-        auditsForm.innerHTML = '';
+      if (AUDITS_FORM) {
+        AUDITS_FORM.innerHTML = '';
         audits.forEach((audit, i) => {
-          auditsForm.innerHTML += `
+          AUDITS_FORM.innerHTML += `
 <fieldset>
   <div class="form-check form-check-inline">
     <input id="audit-${audit.id}" type="checkbox" name="audits" checked>

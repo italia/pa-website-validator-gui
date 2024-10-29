@@ -1,18 +1,7 @@
-const urlForm = document.getElementById('urlForm');
-const inputUrl = document.getElementById('inputUrl');
-const formSubmitBtn = document.getElementById('startBtn');
-const alertContainer = document.getElementById('settings-container');
-const logsContainer = document.getElementById('logs-container');
-const reportContainer = document.getElementById('report-container');
-const progressSpinner = document.getElementById('progress-spinner');
-
-const progressBar = logsContainer.querySelector('.progress-bar');
-const percentage = logsContainer.querySelector('#progress-percentage');
-
-inputUrl.addEventListener('input', (e) => {
+INPUT_URL.addEventListener('input', (e) => {
   const value = e.target.value
-  if (value.length) formSubmitBtn.removeAttribute('disabled');
-  else formSubmitBtn.setAttribute('disabled', true);
+  if (value.length) START_BUTTON.removeAttribute('disabled');
+  else START_BUTTON.setAttribute('disabled', true);
   
 });
 
@@ -31,11 +20,11 @@ function updateProgress() {
 
     progress = Math.min(progress, 100);
 
-    if (percentage && progressBar) {
+    if (PERCENTAGE && PROGRESS_BAR) {
       const rounded = Math.round(progress);
-      percentage.innerHTML = rounded;
-      progressBar.style.width = `${rounded}%`;
-      progressBar.setAttribute('aria-valuenow', rounded);
+      PERCENTAGE.innerHTML = rounded;
+      PROGRESS_BAR.style.width = `${rounded}%`;
+      PROGRESS_BAR.setAttribute('aria-valuenow', rounded);
     }
 
     if (progress >= 100) {
@@ -47,7 +36,7 @@ function updateProgress() {
   }, interval);
 }
 
-urlForm.addEventListener('submit', (e) => {
+URL_FORM.addEventListener('submit', (e) => {
   e.preventDefault();
   getSettinngsFormValues();
   getAuditsFormValues();
@@ -57,31 +46,31 @@ urlForm.addEventListener('submit', (e) => {
 function showStep(step) {
   switch (step) {
     case 2:
-      alertContainer.classList.add('d-none');
-      logsContainer.classList.remove('d-none');
-      reportContainer.classList.add('d-none');
+      ALERT_CONTAINER.classList.add('d-none');
+      LOGS_CONTAINER.classList.remove('d-none');
+      REPORT_CONTAINER.classList.add('d-none');
       break;
     case 3:
-      alertContainer.classList.add('d-none');
-      logsContainer.classList.add('d-none');
-      reportContainer.classList.remove('d-none');
+      ALERT_CONTAINER.classList.add('d-none');
+      LOGS_CONTAINER.classList.add('d-none');
+      REPORT_CONTAINER.classList.remove('d-none');
       break;
 
     case 1:
     default:
-      alertContainer.classList.remove('d-none');
-      logsContainer.classList.add('d-none');
-      reportContainer.classList.add('d-none');
+      ALERT_CONTAINER.classList.remove('d-none');
+      LOGS_CONTAINER.classList.add('d-none');
+      REPORT_CONTAINER.classList.add('d-none');
       break;
   }
 }
 
 function setIsLoading(status) {
   if (status) {
-    progressSpinner.classList.remove('d-none');
-    formSubmitBtn.setAttribute('disabled', true);
+    PROGRESS_SPINNER.classList.remove('d-none');
+    START_BUTTON.setAttribute('disabled', true);
   } else {
-    progressSpinner.classList.add('d-none');
-    formSubmitBtn.removeAttribute('disabled');
+    PROGRESS_SPINNER.classList.add('d-none');
+    START_BUTTON.removeAttribute('disabled');
   }
 }
