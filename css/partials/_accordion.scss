@@ -1,10 +1,11 @@
 .accordion-collapse.collapse.show {
-  padding-bottom: 2rem;
+  //padding-bottom: 2rem;
 }
 
 .accordion-header .accordion-button {
   display: block;
   color: $black;
+  font-weight: normal;
 
   &.focus--mouse {
     border-color: $border-color !important;
