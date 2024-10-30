@@ -1,7 +1,6 @@
 .accordion-header .accordion-button {
   display: block;
   color: #000000;
-  font-weight: normal;
 }
 .accordion-header .accordion-button.focus--mouse {
   border-color: #c5c7c9 !important;
@@ -166,6 +165,79 @@
   color: #5cc98d;
 }
 
+/* Titillium+Web:300,400,600,700 */
+/* titillium-web-300 - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-300italic - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-regular - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-italic - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-700 - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-700italic - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-600 - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.svg#TitilliumWeb") format("svg");
+}
+/* titillium-web-600italic - latin-ext_latin */
+@font-face {
+  font-family: "Titillium Web";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot");
+  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
+}
 footer {
   padding: 1rem 0;
   background-color: var(--bs-dark);
@@ -331,7 +403,8 @@ section.metrics .legend-item.pass::before {
   margin-right: 6px;
 }
 
-iframe {
+iframe,
+textarea {
   display: block;
 }
 
@@ -350,7 +423,6 @@ iframe {
 #report-container {
   margin-top: 20px;
   width: 100%;
-  height: 400px;
 }
 
 .table-wrapper {
