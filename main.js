@@ -10,47 +10,57 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 1000,
+    width: 1200,
+    height: 800,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false, // Disabilita l'isolamento del contesto
+      contextIsolation: false, // Disabilita l'isolamento del contesto,
     },
   });
 
   mainWindow.webContents.openDevTools();
 
-  // TODO capire da dove prendere questi dati
-  // Build index.html
-  const data = {
-    crawlerVersion: '1.0.0',
-    publicPath: "public/"
-  };
-  const templatePath = path.join('views', 'index.ejs');
-  ejs.renderFile(templatePath, data, {}, (err, str) => {
-    if (err) {
-      console.error('Errore nel renderizzare il template EJS:', err);
-      return;
-    }
-    const outputPath = path.join('./', 'index.html');
-
-    fs.writeFile(outputPath, str, (err) => {
-      if (err) {
-        console.error('Errore nel salvare il file HTML:', err);
-      } else {
-        console.log('File HTML generato con successo:', outputPath);
-      }
-    });
-  });
-
-  mainWindow.loadFile('index.html');
+  // load first page
+  loadPage('');
 
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
 
-app.whenReady().then(createWindow);
+app.on('ready', createWindow);
+
+// TODO capire da dove prendere questi dati
+const data = {
+  crawlerVersion: '1.0.0',
+  publicPath: "public/",
+  currentPage: ''
+};
+// rebuild html when page changes
+function loadPage(page) {
+  const filePath = path.join('views', `index.ejs`);
+  data.currentPage = page;
+  ejs.renderFile(filePath, data, {}, (err, str) => {
+      if (err) {
+          console.error("Error rendering EJS:", err);
+          return;
+      }
+      const outputPath = path.join('./', 'index.html');
+      fs.writeFile(outputPath, str, (err) => {
+        if (err) {
+          console.error('Errore nel salvare il file HTML:', err);
+        } else {
+          console.log('File HTML generato con successo:', outputPath);
+        }
+      });
+  
+      mainWindow.loadFile('index.html');
+  });
+}
+ipcMain.on('navigate', (event, page) => {
+    loadPage(page);
+});
+
 
 ipcMain.on('start-node-program', (event) => {
   const nodeProcess = exec(

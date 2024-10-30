@@ -11,8 +11,8 @@ const AUDITS_FORM = document.getElementById('auditsForm');
 
 // STEP 2
 const LOGS_CONTAINER = document.getElementById('logs-container');
-const PROGRESS_BAR = LOGS_CONTAINER.querySelector('.progress-bar');
-const PERCENTAGE = LOGS_CONTAINER.querySelector('#progress-percentage');
+const PROGRESS_BAR = LOGS_CONTAINER?.querySelector('.progress-bar');
+const PERCENTAGE = LOGS_CONTAINER?.querySelector('#progress-percentage');
 const LOGS_TEXTAREA = document.getElementById('logs');
 
 // STEP 3

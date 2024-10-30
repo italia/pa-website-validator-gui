@@ -9,16 +9,25 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 // Route
-app.get('/', (req, res) => {
-  //   const data = JSON.parse(fs.readFileSync('data.json', 'utf8'));
-  const data = {
-    publicPath: '',
-    crawlerVersion: '1.0.0',
-  };
+const data = {
+  publicPath: '',
+  crawlerVersion: '1.0.0',
+  currentPage: '',
+};
+app.get(['/', "/home"], (req, res) => {
+  data.currentPage = ""
+  res.render('index', data);
+});
+app.get('/history', (req, res) => {
+  data.currentPage = "history"
+  res.render('index', data);
+});
+app.get('/report', (req, res) => {
+  data.currentPage = "report"
   res.render('index', data);
 });
 
 // Avvio del server
-app.listen(3000, () => {
+app.listen(3000, (res) => {
   console.log('Server in ascolto sulla porta 3000', 'http://localhost:3000/');
 });

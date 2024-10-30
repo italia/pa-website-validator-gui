@@ -19,7 +19,7 @@ const getAuditsFormValues = () => {
 
 //! TODO capire se stare in ascolto sui singoli input (--> eliminare submit)
 //! o se lasciare form submit (--> eliminare eventListener)
-SETTINGS_FORM.addEventListener('input', () => {
+SETTINGS_FORM?.addEventListener('input', () => {
   getAuditsFromSettings();
 })
 

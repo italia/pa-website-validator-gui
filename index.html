@@ -1069,6 +1069,10 @@
               <div class="it-brand-tagline d-none d-md-block">Data</div>
             </div>
           </div>
+          <ul>
+            <li><a data-page="home" href="/home">Home</a></li>
+            <li><a data-page="history" href="/history">History</a></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1077,7 +1081,8 @@
 
   <!-- MAIN SECTION -->
   <main>
-    <div class="container">
+    <div id="content" class="container">
+      
       <form id="urlForm" class="form-group pt-4">
   <div class="input-group">
     <span class="input-group-text"><svg class="icon icon-sm">
@@ -1099,8 +1104,8 @@
   </div>
 </form>
 
-      <!-- SECTIONS -->
-      <div id="full-settings-container">
+<!-- SECTIONS -->
+<div id="full-settings-container">
   <!-- ALERT SECTION -->
   <div class="alert alert-primary" role="alert" id="alert-container">
     <p class="h5">Informazioni generali</p>
@@ -1198,7 +1203,7 @@
   </div>
 </div>
 
-      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm</button>
+      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm (?)</button>
     </form>
   </div>
 
@@ -1210,7 +1215,7 @@
     </form>
   </div>
 </div>
-      <!-- LOGS SECTION -->
+<!-- LOGS SECTION -->
 <div id="logs-container" class="d-none">
   <div class="progress-bar-wrapper mb-4">
     <div class="progress-bar-label">
@@ -1225,7 +1230,7 @@ Test di logs
 riga 2
   </textarea>
 </div>
-      <!-- REPORT SECTION -->
+<!-- REPORT SECTION -->
 <div id="report-container" class="d-none">
   <div class="progress-bar-wrapper mb-4">
     <div class="progress-bar-label">Scanning completato 100%</div>
@@ -1236,6 +1241,7 @@ riga 2
   <h2>Report</h2>
   <iframe id="reportFrame" src=""></iframe>
 </div>
+      
 
     </div>
   </main>
@@ -1252,6 +1258,7 @@ riga 2
   <script src=" https://unpkg.com/bootstrap-italia@2.9.1/dist/js/bootstrap-italia.bundle.min.js"></script>
   <script src="public/js/elements.js"></script>
   <script src="public/js/renderer.js"></script>
+  <script src="public/js/routing.js"></script>
   <script src="public/js/stepper.js"></script>
   <script src="public/js/settingsForm.js"></script>
 </body>

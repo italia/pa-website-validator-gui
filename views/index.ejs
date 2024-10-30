@@ -16,13 +16,16 @@
 
   <!-- MAIN SECTION -->
   <main>
-    <div class="container">
-      <%- include('partials/url-input'); %>
-
-      <!-- SECTIONS -->
-      <%- include('partials/steps/settings'); %>
-      <%- include('partials/steps/logs'); %>
-      <%- include('partials/steps/result'); %>
+    <div id="content" class="container">
+      <% if (currentPage === 'home' || currentPage === '') { %>
+      <%- include('home') %>
+      <% } else if (currentPage === 'report') { %>
+      <%- include('report') %>
+      <% } else if (currentPage === 'history') { %>
+      <%- include('history') %>
+      <% } else { %>
+      <p>Page not found <%= currentPage %></p>
+      <% } %>
 
     </div>
   </main>
@@ -34,6 +37,7 @@
   <script src=" https://unpkg.com/bootstrap-italia@2.9.1/dist/js/bootstrap-italia.bundle.min.js"></script>
   <script src="<%- publicPath %>js/elements.js"></script>
   <script src="<%- publicPath %>js/renderer.js"></script>
+  <script src="<%- publicPath %>js/routing.js"></script>
   <script src="<%- publicPath %>js/stepper.js"></script>
   <script src="<%- publicPath %>js/settingsForm.js"></script>
 </body>
