@@ -1,6 +1,9 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { initializeDatabase } from '../db/db';
+import { getItems, initializeDatabase, insertItem , searchURL} from '../db/db';
 import { ChildProcess, exec } from 'child_process';
+import path from 'path';
+import { createWriteStream } from 'fs';
+
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -38,35 +41,56 @@ async function createWindow() {
 
 
 /** flow for 'Avvia scansione' */
-ipcMain.on('start-node-program', (event, data) => {
+ipcMain.on('start-node-program', async (event, data) => {
     //const items = getItems()
     //console.log(items)
 
     console.log('Website', data.website)
-    const website = data.website
+    const website = data.website 
 
-    
+    const itemValues = await insertItem(website)
+    console.log(await getItems())
 
-    //insertItem({url})
+    //console.log(' SEARCH ITEMS ', await searchItems('save'))
+    console.log(' SEARCH URL ', await searchURL('save'))
+
+     const reportFolder = itemValues?.reportFolder 
 
 
-    // const nodeProcess = exec(`node /Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler/dist --type municipality --destination /Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler_pa-website-validator-ng-gui/ --report report --website ${website} --scope online --view false --accuracy all`);
+     if (!reportFolder) {
+        throw new Error()
+     }
 
-    // nodeProcess.stdout && nodeProcess.stdout.on('data', (data) => {
-    //     event.sender.send('log-update', data);
-    // });
+     const logFilePath = path.join(reportFolder,'./logs.txt')
+     const logStream = createWriteStream(logFilePath, { flags: 'a' });
+     const startTime = Date.now();
+     const nodeProcess = exec(`node /Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler/dist --type municipality --destination ${reportFolder} --report report --website ${website} --scope online --view false --accuracy all`);
+ 
 
-    // nodeProcess.stderr && nodeProcess.stderr.on('data', (data) => {
-    //     event.sender.send('log-update', `${data}`);
-    // });
+     //todo: update row
 
-    // nodeProcess.on('close', (code) => {
+    nodeProcess.stdout && nodeProcess.stdout.on('data', (data) => {
+        event.sender.send('log-update', data);
+        logStream.write(data.toString());
+    });
 
-    //     event.sender.send('log-update', `Process finished with code ${code}`);
-    //     event.sender.send('scan-finished', `${code}`);
+    nodeProcess.stderr && nodeProcess.stderr.on('data', (data) => {
+        event.sender.send('log-update', `${data}`);
+        logStream.write(data.toString());
+    });
 
-    //     event.sender.send('open-report', '/Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler_pa-website-validator-ng-gui/report.html');
-    // });
+    nodeProcess.on('close', (code) => {
+        const endTime = Date.now();
+        const duration = endTime - startTime
+
+        event.sender.send('log-update', `Process finished with code ${code}`);
+        event.sender.send('scan-finished', `${code}`);
+        logStream.write('DURATION' + duration);
+        logStream.close()
+
+
+        event.sender.send('open-report', '/Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler_pa-website-validator-ng-gui/report.html');
+    });
 });
 
 
