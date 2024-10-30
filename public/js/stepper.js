@@ -2,7 +2,7 @@ INPUT_URL.addEventListener('input', (e) => {
   const value = e.target.value
   if (value.length) START_BUTTON.removeAttribute('disabled');
   else START_BUTTON.setAttribute('disabled', true);
-  
+
 });
 
 
@@ -54,6 +54,7 @@ function showStep(step) {
       FULL_SETTINGS_CONTAINER.classList.add('d-none');
       LOGS_CONTAINER.classList.add('d-none');
       REPORT_CONTAINER.classList.remove('d-none');
+      REPORT_DOWNLOAD_BTN.classList.remove('d-none');
       break;
 
     case 1:

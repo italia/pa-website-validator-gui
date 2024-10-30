@@ -18,3 +18,4 @@ const LOGS_TEXTAREA = document.getElementById('logs');
 // STEP 3
 const REPORT_CONTAINER = document.getElementById('report-container');
 const REPORT_FRAME = document.getElementById('reportFrame');
+const REPORT_DOWNLOAD_BTN = document.getElementById('reportDownloadBtn');
