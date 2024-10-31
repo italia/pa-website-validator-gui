@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 
 const app = express();
 
@@ -15,15 +16,18 @@ const data = {
   currentPage: '',
 };
 app.get(['/', "/home"], (req, res) => {
-  data.currentPage = ""
+  data.currentPage = "";
+  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/history', (req, res) => {
-  data.currentPage = "history"
+  data.currentPage = "history";
+  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/report', (req, res) => {
-  data.currentPage = "report"
+  data.currentPage = "report";
+  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 

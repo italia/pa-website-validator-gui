@@ -1,0 +1,31 @@
+<div class="table-wrapper">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>URL</th>
+        <th>Durata</th>
+        <th>% Successo</th>
+        <th><span class="visually-hidden">Azioni</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.forEach(item => { %>
+      <tr>
+        <td><%- item.date %></td>
+        <td><%- item.url %></td>
+        <td><%- item.duration %></td>
+        <td><%- item.successRate %>%</td>
+        <td>
+          <button class="btn btn-primary btn-xs">
+            Visualizza
+          </button>
+          <button class="btn btn-primary btn-xs">
+            Scarica
+          </button>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
