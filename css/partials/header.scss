@@ -3,8 +3,32 @@
 .it-header-center-wrapper .it-header-center-content-wrapper {
   padding-left: 0;
   padding-right: 0;
+  align-items: end;
 
   .it-brand-text {
     color: $white;
+  }
+}
+
+.it-right-zone {
+  ul {
+    gap: 1.5rem;
+    margin-bottom: 0;
+  }
+  li {
+    list-style-type: none;
+
+    a {
+      display: block;
+      min-width: fit-content;
+      width: 150px;
+      text-align: center;
+      color: $white;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

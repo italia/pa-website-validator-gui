@@ -1,15 +1,16 @@
 // import first
-@use 'partials/variables.scss';
+@import "partials/_variables.scss";
 
 // then
-@use 'partials/accordion.scss';
-@use 'partials/audits.scss';
-@use 'partials/card.scss';
-@use 'partials/footer.scss';
-@use 'partials/form.scss';
-@use 'partials/general.scss';
-@use 'partials/header.scss';
-@use 'partials/metrics.scss';
-@use 'partials/resets.scss';
-@use 'partials/sections.scss';
-@use 'partials/table.scss';
+@import "partials/_accordion.scss";
+@import "partials/_audits.scss";
+@import "partials/_card.scss";
+@import "partials/_fonts.scss";
+@import "partials/_footer.scss";
+@import "partials/_form.scss";
+@import "partials/_general.scss";
+@import "partials/_header.scss";
+@import "partials/_metrics.scss";
+@import "partials/_resets.scss";
+@import "partials/_sections.scss";
+@import "partials/_table.scss";

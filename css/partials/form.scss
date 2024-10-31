@@ -4,7 +4,6 @@
   width: 50%;
   min-width: 360px;
   position: relative;
-  margin-bottom: 50px;
 
   .more-info {
     position: absolute;
@@ -20,5 +19,37 @@
     width: 36px;
     height: 36px;
     border-radius: 100%;
+  }
+}
+
+form {
+  &.setting-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+
+    button[type="submit"] {
+      max-height: fit-content;
+      align-self: end;
+      width: 250px;
+    }
+  }
+  &.audits-wrapper {
+    margin-bottom: 2rem;
+  }
+
+  .form-group,
+  fieldset {
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group {
+    margin-top: 2rem;
+  }
+
+  legend,
+  .form-group label.active {
+    font-size: 1.5rem;
+    font-weight: 600;
   }
 }

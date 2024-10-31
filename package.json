@@ -4,6 +4,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron dist/main/main.js",
+    "start:local": "node server.js",
     "build": "electron-builder build",
     "prepare": "tsc && npm run copy-files && npm run build:css",
     "copy-files": "copyfiles -u 1 \"src/**/*.{html,json,scss,css,map}\" dist/",
@@ -13,8 +14,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "copyfiles": "^2.4.1",
     "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "copyfiles": "^2.4.1",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20"
   },
