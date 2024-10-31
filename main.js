@@ -51,10 +51,10 @@ function loadPage(page) {
           console.error('Errore nel salvare il file HTML:', err);
         } else {
           console.log('File HTML generato con successo:', outputPath);
+          mainWindow.loadFile('index.html');
         }
       });
   
-      mainWindow.loadFile('index.html');
   });
 }
 ipcMain.on('navigate', (event, page) => {
