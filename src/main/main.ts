@@ -2,8 +2,8 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { getItems, initializeDatabase, insertItem , searchURL} from '../db/db';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
-import { createWriteStream } from 'fs';
-
+import { createWriteStream , writeFileSync} from 'fs';
+import * as ejs from 'ejs';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -29,8 +29,24 @@ async function createWindow() {
         }
     });
 
+
+    const data = {
+        crawlerVersion: '1.0.0',
+        publicPath: "src/renderer/"
+      };
+      const templatePath = path.join('views', 'index.ejs');
+      ejs.renderFile(templatePath, data, {}, (err, str) => {
+        if (err) {
+          console.error('Errore nel renderizzare il template EJS:', err);
+          return;
+        }
+        const outputPath = path.join('./', 'index.html');
+    
+        writeFileSync(outputPath, str)
+      });
+    
     mainWindow.webContents.openDevTools()
-    mainWindow.loadFile('../renderer/index.html');
+    mainWindow.loadFile(path.join('./','..','..', 'index.html'))//'../renderer/index.html');
 
     mainWindow.on('closed', () => {
         mainWindow = null;
