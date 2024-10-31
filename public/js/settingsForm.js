@@ -1,4 +1,4 @@
-const getSettinngsFormValues = () => {
+const getSettingsFormValues = () => {
   const formData = new FormData(SETTINGS_FORM);
   const formObject = Object.fromEntries(formData.entries());
   console.log('settings', formObject);
@@ -13,7 +13,7 @@ const getAuditsFormValues = () => {
   checkboxes.forEach((checkbox) => {
     finalAudits.push(checkbox.id)
   });
-  console.log("audits",finalAudits);
+  console.log("audits", finalAudits);
   return finalAudits;
 }
 
@@ -26,12 +26,12 @@ SETTINGS_FORM?.addEventListener('input', () => {
 const audits = [];
 const getAuditsFromSettings = (e) => {
   e?.preventDefault();
-  const settings = getSettinngsFormValues();
+  const settings = getSettingsFormValues();
   // get Audits according to selected settings
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((json) => {
-      audits.splice(0, audits.length);      
+      audits.splice(0, audits.length);
       audits.push(...json.splice(Math.round(Math.random() * 100), settings.concurrentPages));
       // console.log('audits', audits);
 
@@ -39,12 +39,10 @@ const getAuditsFromSettings = (e) => {
         AUDITS_FORM.innerHTML = '';
         audits.forEach((audit, i) => {
           AUDITS_FORM.innerHTML += `
-<fieldset>
-  <div class="form-check form-check-inline">
-    <input id="audit-${audit.id}" type="checkbox" name="audits" checked>
-    <label for="audit-${audit.id}">${audit.title}</label>
-  </div>
-</fieldset>
+            <div class="form-check">
+              <input class="form-check-input" id="audit-${audit.id}" type="checkbox" name="audits" checked>
+              <label class="form-check-label" for="audit-${audit.id}">${audit.title}</label>
+            </div>
           `;
         });
       }

@@ -2,7 +2,6 @@ INPUT_URL?.addEventListener('input', (e) => {
   const value = e.target.value
   if (value.length) START_BUTTON.removeAttribute('disabled');
   else START_BUTTON.setAttribute('disabled', true);
-
 });
 
 
@@ -38,7 +37,7 @@ function updateProgress() {
 
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
-  getSettinngsFormValues();
+  getSettingsFormValues();
   getAuditsFormValues();
   updateProgress();
 });
