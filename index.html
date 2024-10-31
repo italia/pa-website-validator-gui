@@ -1069,10 +1069,12 @@
               <div class="it-brand-tagline d-none d-md-block">Data</div>
             </div>
           </div>
-          <ul>
-            <li><a data-page="home" href="/home">Home</a></li>
-            <li><a data-page="history" href="/history">History</a></li>
-          </ul>
+          <div class="it-right-zone">
+            <ul class="d-flex">
+              <li><a data-page="home" href="/home">Home</a></li>
+              <li><a data-page="history" href="/history">History</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -1083,164 +1085,7 @@
   <main>
     <div id="content" class="container">
       
-      <form id="urlForm" class="form-group pt-4">
-  <div class="input-group">
-    <span class="input-group-text"><svg class="icon icon-sm">
-        <use href="#it-search"></use>
-      </svg></span>
-    <label for="inputUrl">Url sito</label>
-    <input type="text" class="form-control" id="inputUrl" name="inputUrl" />
-    <div class="input-group-append">
-      <button class="btn btn-primary" type="submit" id="startBtn" disabled>
-        Avvia scansione
-      </button>
-    </div>
-    <div id="progress-spinner" class="progress-spinner progress-spinner-active d-none">
-      <span class="visually-hidden">Caricamento...</span>
-    </div>
-    <div class="more-info">
-      Inserisci l'url del sito che si vuole scansionare
-    </div>
-  </div>
-</form>
-
-<!-- SECTIONS -->
-<div id="full-settings-container">
-  <!-- ALERT SECTION -->
-  <div class="alert alert-primary" role="alert" id="alert-container">
-    <p class="h5">Informazioni generali</p>
-    <p>
-      Inserire il link che si desidera scansionare e attendere il
-      risultato
-    </p>
-    <div class="separator"></div>
-    <p>
-      Una volta ultimata la scansione verrà messo a disposizione il link
-      a Report per poter essere consultato
-    </p>
-    <p>
-      <a href="#" target="_blank">Documentazione delle App di valutazione</a>
-    </p>
-  </div>
-
-  <!-- SETTINGS -->
-  <div id="settings-container">
-    <h2>Settings</h2>
-    <form id="settingsForm" class="setting-wrapper">
-      <fieldset>
-  <legend>Type</legend>
-  
-  <div class="form-check">
-    <input name="type" type="radio" value="Municipality" id="Type-0" checked>
-    <label for="Type-0">Municipality</label>
-  </div>
-  
-  <div class="form-check">
-    <input name="type" type="radio" value="School" id="Type-1" >
-    <label for="Type-1">School</label>
-  </div>
-  
-</fieldset>
-      <fieldset>
-  <legend>Scope</legend>
-  
-  <div class="form-check">
-    <input name="scope" type="radio" value="online" id="Scope-0" checked>
-    <label for="Scope-0">online</label>
-  </div>
-  
-  <div class="form-check">
-    <input name="scope" type="radio" value="local" id="Scope-1" >
-    <label for="Scope-1">local</label>
-  </div>
-  
-</fieldset>
-      <fieldset>
-  <legend>Accuracy</legend>
-  
-  <div class="form-check">
-    <input name="accuracy" type="radio" value="all" id="Accuracy-0" >
-    <label for="Accuracy-0">all</label>
-  </div>
-  
-  <div class="form-check">
-    <input name="accuracy" type="radio" value="suggested" id="Accuracy-1" checked>
-    <label for="Accuracy-1">suggested</label>
-  </div>
-  
-  <div class="form-check">
-    <input name="accuracy" type="radio" value="min" id="Accuracy-2" >
-    <label for="Accuracy-2">min</label>
-  </div>
-  
-</fieldset>
-      <div class="form-group">
-  <label for="input-Concurrent pages" class="input-number-label active">Concurrent pages</label>
-  <div class="input-group input-number">
-    <input type="number" class="form-control" data-bs-input id="inputConcurrent pages" value="10" step="1" name="concurrentPages" />
-    <span class="input-group-text align-buttons flex-column">
-      <button class="input-number-add">
-        <span class="visually-hidden">Aumenta valore</span>
-      </button>
-      <button class="input-number-sub">
-        <span class="visually-hidden">Diminuisci valore</span>
-      </button>
-    </span>
-  </div>
-</div>
-      <div class="form-group">
-  <label for="input-Timeout (ms)" class="input-number-label active">Timeout (ms)</label>
-  <div class="input-group input-number">
-    <input type="number" class="form-control" data-bs-input id="inputTimeout (ms)" value="30000" step="1000" name="timeout" />
-    <span class="input-group-text align-buttons flex-column">
-      <button class="input-number-add">
-        <span class="visually-hidden">Aumenta valore</span>
-      </button>
-      <button class="input-number-sub">
-        <span class="visually-hidden">Diminuisci valore</span>
-      </button>
-    </span>
-  </div>
-</div>
-
-      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm (?)</button>
-    </form>
-  </div>
-
-  <!-- AUDITS -->
-  <div id="audits-container">
-    <h2>Audits</h2>
-
-    <form id="auditsForm" class="audits-wrapper">
-    </form>
-  </div>
-</div>
-<!-- LOGS SECTION -->
-<div id="logs-container" class="d-none">
-  <div class="progress-bar-wrapper mb-4">
-    <div class="progress-bar-label">
-      Scanning in progresso <span id="progress-percentage"></span>%
-    </div>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-  </div>
-  <textarea id="logs" class="font-monospace" readonly>
-Test di logs
-riga 2
-  </textarea>
-</div>
-<!-- REPORT SECTION -->
-<div id="report-container" class="d-none">
-  <div class="progress-bar-wrapper mb-4">
-    <div class="progress-bar-label">Scanning completato 100%</div>
-    <div class="progress">
-      <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-  </div>
-  <h2>Report</h2>
-  <iframe id="reportFrame" src=""></iframe>
-</div>
+      <h1>History</h1>
       
 
     </div>

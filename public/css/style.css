@@ -333,9 +333,30 @@ main {
 .it-header-center-wrapper .it-header-center-content-wrapper {
   padding-left: 0;
   padding-right: 0;
+  align-items: end;
 }
 .it-header-center-wrapper .it-header-center-content-wrapper .it-brand-text {
   color: #ffffff;
+}
+
+.it-right-zone ul {
+  gap: 1.5rem;
+  margin-bottom: 0;
+}
+.it-right-zone li {
+  list-style-type: none;
+}
+.it-right-zone li a {
+  display: block;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  width: 150px;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: none;
+}
+.it-right-zone li a:hover {
+  text-decoration: underline;
 }
 
 section.metrics .donut-container {
