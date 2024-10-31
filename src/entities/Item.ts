@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Index } from 'typeorm';
-import { Status } from '../../types/types';
+import { Status } from '../types/types';
 
 
 

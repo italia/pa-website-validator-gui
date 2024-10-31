@@ -8,14 +8,16 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "forceConsistentCasingInFileNames": true,
-      "resolveJsonModule": true,
+      //"resolveJsonModule": true,
       "isolatedModules": true,
       "jsx": "react-jsx",
       "experimentalDecorators": true,
       "emitDecoratorMetadata": true,
+
     },
     "include": [
-      "src/**/*"
+      "src/**/*",
+      "**/*.d.ts"
     ],
     "exclude": [
       "node_modules",

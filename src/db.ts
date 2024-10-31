@@ -2,13 +2,13 @@ import { DataSource, Repository } from 'typeorm';
 import { Item } from './entities/Item';
 import path from 'path';
 import { app } from 'electron'
-import { Status } from '../types/types';
+import { Status } from './types/types';
 import { accessSync, mkdir, mkdirSync } from 'fs';
 import { error } from 'console';
 
 let dataSource: DataSource | null
 let itemRepo: Repository<Item> | null
-let dbFolder = path.join(__dirname,'..', '..', 'db')
+let dbFolder = path.join(__dirname,'..', 'db')
 
 async function createFullTextIndex(dataSource: DataSource): Promise<void> {
 

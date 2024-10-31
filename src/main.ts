@@ -1,16 +1,22 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { getItems, initializeDatabase, insertItem , searchURL} from '../db/db';
+import { getItems, initializeDatabase, insertItem , searchURL} from './db';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , writeFileSync} from 'fs';
 import * as ejs from 'ejs';
 
+
+declare var exports: any;
+Object.defineProperty(exports, "__esModule", { value: true });
+
 let mainWindow: BrowserWindow | null = null;
+
+app.disableHardwareAcceleration()
 
 app.whenReady().then(() => {
     console.log('System platform is: ', process.platform)
-    createWindow();
     initializeDatabase();
+    createWindow();
 });
 
 app.on('window-all-closed', () => {
@@ -29,31 +35,63 @@ async function createWindow() {
         }
     });
 
+    mainWindow.webContents.openDevTools();
+
+    // load first page
+    loadPage('');
+    
+    //   const templatePath = path.join('views', 'index.ejs');
+    //   ejs.renderFile(templatePath, data, {}, (err, str) => {
+    //     if (err) {
+    //       console.error('Errore nel renderizzare il template EJS:', err);
+    //       return;
+    //     }
+    //     const outputPath = path.join('./', 'index.html');
+    
+    //     writeFileSync(outputPath, str)
+    //   });
+    
+    // mainWindow.webContents.openDevTools()
+    // mainWindow.loadFile(path.join('./','..','..', 'index.html'))//'../renderer/index.html');
+
+    
+    //await mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+}
+
+
+const loadPage =(page: string) =>  {
 
     const data = {
         crawlerVersion: '1.0.0',
-        publicPath: "src/renderer/"
-      };
-      const templatePath = path.join('views', 'index.ejs');
-      ejs.renderFile(templatePath, data, {}, (err, str) => {
+        publicPath: "public/",
+        currentPage: ''
+    };
+
+    const filePath = path.join(__dirname,'views', `index.ejs`);
+    data.currentPage = page;
+    ejs.renderFile(filePath, data, {}, (err, str) => {
         if (err) {
-          console.error('Errore nel renderizzare il template EJS:', err);
-          return;
+            console.error("Error rendering EJS:", err);
+            return;
         }
-        const outputPath = path.join('./', 'index.html');
-    
-        writeFileSync(outputPath, str)
-      });
-    
-    mainWindow.webContents.openDevTools()
-    mainWindow.loadFile(path.join('./','..','..', 'index.html'))//'../renderer/index.html');
+        const outputPath = path.join(__dirname,'./', 'index.html');
+        try {
+            writeFileSync(outputPath, str)
+            console.log('File HTML generato con successo:', outputPath);
+            if (mainWindow)
+             mainWindow.loadFile('index.html')
+        }  catch (err: unknown) {
+       
+            console.error('Errore nel salvare il file HTML:', err);
+        }})
+    }
 
-    mainWindow.on('closed', () => {
-        mainWindow = null;
-    });
 
-    //await mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-}
+// TODO: get from crawler in node_modules
+
+ipcMain.on('navigate', (event, page) => {
+    loadPage(page);
+});
 
 
 /** flow for 'Avvia scansione' */
