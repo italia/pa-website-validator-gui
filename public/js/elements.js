@@ -19,3 +19,5 @@ const LOGS_TEXTAREA = document.getElementById('logs');
 const REPORT_CONTAINER = document.getElementById('report-container');
 const REPORT_FRAME = document.getElementById('reportFrame');
 const REPORT_DOWNLOAD_BTN = document.getElementById('reportDownloadBtn');
+const AUDITS_REDO_FORM = document.getElementById('auditsRedoForm');
+const AUDITS_REDO_BTN = document.getElementById('auditsRedoBtn');

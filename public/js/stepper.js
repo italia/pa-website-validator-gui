@@ -54,6 +54,7 @@ function showStep(step) {
       LOGS_CONTAINER.classList.add('d-none');
       REPORT_CONTAINER.classList.remove('d-none');
       REPORT_DOWNLOAD_BTN.classList.remove('d-none');
+      buildAuditsRedoForm();
       break;
 
     case 1:
