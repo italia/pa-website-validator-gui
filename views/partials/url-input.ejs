@@ -4,7 +4,8 @@
         <use href="#it-search"></use>
       </svg></span>
     <label for="inputUrl">Url sito</label>
-    <input type="text" class="form-control" id="inputUrl" name="inputUrl" />
+    <input type="search" class="form-control autocomplete" id="inputUrl" name="inputUrl" required />
+    <ul class="autocomplete-list"></ul>
     <div class="input-group-append">
       <button class="btn btn-primary" type="submit" id="startBtn" disabled>
         Avvia scansione
@@ -19,7 +20,9 @@
   </div>
 
   <button id="reportDownloadBtn" class="btn btn-primary btn-lg btn-icon d-none">
-    <svg class="icon icon-white me-1"><use href="#it-download"></use></svg>
+    <svg class="icon icon-white me-1">
+      <use href="#it-download"></use>
+    </svg>
     <span>Scarica il report</span>
   </button>
 </form>

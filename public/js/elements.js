@@ -1,6 +1,8 @@
 // URL SEARCH BAR
 const URL_FORM = document.getElementById('urlForm');
 const INPUT_URL = document.getElementById('inputUrl');
+const AUTOCOMPLETE_LIST = URL_FORM?.querySelector('.autocomplete-list')
+const MORE_INFO_URL = URL_FORM?.querySelector('.more-info');
 const START_BUTTON = document.getElementById('startBtn');
 const PROGRESS_SPINNER = document.getElementById('progress-spinner');
 

@@ -1,14 +1,6 @@
-INPUT_URL?.addEventListener('input', (e) => {
-  const value = e.target.value
-  if (value.length) START_BUTTON.removeAttribute('disabled');
-  else START_BUTTON.setAttribute('disabled', true);
-});
-
-
 let progress = 0;
 function updateProgress() {
   showStep(2);
-  console.log('start');
   setIsLoading(true);
 
   const increment = 7.3;
@@ -34,6 +26,73 @@ function updateProgress() {
     }
   }, interval);
 }
+
+function isValidURL(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+const options = [
+  { text: 'www.comune.errato.it', link: '#' },
+  { text: 'http://www.comune.it', link: '#' },
+  { text: 'https://scuola.esempio.it', link: '#' },
+];
+const setOption = (e) => {
+  INPUT_URL.value = e.target.innerText || '';
+  INPUT_URL.dispatchEvent(new Event('input'));
+};
+const setAutocompleteOptions = (opts = []) => {
+  // reset list
+  AUTOCOMPLETE_LIST.innerHTML = '';
+
+  if (options.length > 0) {
+    opts.forEach((opt) => {
+      AUTOCOMPLETE_LIST.innerHTML += `
+      <li class="autocomplete-option" >
+       <a href="${opt.link}" >${opt.text}</a>
+      </li>
+      `;
+    });
+
+    document
+      .querySelectorAll('.autocomplete-option')
+      .forEach((opt) => opt.addEventListener('mousedown', setOption));
+  } else {
+  }
+};
+INPUT_URL?.addEventListener('focus', (e) => {
+  AUTOCOMPLETE_LIST.classList.add('autocomplete-list-show');
+});
+INPUT_URL?.addEventListener('blur', (e) => {
+  AUTOCOMPLETE_LIST.classList.remove('autocomplete-list-show');
+});
+
+INPUT_URL?.addEventListener('input', (e) => {
+  const url = e.target.value;
+  if (url) {
+    if (isValidURL(url)) {
+      START_BUTTON.removeAttribute('disabled');
+      MORE_INFO_URL.classList.remove('error');
+      MORE_INFO_URL.innerHTML =
+        "Inserisci l'url del sito che si vuole scansionare";
+    } else {
+      START_BUTTON.setAttribute('disabled', true);
+      MORE_INFO_URL.classList.add('error');
+      MORE_INFO_URL.innerHTML = "L'url inserito non è valido";
+    }
+
+    setAutocompleteOptions(options);
+  } else {
+    MORE_INFO_URL.classList.remove('error');
+    MORE_INFO_URL.innerHTML =
+      "Inserisci l'url del sito che si vuole scansionare";
+    setAutocompleteOptions([]);
+  }
+});
 
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();

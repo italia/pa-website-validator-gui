@@ -264,6 +264,9 @@ footer a:hover, footer a:visited {
   left: 8px;
   color: var(--bs-gray);
 }
+.input-group .more-info.error {
+  color: #bc4050;
+}
 .input-group #progress-spinner {
   position: absolute;
   top: 0;
@@ -298,6 +301,12 @@ form legend,
 form .form-group label.active {
   font-size: 1.5rem;
   font-weight: 600;
+}
+form .autocomplete-list {
+  position: absolute;
+  top: 2.5rem;
+  padding: 0;
+  z-index: 1000;
 }
 
 /* MAIN */
