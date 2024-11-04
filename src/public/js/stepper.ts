@@ -7,9 +7,8 @@ import {INPUT_URL,
   FULL_SETTINGS_CONTAINER, 
   LOGS_CONTAINER,
   REPORT_CONTAINER,
-  REPORT_DOWNLOAD_BTN} from './elements'
-import {  getSettinngsFormValues, getAuditsFormValues} from './settingsForm'
-
+  REPORT_DOWNLOAD_BTN} from './elements.js'
+import {  getSettinngsFormValues, getAuditsFormValues} from './settingsForm.js'
 
 INPUT_URL?.addEventListener('input', (e) => {
   if (!START_BUTTON) return

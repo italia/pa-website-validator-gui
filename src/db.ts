@@ -1,10 +1,11 @@
 import { DataSource, Repository } from 'typeorm';
-import { Item } from './entities/Item';
+import { Item } from './entities/Item.js';
 import path from 'path';
 import { app } from 'electron'
-import { Status } from './types/types';
+import { Status } from './types/types.js';
 import { accessSync, mkdir, mkdirSync } from 'fs';
 import { error } from 'console';
+const __dirname = import.meta.dirname;
 
 let dataSource: DataSource | null
 let itemRepo: Repository<Item> | null

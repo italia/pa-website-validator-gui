@@ -1,4 +1,3 @@
-// URL SEARCH BAR
 const URL_FORM = document.getElementById('urlForm');
 const INPUT_URL = document.getElementById('inputUrl');
 const START_BUTTON = document.getElementById('startBtn');

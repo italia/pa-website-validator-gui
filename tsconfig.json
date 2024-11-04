@@ -1,27 +1,27 @@
 {
-    "compilerOptions": {
-      "target": "es2018",
-      "module": "commonjs",
-      "outDir": "./dist",
-      "rootDir": "./src",
-      "strict": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      //"resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "react-jsx",
-      "experimentalDecorators": true,
-      "emitDecoratorMetadata": true,
-
-    },
-    "include": [
-      "src/**/*",
-      "**/*.d.ts"
-    ],
-    "exclude": [
-      "node_modules",
-      "**/*.spec.ts"
-    ]
-  }
-  
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "esnext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": [
+    "src/**/*",
+    "**/*.ts"
+,  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

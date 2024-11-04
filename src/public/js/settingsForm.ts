@@ -1,4 +1,4 @@
-import {SETTINGS_FORM, AUDITS_FORM } from './elements'
+import {SETTINGS_FORM, AUDITS_FORM } from './elements.js'
 
 export const getSettinngsFormValues = () => {
   const formData = new FormData(SETTINGS_FORM as HTMLFormElement);

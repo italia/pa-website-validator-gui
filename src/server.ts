@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path'
-
+const __dirname = import.meta.dirname;
 const app = express();
 
 // Imposta EJS come motore di template
@@ -11,7 +11,7 @@ console.log( path.join(__dirname, 'views'))
 app.set('views', path.join(__dirname, 'views'));
 
 // Configura la cartella 'public' per servire file statici come CSS
-app.use(express.static('dist/public'));
+app.use(express.static('dist/public/'));
 
 // Route
 const data = {
