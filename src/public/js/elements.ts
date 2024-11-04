@@ -19,6 +19,8 @@ const LOGS_TEXTAREA: HTMLTextAreaElement | HTMLElement | null = document.getElem
 const REPORT_CONTAINER = document.getElementById('report-container');
 const REPORT_FRAME = document.getElementById('reportFrame');
 const REPORT_DOWNLOAD_BTN = document.getElementById('reportDownloadBtn');
+const AUDITS_REDO_FORM = document.getElementById('auditsRedoForm');
+const AUDITS_REDO_BTN = document.getElementById('auditsRedoBtn');
 
 export { 
   URL_FORM, 
@@ -37,5 +39,7 @@ export {
   
   REPORT_CONTAINER, 
   REPORT_FRAME, 
-  REPORT_DOWNLOAD_BTN
+  REPORT_DOWNLOAD_BTN,
+  AUDITS_REDO_FORM,
+  AUDITS_REDO_BTN
 };

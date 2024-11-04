@@ -1,11 +1,14 @@
+import { AuditI } from "../../types/audits";
+import { AUDITS_REDO_BTN, AUDITS_REDO_FORM } from "./elements.js";
+
 const AUDITS_REDO_NAME = 'audits-redo';
 
-const getCheckedIds = (name) => {
+const getCheckedIds = (name: string) => {
   const checkboxes = Array.from(document.querySelectorAll(
     `input[name="${name}"]:checked`
   ));
 
-  const checkedIds = checkboxes.reduce((acc, cur) => {
+  const checkedIds = checkboxes.reduce((acc: any, cur:any) => {
     return [...acc, cur.id];
   }, []);
 
@@ -18,7 +21,7 @@ AUDITS_REDO_BTN?.addEventListener('click', () => {
 });
 
 const buildAuditsRedoForm = () => {
-  const failedAudits = [];
+  const failedAudits:AuditI[] = [];
 
   fetch('https://jsonplaceholder.typicode.com/todos') //TODO
     .then((response) => response.json())
@@ -28,7 +31,7 @@ const buildAuditsRedoForm = () => {
       if (AUDITS_REDO_FORM) {
         AUDITS_REDO_FORM.innerHTML = '';
         failedAudits.forEach(({ id, title }, i) => {
-          AUDITS_REDO_FORM.innerHTML += `
+          (AUDITS_REDO_FORM as any).innerHTML += `
             <div class="form-check">
               <input class="form-check-input" id="${AUDITS_REDO_NAME}-${id}" type="checkbox" name="${AUDITS_REDO_NAME}" checked>
               <label class="form-check-label" for="${AUDITS_REDO_NAME}-${id}">${title}</label>

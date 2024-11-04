@@ -1,7 +1,8 @@
 import express from 'express';
-import fs from 'fs';
+import { readFileSync } from 'original-fs';
 import path from 'path'
 
+const __dirname = import.meta.dirname;
 const app = express();
 
 // Imposta EJS come motore di template
@@ -12,7 +13,7 @@ console.log( path.join(__dirname, 'views'))
 app.set('views', path.join(__dirname, 'views'));
 
 // Configura la cartella 'public' per servire file statici come CSS
-app.use(express.static('dist/public'));
+app.use(express.static('dist/public/'));
 
 // Route
 const data = {
@@ -24,17 +25,17 @@ const data = {
 };
 app.get(['/', "/home"], (req, res) => {
   data.currentPage = "";
-  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/history', (req, res) => {
   data.currentPage = "history";
-  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/report', (req, res) => {
   data.currentPage = "report";
-  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 

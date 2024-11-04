@@ -1,13 +1,11 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { getItems, initializeDatabase, insertItem , searchURL} from './db';
+import { getItems, initializeDatabase, insertItem , searchURL} from './db.js';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , writeFileSync} from 'fs';
 import * as ejs from 'ejs';
+const __dirname = import.meta.dirname;
 
-
-declare var exports: any;
-Object.defineProperty(exports, "__esModule", { value: true });
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -68,6 +66,9 @@ const loadPage =(page: string) =>  {
     };
 
     const filePath = path.join(__dirname,'views', `index.ejs`);
+
+
+    console.log('filepath',filePath)
     data.currentPage = page;
     ejs.renderFile(filePath, data, {}, (err, str) => {
         if (err) {
