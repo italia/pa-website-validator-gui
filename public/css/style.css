@@ -253,21 +253,21 @@ footer a:hover, footer a:visited {
   color: #ffffff;
 }
 
-.input-group {
+#urlForm .input-group {
   width: 50%;
   min-width: 360px;
   position: relative;
 }
-.input-group .more-info {
+#urlForm .input-group .more-info {
   position: absolute;
   top: 45px;
   left: 8px;
   color: var(--bs-gray);
 }
-.input-group .more-info.error {
+#urlForm .input-group .more-info.error {
   color: #bc4050;
 }
-.input-group #progress-spinner {
+#urlForm .input-group #progress-spinner {
   position: absolute;
   top: 0;
   right: -60px;
@@ -276,10 +276,15 @@ footer a:hover, footer a:visited {
   border-radius: 100%;
 }
 
+form#urlForm {
+  margin-top: 1rem;
+}
 form.setting-wrapper {
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 2rem 3rem;
 }
 form.setting-wrapper button[type=submit] {
   max-height: -moz-fit-content;
@@ -288,6 +293,7 @@ form.setting-wrapper button[type=submit] {
   width: 250px;
 }
 form.audits-wrapper {
+  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 form .form-group,
@@ -298,8 +304,10 @@ form .form-group {
   margin-top: 2rem;
 }
 form legend,
-form .form-group label.active {
-  font-size: 1.5rem;
+form .select-wrapper label,
+form .form-group label.active,
+form .input-group label.active {
+  font-size: 1.125rem;
   font-weight: 600;
 }
 form .autocomplete-list {
@@ -307,6 +315,12 @@ form .autocomplete-list {
   top: 2.5rem;
   padding: 0;
   z-index: 1000;
+}
+form .select-wrapper select {
+  font-weight: 400;
+}
+form .input-group input {
+  color: #1a1a1a;
 }
 
 /* MAIN */
@@ -344,8 +358,10 @@ main {
   padding-right: 0;
   align-items: end;
 }
-.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-text {
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-text,
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-title {
   color: #ffffff;
+  margin-bottom: 0;
 }
 
 .it-right-zone ul {
@@ -439,7 +455,6 @@ textarea {
 }
 
 #alert-container,
-#settings-container,
 #audits-wrapper {
   margin-bottom: 3rem;
 }

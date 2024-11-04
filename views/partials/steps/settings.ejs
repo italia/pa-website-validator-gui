@@ -16,25 +16,40 @@
     </p>
   </div>
 
-  <!-- SETTINGS -->
-  <div id="settings-container">
-    <h2>Settings</h2>
-    <form id="settingsForm" class="setting-wrapper">
-      <%- include('../components/radio', {label: "Type", name: "type" ,options: ["Municipality", "School"], checked: "Municipality"});  %>
-      <%- include('../components/radio', {label: "Scope", name: "scope" ,options: ["online", "local"], checked: "online"});  %>
-      <%- include('../components/radio', {label: "Accuracy", name: "accuracy" ,options: ["all", "suggested", "min"], checked: "suggested"});  %>
-      <%- include('../components/input-numeric', {label: "Concurrent pages", defaultValue:10, name: "concurrentPages", step: 1});  %>
-      <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout", step: 1000});  %>
+  <div class="accordion" id="collapseExample">
+    <!-- SETTINGS -->
+    <div class="accordion-item" id="settings-container">
+      <h2 class="accordion-header " id="heading-settings">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-settings" aria-expanded="false" aria-controls="collapse-settings">
+          Impostazioni avanzate
+        </button>
+      </h2>
+      <div id="collapse-settings" class="accordion-collapse collapse" role="region" aria-labelledby="heading-settings">
+        <div class="accordion-body">
+          <form id="settingsForm" class="setting-wrapper">
+            <%- include('../components/select', {label: "Ambito", name: "scope", options: [{label: "Online", value:"online"},{label: "Locale", value:"local"}], checked: "online"});  %>
+            <%- include('../components/select', {label: "Accuratezza", name: "accuracy", options: [{label: "Tutti", value:"all"},{label: "Alto", value:"high"},{label: "Suggeriti", value:"suggested"},{label: "Basso", value:"min"}], checked: "suggested"});  %>
+            <%- include('../components/input-numeric', {label: "Pagine scansionate simultaneamente", defaultValue:10, name: "concurrentPages", step: 1});  %>
+            <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout", step: 1000});  %>
+          </form>
+        </div>
+      </div>
+    </div>
 
-      <button class="btn btn-primary" type="submit" onclick="getAuditsFromSettings(event)">Confirm (?)</button>
-    </form>
-  </div>
-
-  <!-- AUDITS -->
-  <div id="audits-container">
-    <h2>Audits</h2>
-
-    <form id="auditsForm" class="audits-wrapper">
-    </form>
+    <!-- AUDITS -->
+    <div class="accordion-item" id="audits-container">
+      <h2 class="accordion-header " id="heading-audits">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-audits" aria-expanded="false" aria-controls="collapse-audits">
+          Audits
+        </button>
+      </h2>
+      <div id="collapse-audits" class="accordion-collapse collapse" role="region" aria-labelledby="heading-audits">
+        <div class="accordion-body">
+          <form id="auditsForm" class="audits-wrapper">
+            <p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

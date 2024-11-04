@@ -77,8 +77,7 @@ INPUT_URL?.addEventListener('input', (e) => {
     if (isValidURL(url)) {
       START_BUTTON.removeAttribute('disabled');
       MORE_INFO_URL.classList.remove('error');
-      MORE_INFO_URL.innerHTML =
-        "Inserisci l'url del sito che si vuole scansionare";
+      MORE_INFO_URL.innerHTML = '';
     } else {
       START_BUTTON.setAttribute('disabled', true);
       MORE_INFO_URL.classList.add('error');
@@ -88,11 +87,14 @@ INPUT_URL?.addEventListener('input', (e) => {
     setAutocompleteOptions(options);
   } else {
     MORE_INFO_URL.classList.remove('error');
-    MORE_INFO_URL.innerHTML =
-      "Inserisci l'url del sito che si vuole scansionare";
+    MORE_INFO_URL.innerHTML = '';
     setAutocompleteOptions([]);
   }
 });
+
+URL_FORM?.addEventListener('change', (e) => {
+  getUrlInputFormValues();
+})
 
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
