@@ -1,5 +1,5 @@
 import express from 'express';
-import { readFileSync } from 'original-fs';
+import { readFileSync } from 'fs';
 import path from 'path'
 
 const __dirname = import.meta.dirname;
