@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { getItems, initializeDatabase, insertItem , searchURL} from './db.js';
+import { getItems, initializeDatabase, insertItem , searchURL, updateItem} from './db.js';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , writeFileSync} from 'fs';
@@ -23,7 +23,6 @@ app.on('window-all-closed', () => {
 });
 
 async function createWindow() {
-
     mainWindow = new BrowserWindow({
         width: 1400,
         height: 1000,
@@ -59,9 +58,12 @@ async function createWindow() {
 
 const loadPage =(page: string) =>  {
 
+    console.log('LOADING PAGE : ', page)
+
     const data = {
         crawlerVersion: '1.0.0',
         publicPath: "public/",
+        basePath: "renderer/",
         currentPage: ''
     };
 
@@ -103,16 +105,16 @@ ipcMain.on('start-node-program', async (event, data) => {
     console.log('Website', data.website)
     const website = data.website 
 
-    const itemValues = await insertItem(website)
-    console.log(await getItems())
+    const itemValues = await insertItem(website, data)
+    //console.log(await getItems())
 
     //console.log(' SEARCH ITEMS ', await searchItems('save'))
     console.log(' SEARCH URL ', await searchURL('save'))
 
      const reportFolder = itemValues?.reportFolder 
+     const itemId = itemValues?.id
 
-
-     if (!reportFolder) {
+     if (!reportFolder || !itemId) {
         throw new Error()
      }
 
@@ -121,7 +123,6 @@ ipcMain.on('start-node-program', async (event, data) => {
      const startTime = Date.now();
      const nodeProcess = exec(`node /Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler/dist --type municipality --destination ${reportFolder} --report report --website ${website} --scope online --view false --accuracy all`);
  
-
      //todo: update row
 
     nodeProcess.stdout && nodeProcess.stdout.on('data', (data) => {
@@ -136,15 +137,17 @@ ipcMain.on('start-node-program', async (event, data) => {
 
     nodeProcess.on('close', (code) => {
         const endTime = Date.now();
-        const duration = endTime - startTime
+        const executionTime = endTime - startTime
 
         event.sender.send('log-update', `Process finished with code ${code}`);
         event.sender.send('scan-finished', `${code}`);
-        logStream.write('DURATION' + duration);
+
+        logStream.write('Execution time: ' + executionTime);
         logStream.close()
 
+        updateItem(itemId, executionTime);
 
-        event.sender.send('open-report', '/Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler_pa-website-validator-ng-gui/report.html');
+        //event.sender.send('open-report', '/Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler_pa-website-validator-ng-gui/report.html');
     });
 });
 

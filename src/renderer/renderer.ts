@@ -4,7 +4,6 @@ const formSubmit: HTMLElement | null = document.getElementById('startBtn');
 //form elements
 const inputURL: HTMLTextAreaElement | HTMLElement | null = document.getElementById('inputUrl');
 
-
 const logsTextArea: HTMLTextAreaElement | HTMLElement | null = document.getElementById('logs');
 const reportFrame: HTMLIFrameElement | HTMLElement | null = document.getElementById('reportFrame');
 const alertContainer: HTMLElement | null = document.getElementById('alert-container');

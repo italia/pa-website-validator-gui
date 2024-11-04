@@ -1,30 +1,37 @@
-const getSettinngsFormValues = () => {
-  const formData = new FormData(SETTINGS_FORM);
+import {SETTINGS_FORM, AUDITS_FORM } from './elements.js'
+
+export const getSettinngsFormValues = () => {
+  const formData = new FormData(SETTINGS_FORM as HTMLFormElement);
   const formObject = Object.fromEntries(formData.entries());
   console.log('settings', formObject);
   return formObject;
 }
-const getAuditsFormValues = () => {
+export const getAuditsFormValues = () => {
   // Seleziona tutte le checkbox con il nome "options"
-  const checkboxes = AUDITS_FORM.querySelectorAll(
-    'input[name="audits"]:checked'
-  );
-  const finalAudits = [];
-  checkboxes.forEach((checkbox) => {
-    finalAudits.push(checkbox.id)
-  });
-  console.log("audits",finalAudits);
-  return finalAudits;
+
+  if (AUDITS_FORM) {
+    const checkboxes = AUDITS_FORM.querySelectorAll(
+      'input[name="audits"]:checked'
+    );
+    const finalAudits:any = [];
+    checkboxes.forEach((checkbox) => {
+      finalAudits.push(checkbox.id)
+    });
+    console.log("audits",finalAudits);
+    return finalAudits;
+  }
+  
 }
 
 //! TODO capire se stare in ascolto sui singoli input (--> eliminare submit)
 //! o se lasciare form submit (--> eliminare eventListener)
 SETTINGS_FORM?.addEventListener('input', () => {
+  //@ts-ignore
   getAuditsFromSettings();
 })
 
-const audits = [];
-const getAuditsFromSettings = (e) => {
+const audits:any = [];
+const getAuditsFromSettings = (e:any) => {
   e?.preventDefault();
   const settings = getSettinngsFormValues();
   // get Audits according to selected settings
@@ -37,7 +44,9 @@ const getAuditsFromSettings = (e) => {
 
       if (AUDITS_FORM) {
         AUDITS_FORM.innerHTML = '';
+        //@ts-ignore
         audits.forEach((audit, i) => {
+          //@ts-ignore
           AUDITS_FORM.innerHTML += `
 <fieldset>
   <div class="form-check form-check-inline">
@@ -52,4 +61,8 @@ const getAuditsFromSettings = (e) => {
 };
 
 // first submit with default settings
+//@ts-ignore
 getAuditsFromSettings();
+
+
+//export {getSettinngsFormValues, getAuditsFormValues}

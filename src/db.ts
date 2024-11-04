@@ -4,6 +4,7 @@ import path from 'path';
 import { app } from 'electron'
 import { Status } from './types/types.js';
 import { accessSync, mkdir, mkdirSync } from 'fs';
+
 import { error } from 'console';
 const __dirname = import.meta.dirname;
 
@@ -76,7 +77,7 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], total:
     return { items, total };
 };
 
-const insertItem = async (url: string, status?: Status, executionTime?: number, auditsExecuted?: string[], args?: Record<string, unknown>) => {
+const insertItem = async (url: string, args?: Record<string, unknown>) => {
     if (!itemRepo) return;
 
     try {
@@ -84,13 +85,11 @@ const insertItem = async (url: string, status?: Status, executionTime?: number, 
         newItem.url = url;
 
         // Set optional fields
-        // if (status !== undefined) newItem.status = status;
-        // if (executionTime !== undefined) newItem.executionTime = executionTime;
-        // if (auditsExecuted !== undefined) newItem.auditsExecuted = auditsExecuted;
-        //if (args !== undefined) newItem.args = args;
+         if (args?.audits !== undefined) newItem.auditsExecuted = args.audits as any;
+         if (args !== undefined) newItem.args = args;
 
         // Insert the item and get the newly created entity
-        const insertedItem = await itemRepo.insert({url})
+        const insertedItem = await itemRepo.insert(newItem as any)
 
         const identifiers = insertedItem.identifiers
         const generatedId = identifiers[0].id
@@ -110,6 +109,12 @@ const insertItem = async (url: string, status?: Status, executionTime?: number, 
         throw error; 
     }
 };
+
+const updateItem = async (id:string, executionTime: number) => {
+    const jsonReport = {}
+    const status = 'success'
+    const percentage = ''
+}
 
 const searchURL = async (searchText: string, page = 1, pageSize = 10) => {
     if (!itemRepo) return
@@ -131,7 +136,7 @@ const createFolderWithId = (id: string): string | null => {
 
     console.log('DIRNAME',__dirname)
  
-     const absoluteFolderPath = path.resolve(folderPath);
+    const absoluteFolderPath = path.resolve(folderPath);
 
 
     console.log('CREATE INTO',absoluteFolderPath)
@@ -153,4 +158,4 @@ const createFolderWithId = (id: string): string | null => {
 }
 
 
-export { initializeDatabase, getItems, insertItem, searchURL }
+export { initializeDatabase, getItems, insertItem, searchURL, updateItem }
