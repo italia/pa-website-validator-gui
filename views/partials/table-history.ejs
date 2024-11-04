@@ -12,9 +12,9 @@
     <tbody>
       <% items.forEach(item => { %>
       <tr>
-        <td><%- item.date %></td>
+        <td><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %></td>
         <td><%- item.url %></td>
-        <td><%- item.duration %></td>
+        <td><%- `${Math.floor(item.duration / 60)}' ${item.duration % 60 < 10 ? '0' : ''}${item.duration % 60}"` %></td>
         <td><%- item.successRate %>%</td>
         <td>
           <button class="btn btn-primary btn-xs">
