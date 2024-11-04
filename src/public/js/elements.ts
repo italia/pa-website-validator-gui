@@ -1,45 +1,27 @@
 // URL SEARCH BAR
-const URL_FORM = document.getElementById('urlForm');
-const INPUT_URL = document.getElementById('inputUrl');
-const START_BUTTON = document.getElementById('startBtn');
-const PROGRESS_SPINNER = document.getElementById('progress-spinner');
+export const URL_FORM : HTMLFormElement | null= document.querySelector('form#urlForm');
+export const TYPE_SELECT: HTMLSelectElement | null = document.querySelector('select#type-select');
+export const INPUT_URL = document.getElementById('inputUrl');
+export const AUTOCOMPLETE_LIST = URL_FORM?.querySelector('.autocomplete-list')
+export const MORE_INFO_URL = URL_FORM?.querySelector('.more-info');
+export const START_BUTTON = document.getElementById('startBtn');
+export const PROGRESS_SPINNER = document.getElementById('progress-spinner');
 
 // STEP 1
-const FULL_SETTINGS_CONTAINER = document.getElementById('full-settings-container');
-const SETTINGS_FORM: HTMLElement | HTMLFormElement | null = document.getElementById('settingsForm');
-const AUDITS_FORM = document.getElementById('auditsForm');
+export const FULL_SETTINGS_CONTAINER = document.getElementById('full-settings-container');
+export const SETTINGS_FORM : HTMLFormElement | null= document.querySelector('form#settingsForm');
+export const AUDITS_FORM: HTMLFormElement | null= document.querySelector('form#auditsForm');
 
 // STEP 2
-const LOGS_CONTAINER = document.getElementById('logs-container');
-const PROGRESS_BAR = LOGS_CONTAINER?.querySelector('.progress-bar');
-const PERCENTAGE = LOGS_CONTAINER?.querySelector('#progress-percentage');
-const LOGS_TEXTAREA: HTMLTextAreaElement | HTMLElement | null = document.getElementById('logs');
+export const LOGS_CONTAINER = document.getElementById('logs-container');
+export const PROGRESS_BAR = LOGS_CONTAINER?.querySelector('.progress-bar');
+export const PERCENTAGE = LOGS_CONTAINER?.querySelector('#progress-percentage');
+export const LOGS_TEXTAREA = document.getElementById('logs');
 
 // STEP 3
-const REPORT_CONTAINER = document.getElementById('report-container');
-const REPORT_FRAME = document.getElementById('reportFrame');
-const REPORT_DOWNLOAD_BTN = document.getElementById('reportDownloadBtn');
-const AUDITS_REDO_FORM = document.getElementById('auditsRedoForm');
-const AUDITS_REDO_BTN = document.getElementById('auditsRedoBtn');
+export const REPORT_CONTAINER = document.getElementById('report-container');
+export const REPORT_FRAME = document.getElementById('reportFrame');
+export const REPORT_DOWNLOAD_BTN = document.getElementById('reportDownloadBtn');
+export const AUDITS_REDO_FORM = document.getElementById('auditsRedoForm');
+export const AUDITS_REDO_BTN = document.getElementById('auditsRedoBtn');
 
-export { 
-  URL_FORM, 
-  INPUT_URL, 
-  START_BUTTON, 
-  PROGRESS_SPINNER,
-  
-  FULL_SETTINGS_CONTAINER, 
-  SETTINGS_FORM, 
-  AUDITS_FORM,
-  
-  LOGS_CONTAINER, 
-  PROGRESS_BAR, 
-  PERCENTAGE, 
-  LOGS_TEXTAREA,
-  
-  REPORT_CONTAINER, 
-  REPORT_FRAME, 
-  REPORT_DOWNLOAD_BTN,
-  AUDITS_REDO_FORM,
-  AUDITS_REDO_BTN
-};
