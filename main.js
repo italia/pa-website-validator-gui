@@ -32,33 +32,36 @@ app.on('ready', createWindow);
 
 // TODO capire da dove prendere questi dati
 const data = {
+  guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   publicPath: "public/",
   currentPage: ''
 };
+
 // rebuild html when page changes
 function loadPage(page) {
   const filePath = path.join('views', `index.ejs`);
   data.currentPage = page;
+  data.mock = JSON.parse(fs.readFileSync('mock.json', 'utf8'));
+
   ejs.renderFile(filePath, data, {}, (err, str) => {
+    if (err) {
+      console.error("Error rendering EJS:", err);
+      return;
+    }
+    const outputPath = path.join('./', 'index.html');
+    fs.writeFile(outputPath, str, (err) => {
       if (err) {
-          console.error("Error rendering EJS:", err);
-          return;
+        console.error('Errore nel salvare il file HTML:', err);
+      } else {
+        console.log('File HTML generato con successo:', outputPath);
+        mainWindow.loadFile('index.html');
       }
-      const outputPath = path.join('./', 'index.html');
-      fs.writeFile(outputPath, str, (err) => {
-        if (err) {
-          console.error('Errore nel salvare il file HTML:', err);
-        } else {
-          console.log('File HTML generato con successo:', outputPath);
-          mainWindow.loadFile('index.html');
-        }
-      });
-  
+    });
   });
 }
 ipcMain.on('navigate', (event, page) => {
-    loadPage(page);
+  loadPage(page);
 });
 
 

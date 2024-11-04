@@ -1,6 +1,6 @@
 @use 'variables' as *;
 
-.input-group {
+#urlForm .input-group {
   width: 50%;
   min-width: 360px;
   position: relative;
@@ -10,6 +10,10 @@
     top: 45px;
     left: 8px;
     color: $text-secondary;
+
+    &.error {
+      color: $error;
+    }
   }
 
   #progress-spinner {
@@ -23,18 +27,24 @@
 }
 
 form {
+  &#urlForm {
+    margin-top: 1rem;
+  }
   &.setting-wrapper {
+    margin-top: 2.5rem;
+    margin-bottom: 2rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    gap: 2rem 3rem;
 
-    button[type="submit"] {
+    button[type='submit'] {
       max-height: fit-content;
       align-self: end;
       width: 250px;
     }
   }
   &.audits-wrapper {
+    margin-top: 1rem;
     margin-bottom: 2rem;
   }
 
@@ -48,8 +58,25 @@ form {
   }
 
   legend,
-  .form-group label.active {
-    font-size: 1.5rem;
+  .select-wrapper label,
+  .form-group label.active,
+  .input-group label.active {
+    font-size: 1.125rem;
     font-weight: 600;
+  }
+
+  .autocomplete-list {
+    position: absolute;
+    top: 2.5rem;
+    padding: 0;
+    z-index: 1000;
+  }
+
+  .select-wrapper select {
+    font-weight: 400;
+  }
+
+  .input-group input {
+    color: #1a1a1a;
   }
 }

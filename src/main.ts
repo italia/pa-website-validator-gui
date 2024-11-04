@@ -62,6 +62,7 @@ const loadPage =(page: string) =>  {
 
     const data = {
         crawlerVersion: '1.0.0',
+        guiVersion: '1.0.0',
         publicPath: "public/",
         basePath: "renderer/",
         currentPage: ''

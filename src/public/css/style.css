@@ -172,8 +172,8 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-300italic - latin-ext_latin */
 @font-face {
@@ -181,8 +181,8 @@
   font-style: italic;
   font-weight: 300;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-regular - latin-ext_latin */
 @font-face {
@@ -190,8 +190,8 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-italic - latin-ext_latin */
 @font-face {
@@ -199,8 +199,8 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-700 - latin-ext_latin */
 @font-face {
@@ -208,8 +208,8 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-700italic - latin-ext_latin */
 @font-face {
@@ -217,8 +217,8 @@
   font-style: italic;
   font-weight: 700;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-600 - latin-ext_latin */
 @font-face {
@@ -226,8 +226,8 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.svg#TitilliumWeb") format("svg");
 }
 /* titillium-web-600italic - latin-ext_latin */
 @font-face {
@@ -235,8 +235,8 @@
   font-style: italic;
   font-weight: 600;
   font-display: swap;
-  src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot");
-  src: local(""), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
+  src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot");
+  src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
 }
 footer {
   padding: 1rem 0;
@@ -253,18 +253,21 @@ footer a:hover, footer a:visited {
   color: #ffffff;
 }
 
-.input-group {
+#urlForm .input-group {
   width: 50%;
   min-width: 360px;
   position: relative;
 }
-.input-group .more-info {
+#urlForm .input-group .more-info {
   position: absolute;
   top: 45px;
   left: 8px;
   color: var(--bs-gray);
 }
-.input-group #progress-spinner {
+#urlForm .input-group .more-info.error {
+  color: #bc4050;
+}
+#urlForm .input-group #progress-spinner {
   position: absolute;
   top: 0;
   right: -60px;
@@ -273,10 +276,15 @@ footer a:hover, footer a:visited {
   border-radius: 100%;
 }
 
+form#urlForm {
+  margin-top: 1rem;
+}
 form.setting-wrapper {
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  gap: 2rem 3rem;
 }
 form.setting-wrapper button[type=submit] {
   max-height: -moz-fit-content;
@@ -285,6 +293,7 @@ form.setting-wrapper button[type=submit] {
   width: 250px;
 }
 form.audits-wrapper {
+  margin-top: 1rem;
   margin-bottom: 2rem;
 }
 form .form-group,
@@ -295,9 +304,23 @@ form .form-group {
   margin-top: 2rem;
 }
 form legend,
-form .form-group label.active {
-  font-size: 1.5rem;
+form .select-wrapper label,
+form .form-group label.active,
+form .input-group label.active {
+  font-size: 1.125rem;
   font-weight: 600;
+}
+form .autocomplete-list {
+  position: absolute;
+  top: 2.5rem;
+  padding: 0;
+  z-index: 1000;
+}
+form .select-wrapper select {
+  font-weight: 400;
+}
+form .input-group input {
+  color: #1a1a1a;
 }
 
 /* MAIN */
@@ -335,8 +358,10 @@ main {
   padding-right: 0;
   align-items: end;
 }
-.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-text {
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-text,
+.it-header-center-wrapper .it-header-center-content-wrapper .it-brand-title {
   color: #ffffff;
+  margin-bottom: 0;
 }
 
 .it-right-zone ul {
@@ -430,7 +455,6 @@ textarea {
 }
 
 #alert-container,
-#settings-container,
 #audits-wrapper {
   margin-bottom: 3rem;
 }

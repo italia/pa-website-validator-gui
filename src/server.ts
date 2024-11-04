@@ -1,5 +1,7 @@
 import express from 'express';
+import { readFileSync } from 'fs';
 import path from 'path'
+
 const __dirname = import.meta.dirname;
 const app = express();
 
@@ -16,19 +18,24 @@ app.use(express.static('dist/public/'));
 // Route
 const data = {
   publicPath: '',
+  guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   currentPage: '',
+  mock: null
 };
 app.get(['/', "/home"], (req, res) => {
-  data.currentPage = ""
+  data.currentPage = "";
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/history', (req, res) => {
-  data.currentPage = "history"
+  data.currentPage = "history";
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 app.get('/report', (req, res) => {
-  data.currentPage = "report"
+  data.currentPage = "report";
+  data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
 

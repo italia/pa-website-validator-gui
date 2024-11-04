@@ -8,7 +8,8 @@ import {INPUT_URL,
   LOGS_CONTAINER,
   REPORT_CONTAINER,
   REPORT_DOWNLOAD_BTN} from './elements.js'
-import {  getSettinngsFormValues, getAuditsFormValues} from './settingsForm.js'
+import {  getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues} from './settingsForm.js'
+
 
 INPUT_URL?.addEventListener('input', (e) => {
   if (!START_BUTTON) return
@@ -53,7 +54,8 @@ function updateProgress() {
 
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
-  getSettinngsFormValues();
+  getUrlInputFormValues();
+  getSettingsFormValues();
   getAuditsFormValues();
   updateProgress();
 });
