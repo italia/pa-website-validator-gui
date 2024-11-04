@@ -1,5 +1,5 @@
 <div class="table-wrapper">
-  <table class="table table-striped">
+  <table class="table table-striped mb-0">
     <thead>
       <tr>
         <th>Data</th>
@@ -13,7 +13,9 @@
       <% items.forEach(item => { %>
       <tr>
         <td><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %></td>
+        <!-- TODO: clickable link -->
         <td><%- item.url %></td>
+        <!-- TODO: milliseconds -->
         <td><%- `${Math.floor(item.duration / 60)}' ${item.duration % 60 < 10 ? '0' : ''}${item.duration % 60}"` %></td>
         <td><%- item.successRate %>%</td>
         <td>

@@ -36,7 +36,7 @@
       }
     ],
     "pagination": {
-      "page": 0,
+      "currentPage": 3,
       "itemsPerPage": 5,
       "numberOfPages": 5,
       "totalItems": 23
