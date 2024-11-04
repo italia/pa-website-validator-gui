@@ -1,2 +1,3 @@
 <h1>History</h1>
-<%- include('partials/table-history', { items: mock.history });  %>
+<%- include('partials/table-history', { items: mock.history.data });  %>
+<%- include('partials/components/pagination', { pagination: mock.history.pagination }); %>

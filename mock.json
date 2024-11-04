@@ -1,34 +1,45 @@
 {
-  "history": [
-    {
-      "date": 1730391767000,
-      "url": "https://www.comune.milano.it/",
-      "duration": 360,
-      "successRate": 82
-    },
-    {
-      "date": 1730391767000,
-      "url": "https://www.comune.milano.it/",
-      "duration": 360,
-      "successRate": 82
-    },
-    {
-      "date": 1730391767000,
-      "url": "https://www.comune.milano.it/",
-      "duration": 360,
-      "successRate": 82
-    },
-    {
-      "date": 1730391767000,
-      "url": "https://www.comune.milano.it/",
-      "duration": 360,
-      "successRate": 82
-    },
-    {
-      "date": 1730391767000,
-      "url": "https://www.comune.milano.it/",
-      "duration": 360,
-      "successRate": 82
+  "history": {
+    "status": true,
+    "code": 200,
+    "timestamp": 1730391767000,
+    "data": [
+      {
+        "date": 1730391767000,
+        "url": "https://www.comune.milano.it/",
+        "duration": 360,
+        "successRate": 98
+      },
+      {
+        "date": 1730391767000,
+        "url": "https://www.comune.milano.it/",
+        "duration": 67,
+        "successRate": 82
+      },
+      {
+        "date": 1730391767000,
+        "url": "https://www.comune.milano.it/",
+        "duration": 12,
+        "successRate": 67
+      },
+      {
+        "date": 1730391767000,
+        "url": "https://www.comune.milano.it/",
+        "duration": 534,
+        "successRate": 55
+      },
+      {
+        "date": 1730391767000,
+        "url": "https://www.comune.milano.it/",
+        "duration": 1000,
+        "successRate": 12
+      }
+    ],
+    "pagination": {
+      "page": 0,
+      "itemsPerPage": 5,
+      "numberOfPages": 5,
+      "totalItems": 23
     }
-  ]
+  }
 }
