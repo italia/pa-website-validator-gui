@@ -136,3 +136,5 @@ function setIsLoading(status) {
     START_BUTTON.removeAttribute('disabled');
   }
 }
+
+export {}

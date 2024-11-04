@@ -1,13 +1,18 @@
 import express from 'express';
 import fs from 'fs';
+import path from 'path'
 
 const app = express();
 
 // Imposta EJS come motore di template
+
 app.set('view engine', 'ejs');
+// Set the views directory
+console.log( path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'views'));
 
 // Configura la cartella 'public' per servire file statici come CSS
-app.use(express.static('public'));
+app.use(express.static('dist/public'));
 
 // Route
 const data = {
@@ -15,6 +20,7 @@ const data = {
   guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   currentPage: '',
+  mock: null
 };
 app.get(['/', "/home"], (req, res) => {
   data.currentPage = "";
@@ -32,7 +38,6 @@ app.get('/report', (req, res) => {
   res.render('index', data);
 });
 
-// Avvio del server
-app.listen(3000, (res) => {
+app.listen(3000, () => {
   console.log('Server in ascolto sulla porta 3000', 'http://localhost:3000/');
 });
