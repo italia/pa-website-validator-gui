@@ -1,3 +1,10 @@
+const getUrlInputFormValues = () => {
+  const formData = new FormData(URL_FORM);
+  const formObject = Object.fromEntries(formData.entries());
+  formObject.type = TYPE_SELECT?.value;
+  console.log('urlInput', formObject);
+  return formObject;
+}
 const getSettingsFormValues = () => {
   const formData = new FormData(SETTINGS_FORM);
   const formObject = Object.fromEntries(formData.entries());
@@ -17,23 +24,21 @@ const getAuditsFormValues = () => {
   return finalAudits;
 }
 
-//! TODO capire se stare in ascolto sui singoli input (--> eliminare submit)
-//! o se lasciare form submit (--> eliminare eventListener)
-SETTINGS_FORM?.addEventListener('input', () => {
+TYPE_SELECT?.addEventListener('change', () => {
   getAuditsFromSettings();
 })
 
 const audits = [];
 const getAuditsFromSettings = (e) => {
   e?.preventDefault();
-  const settings = getSettingsFormValues();
+  const type = TYPE_SELECT?.value;
+  if (type) {
   // get Audits according to selected settings
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((json) => {
       audits.splice(0, audits.length);
-      audits.push(...json.splice(Math.round(Math.random() * 100), settings.concurrentPages));
-      // console.log('audits', audits);
+      audits.push(...json.splice(Math.round(Math.random() * 100), 10));
 
       if (AUDITS_FORM) {
         AUDITS_FORM.innerHTML = '';
@@ -46,8 +51,7 @@ const getAuditsFromSettings = (e) => {
           `;
         });
       }
-    });
+    }); 
+  } else AUDITS_FORM.innerHTML = '<p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>';
 };
 
-// first submit with default settings
-getAuditsFromSettings();

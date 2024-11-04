@@ -12,6 +12,7 @@ app.use(express.static('public'));
 // Route
 const data = {
   publicPath: '',
+  guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   currentPage: '',
 };

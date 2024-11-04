@@ -32,6 +32,7 @@ app.on('ready', createWindow);
 
 // TODO capire da dove prendere questi dati
 const data = {
+  guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   publicPath: "public/",
   currentPage: ''

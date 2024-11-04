@@ -1,0 +1,8 @@
+<div class="select-wrapper">
+  <label for="<%= label %>-select"><%= label %></label>
+  <select id="<%= name %>-select" name="<%= name %>">
+    <% options.forEach((opt, i) => { %>
+    <option <%= checked === opt.value ? "selected":"" %> value="<%= opt.value %>"><%= opt.label %></option>
+    <% }); %>
+  </select>
+</div>

@@ -1,10 +1,18 @@
-<form id="urlForm" class="form-group pt-4 d-flex align-items-start justify-content-between">
+<form id="urlForm" class="form-group pt-4 d-flex align-items-start gap-4">
+  <div class="select-wrapper">
+    <label for="type-select">Tipologia</label>
+    <select id="type-select" required>
+      <option selected="" value="">Scegli un'opzione</option>
+      <option value="municipality">Comune</option>
+      <option value="school">Scuola</option>
+    </select>
+  </div>
   <div class="input-group">
     <span class="input-group-text"><svg class="icon icon-sm">
         <use href="#it-search"></use>
       </svg></span>
-    <label for="inputUrl">Url sito</label>
-    <input type="search" class="form-control autocomplete" id="inputUrl" name="inputUrl" required />
+    <label for="inputUrl" class="active">Url sito</label>
+    <input type="search" placeholder="Inserisci l'url del sito che si vuole scansionare" class="form-control autocomplete" id="inputUrl" name="inputUrl" required />
     <ul class="autocomplete-list"></ul>
     <div class="input-group-append">
       <button class="btn btn-primary" type="submit" id="startBtn" disabled>
@@ -14,9 +22,7 @@
     <div id="progress-spinner" class="progress-spinner progress-spinner-active d-none">
       <span class="visually-hidden">Caricamento...</span>
     </div>
-    <div class="more-info">
-      Inserisci l'url del sito che si vuole scansionare
-    </div>
+    <div class="more-info"></div>
   </div>
 
   <button id="reportDownloadBtn" class="btn btn-primary btn-lg btn-icon d-none">
