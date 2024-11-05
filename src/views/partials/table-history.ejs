@@ -21,7 +21,7 @@
             <span class="visually-hidden"> - apre in una nuova scheda</span>
           </a>
         </td>
-        <td><%- `${Math.floor(item.duration / 3600000).toString().padStart(2, '0')}:${Math.floor((item.duration / 60000) % 60).toString().padStart(2, '0')}:${Math.floor((item.duration / 1000) % 60).toString().padStart(2, '0')}` %></td>
+        <td><%- new Date(item.duration).toISOString().slice(11,19) %></td>
         <td><%- item.successRate %>%</td>
         <td>
           <!-- TODO: integrate -->
