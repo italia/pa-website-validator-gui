@@ -7,8 +7,8 @@ import {INPUT_URL,
   FULL_SETTINGS_CONTAINER, 
   LOGS_CONTAINER,
   REPORT_CONTAINER,
-  REPORT_DOWNLOAD_BTN} from './elements.js'
-import {  getSettinngsFormValues, getAuditsFormValues} from './settingsForm.js'
+  REPORT_DOWNLOAD_BTN,LOGS_TEXTAREA,REPORT_FRAME} from './elements.js'
+import {  getSettingsFormValues, getAuditsFormValues} from './settingsForm.js'
 const { ipcRenderer } = require('electron');
 
 INPUT_URL?.addEventListener('input', (e) => {
@@ -20,8 +20,9 @@ INPUT_URL?.addEventListener('input', (e) => {
   else START_BUTTON.setAttribute('disabled', 'true');
 });
 
-
 let progress = 0;
+let inScan = true
+
 function updateProgress() {
   showStep(2);
   console.log('start');
@@ -45,16 +46,16 @@ function updateProgress() {
 
     if (progress >= 100) {
       clearInterval(timer);
-      showStep(3);
-      setIsLoading(false);
-      progress = 0;
+      // showStep(3);
+      // setIsLoading(false);
+      // progress = 0;
     }
   }, interval);
 }
 
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
-  const settingsFormValues: any = getSettinngsFormValues()
+  const settingsFormValues: any = getSettingsFormValues()
   const auditsFormValues: any = getAuditsFormValues();
 
   const website = (INPUT_URL as HTMLTextAreaElement).value
@@ -107,3 +108,30 @@ function setIsLoading(status:any) {
   }
 }
 
+
+ipcRenderer.on('scan-finished', (event, data) => {
+  console.log('SCAN FINISHED')
+  completeProgress()
+})
+
+ipcRenderer.on('log-update', (event, data) => {
+  console.log(data)
+  if (LOGS_TEXTAREA) {
+    (LOGS_TEXTAREA as HTMLTextAreaElement).value += data + '\n';
+    LOGS_TEXTAREA.scrollTop = LOGS_TEXTAREA.scrollHeight;
+  }
+});
+
+ipcRenderer.on('open-report', (event, reportPath) => {
+  if (REPORT_FRAME) {
+    (REPORT_FRAME as HTMLIFrameElement).src = reportPath;
+    REPORT_FRAME.style.display = 'block';
+  }
+});
+
+const completeProgress = () => {
+  inScan = false;
+  showStep(3);
+  setIsLoading(false);
+  progress = 0;
+}

@@ -1,68 +1,64 @@
-import {SETTINGS_FORM, AUDITS_FORM } from './elements.js'
+import { AuditI } from "../types/audits";
+import {SETTINGS_FORM, AUDITS_FORM, URL_FORM, TYPE_SELECT } from './elements.js';
 
-export const getSettinngsFormValues = () => {
-  const formData = new FormData(SETTINGS_FORM as HTMLFormElement);
+export const getUrlInputFormValues = () => {
+  if (URL_FORM) {
+    const formData = new FormData(URL_FORM);
+    const formObject = Object.fromEntries(formData.entries());
+    formObject.type = TYPE_SELECT?.value || '';
+    console.log('urlInput', formObject);
+    return formObject;
+  }
+}
+export const getSettingsFormValues = () => {
+  if (SETTINGS_FORM) {
+  const formData = new FormData(SETTINGS_FORM);
   const formObject = Object.fromEntries(formData.entries());
-  console.log('settings', formObject);
+  console.log('NEW settings', formObject);
   return formObject;
+  }
 }
 export const getAuditsFormValues = () => {
   // Seleziona tutte le checkbox con il nome "options"
-
-  if (AUDITS_FORM) {
-    const checkboxes = AUDITS_FORM.querySelectorAll(
-      'input[name="audits"]:checked'
-    );
-    const finalAudits:any = [];
-    checkboxes.forEach((checkbox) => {
-      finalAudits.push(checkbox.id)
-    });
-    console.log("audits",finalAudits);
-    return finalAudits;
-  }
-  
+  const checkboxes = AUDITS_FORM?.querySelectorAll(
+    'input[name="audits"]:checked'
+  );
+  const finalAudits:string[] = [];
+  checkboxes?.forEach((checkbox) => {
+    finalAudits.push(checkbox.id)
+  });
+  console.log("audits", finalAudits);
+  return finalAudits;
 }
 
-//! TODO capire se stare in ascolto sui singoli input (--> eliminare submit)
-//! o se lasciare form submit (--> eliminare eventListener)
-SETTINGS_FORM?.addEventListener('input', () => {
-  //@ts-ignore
+TYPE_SELECT?.addEventListener('change', () => {
   getAuditsFromSettings();
 })
 
-const audits:any = [];
-const getAuditsFromSettings = (e:any) => {
+const audits:AuditI[] = [];
+const getAuditsFromSettings = (e?:Event) => {
   e?.preventDefault();
-  const settings = getSettinngsFormValues();
+  const type = TYPE_SELECT?.value;
+  if (type) {
   // get Audits according to selected settings
   fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((json) => {
-      audits.splice(0, audits.length);      
-      audits.push(...json.splice(Math.round(Math.random() * 100), settings.concurrentPages));
-      // console.log('audits', audits);
+      audits.splice(0, audits.length);
+      audits.push(...json.splice(Math.round(Math.random() * 100), 10));
 
       if (AUDITS_FORM) {
         AUDITS_FORM.innerHTML = '';
-        //@ts-ignore
         audits.forEach((audit, i) => {
-          //@ts-ignore
-          AUDITS_FORM.innerHTML += `
-<fieldset>
-  <div class="form-check form-check-inline">
-    <input id="audit-${audit.id}" type="checkbox" name="audits" checked>
-    <label for="audit-${audit.id}">${audit.title}</label>
-  </div>
-</fieldset>
+          (AUDITS_FORM as any).innerHTML += `
+            <div class="form-check">
+              <input class="form-check-input" id="audit-${audit.id}" type="checkbox" name="audits" checked>
+              <label class="form-check-label" for="audit-${audit.id}">${audit.title}</label>
+            </div>
           `;
         });
       }
-    });
+    }); 
+  } else (AUDITS_FORM as any).innerHTML = '<p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>';
 };
 
-// first submit with default settings
-//@ts-ignore
-getAuditsFromSettings();
-
-
-//export {getSettinngsFormValues, getAuditsFormValues}

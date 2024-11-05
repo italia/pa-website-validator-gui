@@ -8,7 +8,7 @@
     "start:local": "node dist/server.js",
     "build": "electron-builder build",
     "prepare": "rm -rf dist && tsc && npm run copy-files",
-    "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,js,ttf,woff,woff2}\" dist/",
+    "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,ttf,woff,woff2}\" dist/",
     "build:css": "sass css/style.scss:css/style.css"
   },
   "author": "",
