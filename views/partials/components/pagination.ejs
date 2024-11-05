@@ -1,8 +1,7 @@
 <nav class="pagination-wrapper justify-content-center mt-4" aria-label="Paginazione">
   <ul id="pagination" class="pagination" aria-label="Pagina <%- pagination.currentPage %> di <%- pagination.numberOfPages %>">
-    <!-- TODO: disable if already first page -->
-    <li class="page-item">
-      <a class="page-link" href="#">
+    <li class="page-item <%- pagination.currentPage === 1 ? 'disabled' : '' %>">
+      <a class="page-link" href="#" tabindex="<%- pagination.currentPage === 1 ? '-1' : '0' %>" aria-hidden="<%- pagination.currentPage === 1 ? 'true' : 'false' %>">
         <svg class="icon icon-primary">
           <use href="#it-chevron-left"></use>
         </svg>
@@ -15,11 +14,10 @@
       </span>
     </li>
     <li class="page-item" aria-hidden="true"><span class="page-link">/</span></li>
-    <!-- TODO: make last page clickable -->
+    <!-- TODO: make last page clickable(?) -->
     <li class="page-item" aria-hidden="true"><span class="page-link"><%- pagination.numberOfPages %></span></li>
-    <!-- TODO: disable if already last page -->
-    <li class="page-item">
-      <a class="page-link" href="#">
+    <li class="page-item <%- pagination.currentPage === pagination.numberOfPages ? 'disabled' : '' %>">
+      <a class="page-link" href="#" tabindex="<%- pagination.currentPage === pagination.numberOfPages ? '-1' : '0' %>" aria-hidden="<%- pagination.currentPage === pagination.numberOfPages ? 'true' : 'false' %>">
         <svg class="icon icon-primary">
           <use href="#it-chevron-right"></use>
         </svg>
