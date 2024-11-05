@@ -21,8 +21,7 @@
             <span class="visually-hidden"> - apre in una nuova scheda</span>
           </a>
         </td>
-        <!-- TODO: use <time> html tag for a11y -->
-        <td><%- `${Math.floor((item.duration / 1000) / 60)}' ${(item.duration / 1000) % 60 < 10 ? '0' : ''}${(item.duration / 1000) % 60}"` %></td>
+        <td><%- `${Math.floor(item.duration / 3600000).toString().padStart(2, '0')}:${Math.floor((item.duration / 60000) % 60).toString().padStart(2, '0')}:${Math.floor((item.duration / 1000) % 60).toString().padStart(2, '0')}` %></td>
         <td><%- item.successRate %>%</td>
         <td>
           <!-- TODO: integrate -->
