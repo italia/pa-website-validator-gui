@@ -2,8 +2,9 @@
   <table class="table table-striped mb-0">
     <thead>
       <tr>
+        <th>Tipologia</th>
         <th>Data</th>
-        <th>URL</th>
+        <th>Url sito</th>
         <th>Durata</th>
         <th>% Successo</th>
         <th><span class="visually-hidden">Azioni</span></th>
@@ -12,19 +13,26 @@
     <tbody>
       <% items.forEach(item => { %>
       <tr>
+        <td><%- item.typology %></td>
         <td><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %></td>
-        <!-- TODO: clickable link -->
-        <td><%- item.url %></td>
-        <!-- TODO: milliseconds -->
-        <td><%- `${Math.floor(item.duration / 60)}' ${item.duration % 60 < 10 ? '0' : ''}${item.duration % 60}"` %></td>
+        <td>
+          <a href="<%- item.url %>" target="_blank" rel="noopener noreferrer">
+            <%- item.url %>
+            <span class="visually-hidden"> - apre in una nuova scheda</span>
+          </a>
+        </td>
+        <!-- TODO: use <time> html tag for a11y -->
+        <td><%- `${Math.floor((item.duration / 1000) / 60)}' ${(item.duration / 1000) % 60 < 10 ? '0' : ''}${(item.duration / 1000) % 60}"` %></td>
         <td><%- item.successRate %>%</td>
         <td>
-          <button class="btn btn-primary btn-xs">
-            Visualizza
-          </button>
-          <button class="btn btn-primary btn-xs">
-            Scarica
-          </button>
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-primary btn-xs">
+              Visualizza
+            </button>
+            <button class="btn btn-primary btn-xs">
+              Scarica
+            </button>
+          </div>
         </td>
       </tr>
       <% }); %>

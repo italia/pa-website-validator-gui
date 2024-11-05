@@ -5,33 +5,38 @@
     "timestamp": 1730391767000,
     "data": [
       {
+        "typology": "Comune",
         "date": 1730391767000,
         "url": "https://www.comune.milano.it/",
-        "duration": 360,
+        "duration": 360000,
         "successRate": 98
       },
       {
+        "typology": "Scuola",
         "date": 1730391767000,
         "url": "https://www.comune.milano.it/",
-        "duration": 67,
+        "duration": 67000,
         "successRate": 82
       },
       {
+        "typology": "Comune",
         "date": 1730391767000,
         "url": "https://www.comune.milano.it/",
-        "duration": 12,
+        "duration": 12000,
         "successRate": 67
       },
       {
+        "typology": "Comune",
         "date": 1730391767000,
         "url": "https://www.comune.milano.it/",
-        "duration": 534,
+        "duration": 534000,
         "successRate": 55
       },
       {
+        "typology": "Scuola",
         "date": 1730391767000,
         "url": "https://www.comune.milano.it/",
-        "duration": 1000,
+        "duration": 1000000,
         "successRate": 12
       }
     ],
