@@ -2,10 +2,9 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import { getItems, initializeDatabase, insertItem , searchURL} from './db.js';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
-import { createWriteStream , writeFileSync} from 'fs';
+import { createWriteStream , readFileSync, writeFileSync} from 'fs';
 import * as ejs from 'ejs';
 const __dirname = import.meta.dirname;
-
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -28,13 +27,13 @@ async function createWindow() {
         width: 1400,
         height: 1000,
         webPreferences: {
+            preload: path.join(__dirname, "preload.mjs"),
             nodeIntegration: true,
-            contextIsolation: false, // Disabilita l'isolamento del contesto
+            contextIsolation: true, // Disabilita l'isolamento del contesto
         }
     });
 
     mainWindow.webContents.openDevTools();
-
     // load first page
     loadPage('');
     
@@ -63,13 +62,12 @@ const loadPage =(page: string) =>  {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
         publicPath: "public/",
-        currentPage: ''
+        currentPage: '',
+        mock: JSON.parse(readFileSync('mock.json', 'utf8'))
     };
 
     const filePath = path.join(__dirname,'views', `index.ejs`);
 
-
-    console.log('filepath',filePath)
     data.currentPage = page;
     ejs.renderFile(filePath, data, {}, (err, str) => {
         if (err) {
