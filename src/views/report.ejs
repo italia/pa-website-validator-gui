@@ -9,8 +9,9 @@
   </div>
   -->
 
-  <div class="report-cards-container mb-4">
-    <iframe id="reportFrame" title="Risultato report" width="100%" height="238px" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik"></iframe>
+  <div class="cards-container d-flex justify-content-between gap-5 mb-4">
+    <%- include('partials/card-pass', { results: mock.results }); %>
+    <%- include('partials/card-stats', { results: mock.results }); %>
   </div>
 
   <div class="accordion mb-5">
