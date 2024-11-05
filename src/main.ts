@@ -8,7 +8,7 @@ const __dirname = import.meta.dirname;
 import {getDataFromJSONReport} from './utils.js'
 
 // todo: Only dev mode
-const pathToCrawler = '/Users/lorenzo.vernocchi/projects/mitd/DTD_Crawler/dist'
+const pathToCrawler = '/Users/luca.carrisi/DTD_Crawler/dist'
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -137,7 +137,7 @@ ipcMain.on('start-node-program', async (event, data) => {
         logStream.close()
 
         //get data from jsonReport
-        const {} = getDataFromJSONReport(`${reportFolder}/report.json`)
+        //const {} = getDataFromJSONReport(`${reportFolder}/report.json`)
 
         updateItem(itemId, executionTime);
 

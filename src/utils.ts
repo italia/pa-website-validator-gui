@@ -1,13 +1,13 @@
 
 import { readFileSync } from 'fs';
 
-const getDataFromJSONReport = (reportPath: string) => {
+const getDataFromJSONReport = (reportPath: string, reportName: string) => {
 
     const jsonString = readFileSync(reportPath, 'utf8');
     try {
         const jsonData: any = JSON.parse(jsonString);
 
-        console.log(`Name: ${name}`);
+        console.log(`Name: ${reportName}`);
       
         
       } catch (error) {

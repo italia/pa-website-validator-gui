@@ -9,7 +9,7 @@ import {INPUT_URL,
   REPORT_CONTAINER,
   REPORT_DOWNLOAD_BTN,LOGS_TEXTAREA,REPORT_FRAME} from './elements.js'
 import {  getSettingsFormValues, getAuditsFormValues} from './settingsForm.js'
-const { ipcRenderer } = require('electron');
+import {ipcRenderer} from "electron";
 
 INPUT_URL?.addEventListener('input', (e) => {
   if (!START_BUTTON) return
@@ -72,7 +72,7 @@ URL_FORM?.addEventListener('submit', (e) => {
     audits: auditsFormValues
   }
 
-  ipcRenderer.send('start-node-program', args);
+  window.electronAPI.send('start-node-program', args);
 });
 
 function showStep(step: number) {
@@ -108,21 +108,24 @@ function setIsLoading(status:any) {
   }
 }
 
-
-ipcRenderer.on('scan-finished', (event, data) => {
+window.electronAPI.receive('start-node-program', (event, data) => {
   console.log('SCAN FINISHED')
   completeProgress()
-})
+});
 
-ipcRenderer.on('log-update', (event, data) => {
-  console.log(data)
+window.electronAPI.receive('log-update', (data) => {
   if (LOGS_TEXTAREA) {
-    (LOGS_TEXTAREA as HTMLTextAreaElement).value += data + '\n';
+    (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
     LOGS_TEXTAREA.scrollTop = LOGS_TEXTAREA.scrollHeight;
   }
 });
 
-ipcRenderer.on('open-report', (event, reportPath) => {
+window.electronAPI.receive('scan-finished', () => {
+  console.log('SCAN FINISHED')
+  completeProgress()
+})
+
+window.electronAPI.receive('open-report', (reportPath) => {
   if (REPORT_FRAME) {
     (REPORT_FRAME as HTMLIFrameElement).src = reportPath;
     REPORT_FRAME.style.display = 'block';
