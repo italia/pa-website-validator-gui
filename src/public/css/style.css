@@ -287,7 +287,6 @@ form.setting-wrapper {
   gap: 2rem 3rem;
 }
 form.setting-wrapper button[type=submit] {
-  max-height: -moz-fit-content;
   max-height: fit-content;
   align-self: end;
   width: 250px;
@@ -373,7 +372,6 @@ main {
 }
 .it-right-zone li a {
   display: block;
-  min-width: -moz-fit-content;
   min-width: fit-content;
   width: 150px;
   text-align: center;
@@ -500,4 +498,6 @@ textarea {
 .table-wrapper .table tr th:last-child,
 .table-wrapper .table tr td:last-child {
   padding-right: 1.5rem;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

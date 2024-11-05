@@ -7,9 +7,9 @@
     "start": "npm run prepare && electron dist/main.js",
     "start:local": "node dist/server.js",
     "build": "electron-builder build",
-    "prepare": "rm -rf dist && tsc && npm run copy-files && mv dist/preload.js dist/preload.mjs",
-    "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,ttf,woff,woff2}\" dist/",
-    "build:css": "sass css/style.scss:css/style.css"
+    "prepare": "npm run build:css && rm -rf dist && tsc && npm run copy-files && mv dist/preload.js dist/preload.mjs",
+    "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,js,ttf,woff,woff2}\" dist/",
+    "build:css": "sass css/style.scss:src/public/css/style.css"
   },
   "author": "",
   "license": "ISC",
