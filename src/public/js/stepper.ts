@@ -51,9 +51,11 @@ function updateProgress() {
 
     if (progress >= 100) {
       clearInterval(timer);
-      showStep(3);
       setIsLoading(false);
       progress = 0;
+      //showStep(3);
+      // workaround to navigate programmatically
+      (document.querySelector('[data-page="report"]') as HTMLAnchorElement)?.click();
     }
   }, interval);
 }

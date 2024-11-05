@@ -25,10 +25,11 @@
         <td><%- `${Math.floor((item.duration / 1000) / 60)}' ${(item.duration / 1000) % 60 < 10 ? '0' : ''}${(item.duration / 1000) % 60}"` %></td>
         <td><%- item.successRate %>%</td>
         <td>
+          <!-- TODO: integrate -->
           <div class="d-flex flex-wrap gap-2">
-            <button class="btn btn-primary btn-xs">
+            <a class="btn btn-primary btn-xs" data-page="report" href="/report">
               Visualizza
-            </button>
+            </a>
             <button class="btn btn-primary btn-xs">
               Scarica
             </button>

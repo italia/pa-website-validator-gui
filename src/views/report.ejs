@@ -1,1 +1,50 @@
 <h2>Report</h2>
+<div id="report-container">
+  <!--
+  <div class="progress-bar-wrapper mb-4">
+    <div class="progress-bar-label">Scanning completato 100%</div>
+    <div class="progress">
+      <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+  -->
+
+  <div class="report-cards-container mb-4">
+    <iframe id="reportFrame" title="Risultato report" width="100%" height="238px" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik"></iframe>
+  </div>
+
+  <div class="accordion mb-5">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="accordion-header-errors">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-errors" aria-expanded="false" aria-controls="accordion-collapse-errors">
+          Eventuali errori
+        </button>
+      </h2>
+      <div id="accordion-collapse-errors" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-errors">
+        <div class="accordion-body p-3">
+          <form id="auditsRedoForm">
+          </form>
+          <button id="auditsRedoBtn" class="btn btn-primary btn-xs mt-3">
+            Riavvia scansione
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="accordion-header-logs">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-logs" aria-expanded="false" aria-controls="accordion-collapse-logs">
+          Consulta il log
+        </button>
+      </h2>
+      <div id="accordion-collapse-logs" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-logs">
+        <div class="accordion-body">
+          <textarea id="logs" class="font-monospace" readonly>
+Test di logs
+riga 2
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
