@@ -1,9 +1,8 @@
 const pagination = document.getElementById('pagination');
-if (pagination) {
 const prev = pagination.querySelector('.page-item:first-of-type .page-link');
 const next = pagination.querySelector('.page-item:last-of-type .page-link');
-const currentPage = pagination.querySelector<HTMLLinkElement>('.page-item [aria-current="page"]');
-const currentPageValue = Number(currentPage?.dataset?.currentPage);
+const currentPage = pagination.querySelector('.page-item [aria-current="page"]');
+const currentPageValue = Number(currentPage.dataset.currentPage);
 
 prev?.addEventListener('click', (e) => {
   e.preventDefault();
@@ -16,5 +15,3 @@ next?.addEventListener('click', (e) => {
   console.log(`Go to page: ${currentPageValue + 1}`);
   //TODO
 });
-    
-}

@@ -23,16 +23,19 @@ const data = {
   currentPage: '',
   mock: null
 };
-app.get(['/', "/home"], (req, res) => {
+
+app.get(['/', '/home'], (req, res) => {
   data.currentPage = "";
   data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
+
 app.get('/history', (req, res) => {
   data.currentPage = "history";
   data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });
+
 app.get('/report', (req, res) => {
   data.currentPage = "report";
   data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
