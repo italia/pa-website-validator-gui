@@ -1,9 +1,6 @@
 import {
   INPUT_URL,
   START_BUTTON,
-  PERCENTAGE,
-  PROGRESS_BAR,
-  PROGRESS_SPINNER,
   URL_FORM,
   FULL_SETTINGS_CONTAINER,
   LOGS_CONTAINER,
@@ -33,21 +30,13 @@ function updateProgress() {
   console.log('start');
   setIsLoading(true);
 
-  const increment = 7.3;
+  const increment = 5;
   const interval = 500; // 0,5 secondi in millisecondi
 
   const timer = setInterval(() => {
     progress += increment;
 
     progress = Math.min(progress, 100);
-
-    if (PERCENTAGE && PROGRESS_BAR) {
-      const rounded = Math.round(progress);
-      PERCENTAGE.innerHTML = `${rounded}`;
-      (PROGRESS_BAR as HTMLProgressElement).style.width = `${rounded}%`;
-
-      PROGRESS_BAR.setAttribute('aria-valuenow', `${rounded}`);
-    }
 
     if (progress >= 100) {
       clearInterval(timer);
@@ -168,10 +157,8 @@ function showStep(step: number) {
 
 function setIsLoading(status: any) {
   if (status) {
-    PROGRESS_SPINNER && PROGRESS_SPINNER.classList.remove('d-none');
     START_BUTTON && START_BUTTON.setAttribute('disabled', 'true');
   } else {
-    PROGRESS_SPINNER && PROGRESS_SPINNER.classList.add('d-none');
     START_BUTTON && START_BUTTON.removeAttribute('disabled');
   }
 }

@@ -119,15 +119,23 @@
 .cards-container .card-wrapper .card .card-body.error .card-title {
   color: #ffffff;
 }
+.cards-container .card-wrapper .card .card-body.error svg {
+  width: 70px;
+  height: 70px;
+  stroke: #bc4050;
+  stroke-width: 2px;
+}
 .cards-container .card-wrapper .card .card-body .card-title {
   font-size: 20px;
   margin: 0;
   color: var(--bs-primary);
+  width: 100%;
+  text-align: center;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point {
-  width: 130px;
-  height: 130px;
-  border-radius: 150px;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,6 +143,11 @@
   font-size: 44px;
   font-weight: bold;
   text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  .cards-container .card-wrapper .card .card-body .card-content .result-point {
+    margin-inline: 0;
+  }
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point.ko {
   background-color: #bc4050;
@@ -267,18 +280,10 @@ footer a:hover, footer a:visited {
 #urlForm .input-group .more-info.error {
   color: #bc4050;
 }
-#urlForm .input-group #progress-spinner {
-  position: absolute;
-  top: 0;
-  right: -60px;
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
+#urlForm .input-group #reportDownloadBtn {
+  margin-left: auto;
 }
 
-form#urlForm {
-  margin-top: 1rem;
-}
 form.setting-wrapper {
   margin-top: 2.5rem;
   margin-bottom: 2rem;
@@ -293,6 +298,9 @@ form.setting-wrapper button[type=submit] {
 }
 form.audits-wrapper {
   margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+form.form-group {
   margin-bottom: 2rem;
 }
 form .form-group,
@@ -324,7 +332,7 @@ form .input-group input {
 
 /* MAIN */
 main {
-  min-height: calc(100vh - 120px - 56px);
+  min-height: calc(100vh - 120px - 76px - 16px);
 }
 
 /* TEXTS */

@@ -16,15 +16,6 @@
     }
   }
 
-  #progress-spinner {
-    position: absolute;
-    top: 0;
-    right: -60px;
-    width: 36px;
-    height: 36px;
-    border-radius: 100%;
-  }
-
   #reportDownloadBtn {
     margin-left: auto;
   }
@@ -47,6 +38,10 @@ form {
 
   &.audits-wrapper {
     margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  &.form-group {
     margin-bottom: 2rem;
   }
 

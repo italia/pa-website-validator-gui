@@ -9,10 +9,9 @@ const reportFrame: HTMLIFrameElement | HTMLElement | null = document.getElementB
 const alertContainer: HTMLElement | null = document.getElementById('alert-container');
 const logsContainer: HTMLElement | null = document.getElementById('logs-container');
 const reportContainer: HTMLElement | null = document.getElementById('report-container');
-const progressSpinner: HTMLElement | null = document.getElementById('progress-spinner');
 
 const progressBar: HTMLElement | null = logsContainer && logsContainer.querySelector('.progress-bar');
-const percentage: HTMLElement | null = logsContainer && logsContainer.querySelector('#progress-percentage');
+
 let progress = 0;
 let inScan = true
 
@@ -28,14 +27,6 @@ function updateProgress() {
     progress += increment;
 
     progress = Math.min(progress, 100);
-
-    if (percentage && progressBar && inScan) {
-      console.log('IN SCAN', inScan)
-      const rounded = Math.round(progress);
-      percentage.innerHTML = rounded.toString();
-      progressBar.style.width = `${rounded}%`;
-      progressBar.setAttribute('aria-valuenow', rounded.toString());
-    }
 
     if (progress >= 100) {
       clearInterval(timer);
@@ -77,10 +68,8 @@ function showStep(step: number) {
 
 function setIsLoading(status: any) {
   if (status) {
-    progressSpinner && progressSpinner.classList.remove('d-none');
     if (formSubmit) formSubmit.setAttribute('disabled', "true");
   } else {
-    progressSpinner && progressSpinner.classList.add('d-none');
     if (formSubmit) formSubmit.removeAttribute('disabled');
   }
 }
