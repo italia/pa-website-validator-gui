@@ -1,7 +1,7 @@
 // URL SEARCH BAR
 export const URL_FORM : HTMLFormElement | null= document.querySelector('form#urlForm');
 export const TYPE_SELECT: HTMLSelectElement | null = document.querySelector('select#type-select');
-export const INPUT_URL = document.getElementById('inputUrl');
+export const INPUT_URL = document.querySelector<HTMLInputElement>('input#inputUrl');
 export const AUTOCOMPLETE_LIST = URL_FORM?.querySelector('.autocomplete-list')
 export const MORE_INFO_URL = URL_FORM?.querySelector('.more-info');
 export const START_BUTTON = document.getElementById('startBtn');
