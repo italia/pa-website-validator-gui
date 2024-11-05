@@ -46,5 +46,11 @@
       "numberOfPages": 5,
       "totalItems": 23
     }
+  },
+  "results": {
+    "status": "error",
+    "total_audits": 21,
+    "passed_audits": 2,
+    "failed_audits": 8
   }
 }

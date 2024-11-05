@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 .top-text p {
   margin: 0;
@@ -26,19 +26,28 @@
           .card-title {
             color: $white;
           }
+
+          svg {
+            width: 70px;
+            height: 70px;
+            stroke: $error;
+            stroke-width: 2px;
+          }
         }
 
         .card-title {
           font-size: 20px;
           margin: 0;
           color: $primary;
+          width: 100%;
+          text-align: center;
         }
 
         .card-content {
           .result-point {
-            width: 130px;
-            height: 130px;
-            border-radius: 150px;
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -46,6 +55,10 @@
             font-size: 44px;
             font-weight: bold;
             text-transform: uppercase;
+
+            @media (max-width: 768px) {
+              margin-inline: 0;
+            }
 
             &.ko {
               background-color: $error;

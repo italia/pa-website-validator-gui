@@ -1,20 +1,23 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 /* MAIN */
 main {
-  min-height: calc(100vh - 120px - 56px);
+  min-height: calc(100vh - 120px - 76px - 16px);
 }
 
 /* TEXTS */
 .uppercase {
   text-transform: uppercase;
 }
+
 .text--fail {
   color: $error;
 }
+
 .text--average {
   color: $warning;
 }
+
 .text--pass {
   color: $success;
 }

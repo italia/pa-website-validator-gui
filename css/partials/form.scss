@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 #urlForm .input-group {
   width: 50%;
@@ -24,12 +24,13 @@
     height: 36px;
     border-radius: 100%;
   }
+
+  #reportDownloadBtn {
+    margin-left: auto;
+  }
 }
 
 form {
-  &#urlForm {
-    margin-top: 1rem;
-  }
   &.setting-wrapper {
     margin-top: 2.5rem;
     margin-bottom: 2rem;
@@ -37,12 +38,13 @@ form {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem 3rem;
 
-    button[type='submit'] {
+    button[type="submit"] {
       max-height: fit-content;
       align-self: end;
       width: 250px;
     }
   }
+
   &.audits-wrapper {
     margin-top: 1rem;
     margin-bottom: 2rem;
