@@ -47,8 +47,8 @@ const loadPage = (page: string) => {
     const data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
-        publicPath: "public/",
-        basePath: "renderer/",
+        basePathCss: "public/css/",
+        basePathJs: "public/js/",
         currentPage: '',
         mock: JSON.parse(readFileSync('mock.json', 'utf8'))
     };
