@@ -1,5 +1,5 @@
 <nav class="pagination-wrapper justify-content-center mt-4" aria-label="Paginazione">
-  <ul id="pagination" class="pagination" aria-label="Pagina <%- pagination.currentPage %> di <%- pagination.numberOfPages %>">
+  <ul id="pagination" class="pagination mb-0" aria-label="Pagina <%- pagination.currentPage %> di <%- pagination.numberOfPages %>">
     <li class="page-item <%- pagination.currentPage === 1 ? 'disabled' : '' %>">
       <a class="page-link" href="#" tabindex="<%- pagination.currentPage === 1 ? '-1' : '0' %>" aria-hidden="<%- pagination.currentPage === 1 ? 'true' : 'false' %>">
         <svg class="icon icon-primary">
@@ -26,7 +26,7 @@
     </li>
   </ul>
   <!-- TODO: integrate -->
-  <div class="form-group">
+  <div class="form-group mb-0">
     <input type="text" class="form-control" id="jumpToPage">
     <label for="jumpToPage">
       <span aria-hidden="true">Vai a ...</span>
