@@ -280,9 +280,6 @@ footer a:hover, footer a:visited {
 #urlForm .input-group .more-info.error {
   color: #bc4050;
 }
-#urlForm .input-group #reportDownloadBtn {
-  margin-left: auto;
-}
 
 form.setting-wrapper {
   margin-top: 2.5rem;
