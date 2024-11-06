@@ -1,8 +1,15 @@
 @use "variables" as *;
 
-/* MAIN */
-main {
-  min-height: calc(100vh - 120px - 76px - 16px);
+/* Keep footer at bottom */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+
+  footer {
+    margin-top: auto;
+  }
 }
 
 /* TEXTS */
