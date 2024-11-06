@@ -144,11 +144,6 @@
   font-weight: bold;
   text-transform: uppercase;
 }
-@media (max-width: 768px) {
-  .cards-container .card-wrapper .card .card-body .card-content .result-point {
-    margin-inline: 0;
-  }
-}
 .cards-container .card-wrapper .card .card-body .card-content .result-point.ko {
   background-color: #bc4050;
 }
@@ -176,6 +171,24 @@
   font-size: 18px;
   font-weight: bold;
   color: #5cc98d;
+}
+@media screen and (max-width: 992px) {
+  .cards-container {
+    flex-direction: column;
+    row-gap: 0 !important;
+  }
+  .cards-container .card-wrapper {
+    width: 100%;
+  }
+  .cards-container .card-wrapper .card .card-body {
+    padding: 24px;
+    column-gap: 16px !important;
+  }
+  .cards-container .card-wrapper .card .card-body .card-content .result-point {
+    width: 110px;
+    height: 110px;
+    margin-inline: 9px;
+  }
 }
 
 /* Titillium+Web:300,400,600,700 */
