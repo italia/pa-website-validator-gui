@@ -23,6 +23,9 @@ export class Item {
   @Column({ type: 'simple-array' , nullable:true})
   auditsExecuted?: string[];
 
+  @Column({ type: 'simple-array' , nullable:true})
+  failedAudits?: string[];
+
   @Column({ type: 'json' , nullable:true} )
   args?: Record<string, unknown>;
 }

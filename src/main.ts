@@ -134,12 +134,15 @@ ipcMain.on('start-node-program', async (event, data) => {
         event.sender.send('scan-finished', `${code}`);
 
         logStream.write('Execution time: ' + executionTime);
-        logStream.close()
+        setTimeout(() => {
+            logStream.close()
+        }, 5000)
 
         //get data from jsonReport
-        //const {} = getDataFromJSONReport(`${reportFolder}/report.json`)
+        const {generalResult, failedAudits} = getDataFromJSONReport(`${reportFolder}/report.json`)
 
-        updateItem(itemId, executionTime);
+        console.log(failedAudits);
+        updateItem(itemId, executionTime, generalResult, failedAudits);
 
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });

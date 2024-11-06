@@ -1,11 +1,10 @@
-import { DataSource, Repository } from 'typeorm';
-import { Item } from './entities/Item.js';
+import {DataSource, Repository} from 'typeorm';
+import {Item} from './entities/Item.js';
 import path from 'path';
-import { app } from 'electron'
-import { Status } from './types/types.js';
-import { accessSync, mkdir, mkdirSync } from 'fs';
+import {app} from 'electron'
+import {Status} from './types/types.js';
+import {accessSync, mkdirSync} from 'fs';
 
-import { error } from 'console';
 const __dirname = import.meta.dirname;
 
 let dataSource: DataSource | null
@@ -110,10 +109,31 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     }
 };
 
-const updateItem = async (id:string, executionTime: number) => {
-    const jsonReport = {}
-    const status = 'success'
-    const percentage = ''
+const updateItem = async (id:string, executionTime: number, score: number, failedAudits: string[]) => {
+    if (!itemRepo) return;
+
+    try {
+
+        const insertedItem : Item | null = await itemRepo.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        if(!insertedItem){
+            throw new Error(`Item with id=${id} not found`)
+        }
+
+        await itemRepo.update(id, {executionTime : executionTime, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits});
+
+        console.log('UPDATED ITEM ID', id)
+
+        return
+
+    } catch (error) {
+        console.error('Error updating item:', error);
+        throw error;
+    }
 }
 
 const searchURL = async (searchText: string, page = 1, pageSize = 10) => {

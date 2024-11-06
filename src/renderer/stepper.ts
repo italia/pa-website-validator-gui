@@ -9,7 +9,6 @@ import {INPUT_URL,
   REPORT_CONTAINER,
   REPORT_DOWNLOAD_BTN,LOGS_TEXTAREA,REPORT_FRAME} from './elements.js'
 import {  getSettingsFormValues, getAuditsFormValues} from './settingsForm.js'
-import {ipcRenderer} from "electron";
 
 INPUT_URL?.addEventListener('input', (e) => {
   if (!START_BUTTON) return
@@ -29,7 +28,7 @@ function updateProgress() {
   setIsLoading(true);
 
   const increment = 7.3;
-  const interval = 500; // 0,5 secondi in millisecondi
+  const interval = 500;
 
   const timer = setInterval(() => {
     progress += increment;
@@ -107,11 +106,6 @@ function setIsLoading(status:any) {
     START_BUTTON && START_BUTTON.removeAttribute('disabled');
   }
 }
-
-window.electronAPI.receive('start-node-program', (event, data) => {
-  console.log('SCAN FINISHED')
-  completeProgress()
-});
 
 window.electronAPI.receive('log-update', (data) => {
   if (LOGS_TEXTAREA) {
