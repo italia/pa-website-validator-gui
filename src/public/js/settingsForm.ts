@@ -1,11 +1,11 @@
-import { AuditI } from '../../types/audits';
+import { AuditI } from "../../types/audits";
 import {SETTINGS_FORM, AUDITS_FORM, URL_FORM, TYPE_SELECT } from './elements.js';
 
 export const getUrlInputFormValues = () => {
   if (URL_FORM) {
     const formData = new FormData(URL_FORM);
     const formObject = Object.fromEntries(formData.entries());
-    console.log('urlInput', formObject);
+    formObject.type = TYPE_SELECT?.value || '';
     return formObject;
   }
 }
@@ -13,7 +13,6 @@ export const getSettingsFormValues = () => {
   if (SETTINGS_FORM) {
   const formData = new FormData(SETTINGS_FORM);
   const formObject = Object.fromEntries(formData.entries());
-  console.log('NEW settings', formObject);
   return formObject;
   }
 }
@@ -26,7 +25,6 @@ export const getAuditsFormValues = () => {
   checkboxes?.forEach((checkbox) => {
     finalAudits.push(checkbox.id)
   });
-  console.log("audits", finalAudits);
   return finalAudits;
 }
 

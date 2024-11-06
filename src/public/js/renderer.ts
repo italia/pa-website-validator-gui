@@ -1,3 +1,4 @@
+//! TODO rimuovere file?
 const { ipcRenderer } = require('electron');
 const formSubmit: HTMLElement | null = document.getElementById('startBtn');
 
