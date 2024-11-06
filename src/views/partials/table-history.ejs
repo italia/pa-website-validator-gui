@@ -21,8 +21,7 @@
             <span class="visually-hidden"> - apre in una nuova scheda</span>
           </a>
         </td>
-        <!-- TODO: use <time> html tag for a11y -->
-        <td><%- `${Math.floor((item.duration / 1000) / 60)}' ${(item.duration / 1000) % 60 < 10 ? '0' : ''}${(item.duration / 1000) % 60}"` %></td>
+        <td><%- new Date(item.duration).toISOString().slice(11,19) %></td>
         <td><%- item.successRate %>%</td>
         <td>
           <!-- TODO: integrate -->

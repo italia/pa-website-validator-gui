@@ -1,4 +1,8 @@
-@use 'variables' as *;
+@use "variables" as *;
+
+.footer-spacer {
+  height: 32px;
+}
 
 footer {
   padding: 1rem 0;

@@ -12,9 +12,8 @@
           </div>
           <div class="it-right-zone">
             <ul class="d-flex">
-              <!-- TODO: add aria-current="page" -->
-              <li><a data-page="home" href="/home">Nuova scansione</a></li>
-              <li><a data-page="history" href="/history">Storico</a></li>
+              <li><a data-page="home" href="/home" aria-current="<%- currentPage === 'home' ? 'page' : 'false' %>">Nuova scansione</a></li>
+              <li><a data-page="history" href="/history" aria-current="<%- currentPage === 'history' ? 'page' : 'false' %>">Storico</a></li>
             </ul>
           </div>
         </div>

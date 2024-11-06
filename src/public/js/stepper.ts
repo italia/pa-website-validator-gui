@@ -1,74 +1,19 @@
 import {
   INPUT_URL,
   START_BUTTON,
-  PERCENTAGE,
-  PROGRESS_BAR,
-  PROGRESS_SPINNER,
   URL_FORM,
   FULL_SETTINGS_CONTAINER,
   LOGS_CONTAINER,
   REPORT_CONTAINER,
   REPORT_DOWNLOAD_BTN,
-  AUTOCOMPLETE_LIST,
+  LOGS_TEXTAREA,
+  REPORT_FRAME,
   MORE_INFO_URL,
+  AUTOCOMPLETE_LIST,
 } from './elements.js';
-import {
-  getSettingsFormValues,
-  getAuditsFormValues,
-  getUrlInputFormValues,
-} from './settingsForm.js';
+import { getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues } from './settingsForm.js';
 
-INPUT_URL?.addEventListener('input', (e) => {
-  if (!START_BUTTON) return;
-
-  //@ts-ignore
-  const value = e.target.value;
-  if (value.length) START_BUTTON.removeAttribute('disabled');
-  else START_BUTTON.setAttribute('disabled', 'true');
-});
-
-let progress = 0;
-function updateProgress() {
-  showStep(2);
-  console.log('start');
-  setIsLoading(true);
-
-  const increment = 7.3;
-  const interval = 500; // 0,5 secondi in millisecondi
-
-  const timer = setInterval(() => {
-    progress += increment;
-
-    progress = Math.min(progress, 100);
-
-    if (PERCENTAGE && PROGRESS_BAR) {
-      const rounded = Math.round(progress);
-      PERCENTAGE.innerHTML = `${rounded}`;
-      (PROGRESS_BAR as HTMLProgressElement).style.width = `${rounded}%`;
-
-      PROGRESS_BAR.setAttribute('aria-valuenow', `${rounded}`);
-    }
-
-    if (progress >= 100) {
-      clearInterval(timer);
-      setIsLoading(false);
-      progress = 0;
-      //showStep(3);
-      // workaround to navigate programmatically
-      (document.querySelector('[data-page="report"]') as HTMLAnchorElement)?.click();
-    }
-  }, interval);
-}
-
-function isValidURL(string: string) {
-  try {
-    new URL(string);
-    return true;
-  } catch (_) {
-    return false;
-  }
-}
-
+/* INPUT & AUTOCOMPLETE LOGICS START */
 interface OptionI {
   text: string;
   link: string;
@@ -110,7 +55,14 @@ INPUT_URL?.addEventListener('focus', (e) => {
 INPUT_URL?.addEventListener('blur', (e) => {
   AUTOCOMPLETE_LIST?.classList?.remove('autocomplete-list-show');
 });
-
+function isValidURL(string: string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 INPUT_URL?.addEventListener('input', (e: any) => {
   const url = e.target.value;
   if (url && START_BUTTON && MORE_INFO_URL) {
@@ -131,13 +83,42 @@ INPUT_URL?.addEventListener('input', (e: any) => {
     setAutocompleteOptions([]);
   }
 });
+/* INPUT & AUTOCOMPLETE LOGICS END */
 
+let inScan = true;
+
+/* SCAN WEBSITE FLOW START */
 URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
-  getUrlInputFormValues();
-  getSettingsFormValues();
-  getAuditsFormValues();
-  updateProgress();
+  const settingsFormValues: any = getSettingsFormValues();
+  const auditsFormValues: any = getAuditsFormValues();
+  const {website, type}: any = getUrlInputFormValues();  
+
+  console.log('start');
+  showStep(2);
+  setIsLoading(true);
+
+  console.log('type', type);
+  console.log('website', website);
+  console.log('SETTINGS VALUES', settingsFormValues);
+  console.log('AUDITS VALUES', auditsFormValues);
+
+  const args = {
+    type,
+    website,
+    settingsFormValues,
+    audits: auditsFormValues,
+  };
+
+  if (typeof window.electronAPI?.send === "function")
+    window.electronAPI.send('start-node-program', args);
+  else {
+    setTimeout(() => { 
+      //? TODO remove browser 
+      console.log('SCAN FINISHED');
+      completeProgress();
+    }, 3000);
+  } 
 });
 
 function showStep(step: number) {
@@ -168,10 +149,45 @@ function showStep(step: number) {
 
 function setIsLoading(status: any) {
   if (status) {
-    PROGRESS_SPINNER && PROGRESS_SPINNER.classList.remove('d-none');
     START_BUTTON && START_BUTTON.setAttribute('disabled', 'true');
   } else {
-    PROGRESS_SPINNER && PROGRESS_SPINNER.classList.add('d-none');
     START_BUTTON && START_BUTTON.removeAttribute('disabled');
   }
 }
+
+window.electronAPI?.receive('start-node-program', (event, data) => {
+    console.log('SCAN FINISHED');
+    completeProgress();
+  });
+
+window.electronAPI?.receive('log-update', (data) => {
+  if (LOGS_TEXTAREA) {
+    (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
+    LOGS_TEXTAREA.scrollTop = LOGS_TEXTAREA.scrollHeight;
+  }
+});
+/* SCAN WEBSITE FLOW END */
+
+/* REPORT PAGE START */
+window.electronAPI?.receive('scan-finished', () => {
+  setTimeout(() => { //! TODO remove timeout
+    console.log('SCAN FINISHED');
+    completeProgress();
+  }, 3000);
+});
+
+window.electronAPI?.receive('open-report', (reportPath) => {
+  // TODO popolare pagina report correttamente
+  if (REPORT_FRAME) {
+    (REPORT_FRAME as HTMLIFrameElement).src = reportPath;
+    REPORT_FRAME.style.display = 'block';
+  }
+});
+
+const completeProgress = () => {
+  inScan = false;
+  // workaround to navigate programmatically
+  document.querySelector<HTMLAnchorElement>('[data-page="report"]')?.click();
+  setIsLoading(false);
+};
+/* REPORT PAGE START */

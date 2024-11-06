@@ -119,15 +119,23 @@
 .cards-container .card-wrapper .card .card-body.error .card-title {
   color: #ffffff;
 }
+.cards-container .card-wrapper .card .card-body.error svg {
+  width: 70px;
+  height: 70px;
+  stroke: #bc4050;
+  stroke-width: 2px;
+}
 .cards-container .card-wrapper .card .card-body .card-title {
   font-size: 20px;
   margin: 0;
   color: var(--bs-primary);
+  width: 100%;
+  text-align: center;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point {
-  width: 130px;
-  height: 130px;
-  border-radius: 150px;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -163,6 +171,24 @@
   font-size: 18px;
   font-weight: bold;
   color: #5cc98d;
+}
+@media screen and (max-width: 992px) {
+  .cards-container {
+    flex-direction: column;
+    row-gap: 0 !important;
+  }
+  .cards-container .card-wrapper {
+    width: 100%;
+  }
+  .cards-container .card-wrapper .card .card-body {
+    padding: 24px;
+    column-gap: 16px !important;
+  }
+  .cards-container .card-wrapper .card .card-body .card-content .result-point {
+    width: 110px;
+    height: 110px;
+    margin-inline: 9px;
+  }
 }
 
 /* Titillium+Web:300,400,600,700 */
@@ -238,6 +264,10 @@
   src: url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot");
   src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
 }
+.footer-spacer {
+  height: 32px;
+}
+
 footer {
   padding: 1rem 0;
   background-color: var(--bs-dark);
@@ -267,18 +297,7 @@ footer a:hover, footer a:visited {
 #urlForm .input-group .more-info.error {
   color: #bc4050;
 }
-#urlForm .input-group #progress-spinner {
-  position: absolute;
-  top: 0;
-  right: -60px;
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
-}
 
-form#urlForm {
-  margin-top: 1rem;
-}
 form.setting-wrapper {
   margin-top: 2.5rem;
   margin-bottom: 2rem;
@@ -287,13 +306,15 @@ form.setting-wrapper {
   gap: 2rem 3rem;
 }
 form.setting-wrapper button[type=submit] {
-  max-height: -moz-fit-content;
   max-height: fit-content;
   align-self: end;
   width: 250px;
 }
 form.audits-wrapper {
   margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+form.form-group {
   margin-bottom: 2rem;
 }
 form .form-group,
@@ -323,9 +344,15 @@ form .input-group input {
   color: #1a1a1a;
 }
 
-/* MAIN */
-main {
-  min-height: calc(100vh - 120px - 56px);
+/* Keep footer at bottom */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+body footer {
+  margin-top: auto;
 }
 
 /* TEXTS */
@@ -373,7 +400,6 @@ main {
 }
 .it-right-zone li a {
   display: block;
-  min-width: -moz-fit-content;
   min-width: fit-content;
   width: 150px;
   text-align: center;
@@ -500,4 +526,6 @@ textarea {
 .table-wrapper .table tr th:last-child,
 .table-wrapper .table tr td:last-child {
   padding-right: 1.5rem;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -5,7 +5,8 @@ import {writeFileSync} from 'fs'
 //TODO: get this from crawler in node_modules 
 const data = {
     crawlerVersion: '1.0.0',
-    publicPath: "public/",
+    basePathCss: "public/css/",
+    basePathJs: "public/js/",
     currentPage: ''
 };
 

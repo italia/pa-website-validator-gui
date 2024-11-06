@@ -47,8 +47,8 @@ const loadPage = (page: string) => {
     const data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
-        publicPath: "public/",
-        basePath: "renderer/",
+        basePathCss: "public/css/",
+        basePathJs: "public/js/",
         currentPage: '',
         mock: JSON.parse(readFileSync('mock.json', 'utf8'))
     };
@@ -84,7 +84,7 @@ ipcMain.on('start-node-program', async (event, data) => {
     //console.log(items)
 
     console.log('Website', data.website)
-    let { website, accuracy, scope, timeout, concurrentPages } = data
+    let { type, website, accuracy, scope, timeout, concurrentPages } = data
     if (!accuracy) accuracy = 'all'
     if (!scope) scope = 'online'
     if (!timeout) timeout = 300
@@ -107,7 +107,7 @@ ipcMain.on('start-node-program', async (event, data) => {
     const logStream = createWriteStream(logFilePath, { flags: 'a' });
     const startTime = Date.now();
 
-    let command = `node ${pathToCrawler} --type municipality --destination ${reportFolder} --report report --website ${website} --scope  ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} --view false `;
+    let command = `node ${pathToCrawler} --type ${type} --destination ${reportFolder} --report report --website ${website} --scope  ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} --view false `;
 
     if (data.audits.length > 0) {
         const auditsString = data.audits.join(', ');

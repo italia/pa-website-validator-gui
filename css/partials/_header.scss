@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use "variables" as *;
 
 .it-header-center-wrapper .it-header-center-content-wrapper {
   padding-left: 0;
@@ -13,10 +13,12 @@
 }
 
 .it-right-zone {
+  
   ul {
     gap: 1.5rem;
     margin-bottom: 0;
   }
+
   li {
     list-style-type: none;
 
