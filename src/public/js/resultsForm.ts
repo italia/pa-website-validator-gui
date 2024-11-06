@@ -1,4 +1,4 @@
-import { AuditI } from "../../types/audits";
+import { AuditI } from "../../types/audits.js";
 import { AUDITS_REDO_BTN, AUDITS_REDO_FORM } from "./elements.js";
 
 const AUDITS_REDO_NAME = 'audits-redo';

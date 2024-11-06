@@ -43,8 +43,8 @@ const loadPage = async (page: string) => {
     const data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
-        publicPath: "public/",
-        basePath: "renderer/",
+        basePathCss: "public/css/",
+        basePathJs: "public/js/",
         currentPage: '',
         mock: JSON.parse(readFileSync('mock.json', 'utf8')),
         defaultAudits: municipalityAudits
@@ -78,7 +78,7 @@ ipcMain.on('navigate', (event, page) => {
 
 /** flow for 'Avvia scansione' */
 ipcMain.on('start-node-program', async (event, data) => {
-    let { website, accuracy, scope, timeout, concurrentPages, type } = data
+    let { type, website, accuracy, scope, timeout, concurrentPages } = data
     if (!accuracy) accuracy = 'all'
     if (!scope) scope = 'online'
     if (!timeout) timeout = 30000

@@ -17,7 +17,8 @@ app.use(express.static('dist/public/'));
 
 // Route
 const data = {
-  publicPath: '',
+  basePathCss: "css/",
+  basePathJs: "js/",
   guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   currentPage: '',
