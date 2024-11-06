@@ -5,7 +5,6 @@ export const getUrlInputFormValues = () => {
   if (URL_FORM) {
     const formData = new FormData(URL_FORM);
     const formObject = Object.fromEntries(formData.entries());
-    formObject.type = TYPE_SELECT?.value || '';
     console.log('urlInput', formObject);
     return formObject;
   }
