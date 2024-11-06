@@ -11,7 +11,7 @@ import {
   MORE_INFO_URL,
   AUTOCOMPLETE_LIST,
 } from './elements.js';
-import { getSettingsFormValues, getAuditsFormValues } from './settingsForm.js';
+import { getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues } from './settingsForm.js';
 
 /* INPUT & AUTOCOMPLETE LOGICS START */
 interface OptionI {
@@ -92,24 +92,33 @@ URL_FORM?.addEventListener('submit', (e) => {
   e.preventDefault();
   const settingsFormValues: any = getSettingsFormValues();
   const auditsFormValues: any = getAuditsFormValues();
-
-  const website = INPUT_URL?.value;
+  const {website, type}: any = getUrlInputFormValues();  
 
   console.log('start');
   showStep(2);
   setIsLoading(true);
 
+  console.log('type', type);
+  console.log('website', website);
   console.log('SETTINGS VALUES', settingsFormValues);
   console.log('AUDITS VALUES', auditsFormValues);
-  console.log('website', website);
 
   const args = {
+    type,
     website,
     settingsFormValues,
     audits: auditsFormValues,
   };
 
-  window.electronAPI.send('start-node-program', args);
+  if (typeof window.electronAPI?.send === "function")
+    window.electronAPI.send('start-node-program', args);
+  else {
+    setTimeout(() => { 
+      //? TODO remove browser 
+      console.log('SCAN FINISHED');
+      completeProgress();
+    }, 3000);
+  } 
 });
 
 function showStep(step: number) {
@@ -146,12 +155,12 @@ function setIsLoading(status: any) {
   }
 }
 
-window.electronAPI.receive('start-node-program', (event, data) => {
+window.electronAPI?.receive('start-node-program', (event, data) => {
     console.log('SCAN FINISHED');
     completeProgress();
   });
 
-window.electronAPI.receive('log-update', (data) => {
+window.electronAPI?.receive('log-update', (data) => {
   if (LOGS_TEXTAREA) {
     (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
     LOGS_TEXTAREA.scrollTop = LOGS_TEXTAREA.scrollHeight;
@@ -160,14 +169,14 @@ window.electronAPI.receive('log-update', (data) => {
 /* SCAN WEBSITE FLOW END */
 
 /* REPORT PAGE START */
-window.electronAPI.receive('scan-finished', () => {
+window.electronAPI?.receive('scan-finished', () => {
   setTimeout(() => { //! TODO remove timeout
     console.log('SCAN FINISHED');
     completeProgress();
   }, 3000);
 });
 
-window.electronAPI.receive('open-report', (reportPath) => {
+window.electronAPI?.receive('open-report', (reportPath) => {
   // TODO popolare pagina report correttamente
   if (REPORT_FRAME) {
     (REPORT_FRAME as HTMLIFrameElement).src = reportPath;
