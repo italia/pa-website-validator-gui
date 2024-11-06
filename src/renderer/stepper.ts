@@ -1,15 +1,16 @@
-import {INPUT_URL, 
-  START_BUTTON, 
-  PERCENTAGE, 
-  PROGRESS_BAR, 
-  PROGRESS_SPINNER, 
-  URL_FORM, 
-  FULL_SETTINGS_CONTAINER, 
+import {
+  INPUT_URL,
+  START_BUTTON,
+  PERCENTAGE,
+  PROGRESS_BAR,
+  PROGRESS_SPINNER,
+  URL_FORM,
+  FULL_SETTINGS_CONTAINER,
   LOGS_CONTAINER,
   REPORT_CONTAINER,
-  REPORT_DOWNLOAD_BTN,LOGS_TEXTAREA,REPORT_FRAME} from './elements.js'
+  REPORT_DOWNLOAD_BTN, LOGS_TEXTAREA, REPORT_FRAME, TYPE_SELECT
+} from './elements.js'
 import {  getSettingsFormValues, getAuditsFormValues} from './settingsForm.js'
-import {ipcRenderer} from "electron";
 
 INPUT_URL?.addEventListener('input', (e) => {
   if (!START_BUTTON) return
@@ -59,17 +60,15 @@ URL_FORM?.addEventListener('submit', (e) => {
   const auditsFormValues: any = getAuditsFormValues();
 
   const website = (INPUT_URL as HTMLTextAreaElement).value
+  const type = (TYPE_SELECT as HTMLSelectElement).value
 
   updateProgress();
 
-  console.log('SETTINGS VALUES',settingsFormValues) 
-  console.log('AUDITS VALUES',auditsFormValues)
-  console.log('website', website)
-
   const args = {
     website,
+    type,
     settingsFormValues,
-    audits: auditsFormValues
+    audits: auditsFormValues,
   }
 
   window.electronAPI.send('start-node-program', args);

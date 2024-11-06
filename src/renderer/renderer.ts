@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+import {ipcRenderer} from 'electron';
 const formSubmit: HTMLElement | null = document.getElementById('startBtn');
 
 //form elements

@@ -1,14 +1,11 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { getItems, initializeDatabase, insertItem, searchURL, updateItem } from './db.js';
-import { ChildProcess, exec } from 'child_process';
+import { initializeDatabase, insertItem, searchURL, updateItem } from './db.js';
+import { exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , readFileSync, writeFileSync} from 'fs';
 import * as ejs from 'ejs';
+import {municipalityAudits} from "./storage/auditMapping.js";
 const __dirname = import.meta.dirname;
-import {getDataFromJSONReport} from './utils.js'
-
-// todo: Only dev mode
-const pathToCrawler = '/Users/luca.carrisi/DTD_Crawler/dist'
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -39,18 +36,18 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
 
     // load first page
-    loadPage('');
+    await loadPage('');
 }
 
-const loadPage = (page: string) => {
-
+const loadPage = async (page: string) => {
     const data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
         publicPath: "public/",
         basePath: "renderer/",
         currentPage: '',
-        mock: JSON.parse(readFileSync('mock.json', 'utf8'))
+        mock: JSON.parse(readFileSync('mock.json', 'utf8')),
+        defaultAudits: municipalityAudits
     };
 
     const filePath = path.join(__dirname, 'views', `index.ejs`);
@@ -81,19 +78,14 @@ ipcMain.on('navigate', (event, page) => {
 
 /** flow for 'Avvia scansione' */
 ipcMain.on('start-node-program', async (event, data) => {
-    //console.log(items)
-
-    console.log('Website', data.website)
-    let { website, accuracy, scope, timeout, concurrentPages } = data
+    let { website, accuracy, scope, timeout, concurrentPages, type } = data
     if (!accuracy) accuracy = 'all'
     if (!scope) scope = 'online'
-    if (!timeout) timeout = 300
+    if (!timeout) timeout = 30000
     if (!concurrentPages) concurrentPages = 20
 
     const itemValues = await insertItem(website, data)
-    //console.log(await getItems())
 
-    //console.log(' SEARCH ITEMS ', await searchItems('save'))
     console.log(' SEARCH URL ', await searchURL('save'))
 
     const reportFolder = itemValues?.reportFolder
@@ -107,13 +99,19 @@ ipcMain.on('start-node-program', async (event, data) => {
     const logStream = createWriteStream(logFilePath, { flags: 'a' });
     const startTime = Date.now();
 
-    let command = `node ${pathToCrawler} --type municipality --destination ${reportFolder} --report report --website ${website} --scope  ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} --view false `;
+    let command = `node ${__dirname + '/commands/scan'} --type ${type} --destination ${reportFolder} --report report --website ${website} --scope ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} `;
 
     if (data.audits.length > 0) {
-        const auditsString = data.audits.join(', ');
-        command += `--onlyAudits ${auditsString}`
+        const selectedAudits = data.audits;
+        if(type == 'municipality' && selectedAudits.includes('lighthouse')){
+            selectedAudits.push('municipality_improvement_plan')
+        }
+
+        const auditsString = selectedAudits.join(',');
+        command += `--auditsSubset ${auditsString}`
     }
 
+    console.log(command);
     const nodeProcess = exec(command)
 
     nodeProcess.stdout && nodeProcess.stdout.on('data', (data) => {
@@ -136,19 +134,8 @@ ipcMain.on('start-node-program', async (event, data) => {
         logStream.write('Execution time: ' + executionTime);
         logStream.close()
 
-        //get data from jsonReport
-        //const {} = getDataFromJSONReport(`${reportFolder}/report.json`)
-
         updateItem(itemId, executionTime);
 
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });
 });
-
-
-
-// ipcMain.on('database:fetchAll', () => {
-//   const itemRepo = dataSource.manager.repository(Item);
-//   return itemRepo.find();
-// });
-
