@@ -1,8 +1,6 @@
 @use "variables" as *;
 
 #urlForm .input-group {
-  width: 50%;
-  min-width: 360px;
   position: relative;
 
   .more-info {
@@ -65,8 +63,12 @@ form {
     z-index: 1000;
   }
 
-  .select-wrapper select {
-    font-weight: 400;
+  .select-wrapper {
+    min-width: 120px;
+
+    select {
+      font-weight: 400;
+    }
   }
 
   .input-group input {

@@ -284,8 +284,6 @@ footer a:hover, footer a:visited {
 }
 
 #urlForm .input-group {
-  width: 50%;
-  min-width: 360px;
   position: relative;
 }
 #urlForm .input-group .more-info {
@@ -336,6 +334,9 @@ form .autocomplete-list {
   top: 2.5rem;
   padding: 0;
   z-index: 1000;
+}
+form .select-wrapper {
+  min-width: 120px;
 }
 form .select-wrapper select {
   font-weight: 400;
