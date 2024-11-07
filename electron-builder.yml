@@ -1,0 +1,12 @@
+appId: com.example.myapp
+productName: "DTD - App di valutazione"
+directories:
+  output: dist
+win:
+  target:
+    - nsis
+    - zip
+files:
+  - dist/**
+  - node_modules/**
+extraResources: []
