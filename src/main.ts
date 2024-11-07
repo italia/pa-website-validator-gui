@@ -1,11 +1,12 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import {getFolderWithId, getItemById, getItems, initializeDatabase, insertItem, searchURL, updateItem} from './db.js';
-import { ChildProcess, exec } from 'child_process';
+import { exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , readFileSync, writeFileSync} from 'fs';
 import * as ejs from 'ejs';
 import {getDataFromJSONReport} from './utils.js'
 import {municipalityAudits} from "./storage/auditMapping.js";
+import {Item} from "./entities/Item";
 const __dirname = import.meta.dirname;
 
 let mainWindow: BrowserWindow | null = null;
@@ -163,3 +164,17 @@ ipcMain.on('start-node-program', async (event, data) => {
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });
 });
+
+ipcMain.on('start-type', async (event, data) => {
+
+    let urls : Record<string, string>[] | Item[] | undefined = await searchURL(data, 1, 10);
+
+    if(urls?.length){
+        urls = urls.map(el => {
+            return {text: el.url}
+        })
+    }
+
+    event.sender.send('update-autocomplete-list', urls)
+
+})

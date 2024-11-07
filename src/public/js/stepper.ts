@@ -17,10 +17,7 @@ import { getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues } fro
 interface OptionI {
   text: string;
 }
-
-const options = [{
-  text: 'https://comune.it'
-}]
+let options: OptionI[] = [{text: 'ciao'}];
 
 const setOption = (e: any) => {
   if (INPUT_URL) {
@@ -32,7 +29,6 @@ const setAutocompleteOptions = (opts: OptionI[] = []) => {
   if (AUTOCOMPLETE_LIST) {
     // reset list
     AUTOCOMPLETE_LIST.innerHTML = '';
-
 
     if (options.length > 0) {
       opts.forEach((opt: OptionI) => {
@@ -65,6 +61,7 @@ function isValidURL(string: string) {
 }
 INPUT_URL?.addEventListener('input', (e: any) => {
   const url = e.target.value;
+
   if (url && START_BUTTON && MORE_INFO_URL) {
     if (isValidURL(url)) {
       START_BUTTON.removeAttribute('disabled');
@@ -75,15 +72,19 @@ INPUT_URL?.addEventListener('input', (e: any) => {
       MORE_INFO_URL.classList.add('error');
       MORE_INFO_URL.innerHTML = "L'url inserito non è valido";
     }
-
-    setAutocompleteOptions(options);
   } else if (MORE_INFO_URL) {
     MORE_INFO_URL.classList.remove('error');
     MORE_INFO_URL.innerHTML = '';
-    setAutocompleteOptions([]);
   }
+
+  if (typeof window.electronAPI?.send === "function")
+    window.electronAPI.send('start-type', url);
 });
 /* INPUT & AUTOCOMPLETE LOGICS END */
+
+window.electronAPI?.receive('update-autocomplete-list', (urls : OptionI[]) => {
+  setAutocompleteOptions(urls);
+});
 
 let inScan = true;
 
