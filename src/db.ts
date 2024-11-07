@@ -100,8 +100,10 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     try {
         const newItem = new Item();
         newItem.url = url;
+        newItem.type = args?.type as string
 
         // Set optional fields
+
          if (args?.audits !== undefined) newItem.auditsExecuted = args.audits as any;
          if (args !== undefined) newItem.args = args;
 

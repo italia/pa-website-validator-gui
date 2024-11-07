@@ -9,6 +9,9 @@ export class Item {
   id!: string;
 
   @Column({ type: 'varchar', nullable:true})
+  type!: string;
+
+  @Column({ type: 'varchar', nullable:true})
   url!: string;
 
   @Column({ enum: Status, default: Status.PENDING , nullable:true})

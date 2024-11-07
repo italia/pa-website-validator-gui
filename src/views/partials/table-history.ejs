@@ -13,7 +13,7 @@
     <tbody>
       <% items.forEach(item => { %>
       <tr>
-        <td><%- item.typology %></td>
+        <td><%- item.type %></td>
         <td><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %></td>
         <td>
           <a href="<%- item.url %>" target="_blank" rel="noopener noreferrer">

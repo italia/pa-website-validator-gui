@@ -68,8 +68,7 @@ const loadPage = async (pageName: string, url: string) => {
     const filePath = path.join(__dirname, 'views', `index.ejs`);
 
     if (pageName == 'history') {
-       console.log('ITEMS',await getItems())
-       data.hystoryData  = await getItems() as any
+       data.hystoryData  = await getItems(1,1) as any
     }
 
     data.currentPage = pageName;
@@ -98,6 +97,7 @@ ipcMain.on('navigate', async (event, data) => {
 /** flow for 'Avvia scansione' */
 ipcMain.on('start-node-program', async (event, data) => {
     let { type, website, accuracy, scope, timeout, concurrentPages } = data
+    if (!type) type = 'municipality'
     if (!accuracy) accuracy = 'all'
     if (!scope) scope = 'online'
     if (!timeout) timeout = 30000
