@@ -107,7 +107,7 @@ URL_FORM?.addEventListener('submit', (e) => {
   const args = {
     type,
     website,
-    settingsFormValues,
+    ...settingsFormValues,
     audits: auditsFormValues,
   };
 

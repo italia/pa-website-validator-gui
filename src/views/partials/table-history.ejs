@@ -22,14 +22,14 @@
           </a>
         </td>
         <td><%- new Date(item.executionTime).toISOString().slice(11,19) %></td>
-        <td><%- item.successRate %>%</td>
+        <td><%- (item.successCount / (item.successCount + item.failedCount + item.errorCount))*100 %>%</td>
         <td>
           <!-- TODO: integrate -->
           <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary btn-xs" data-page="report" href="/report">
+            <a class="btn btn-primary btn-xs" data-page="report" href="/report?id=<%=item.id %>">
               Visualizza
             </a>
-            <button class="btn btn-primary btn-xs">
+            <button class="btn btn-primary btn-xs" id="reportDownloadBtn" data-download="<%=item.id %>">
               Scarica
             </button>
           </div>

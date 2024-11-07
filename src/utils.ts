@@ -16,11 +16,13 @@ const getDataFromJSONReport = (reportPath: string) => {
       }
 
       let failedAudits: string[] = [];
-      let generalResult = 0;
+      let generalResult = 1;
       Object.keys(jsonData.audits).forEach(key => {
           if(!jsonData.audits[key].info && jsonData.audits[key].specificScore !== undefined && key !== 'municipality-performance-improvement-plan'){
               if(jsonData.audits[key].specificScore === 0){
-                  generalResult = 0;
+                  if(generalResult === 1){
+                      generalResult = 0;
+                  }
                   failedAudits.push(key);
                   failedCount++;
               }else if(jsonData.audits[key].specificScore === -1){

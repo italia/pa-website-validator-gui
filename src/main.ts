@@ -5,7 +5,7 @@ import path from 'path';
 import { createWriteStream , readFileSync, writeFileSync} from 'fs';
 import * as ejs from 'ejs';
 import {getDataFromJSONReport} from './utils.js'
-import {municipalityAudits} from "./storage/auditMapping.js";
+import {municipalityAudits, schoolAudits} from "./storage/auditMapping.js";
 import {Item} from "./entities/Item";
 const __dirname = import.meta.dirname;
 
@@ -42,7 +42,7 @@ async function createWindow() {
 }
 
 const loadPage = async (pageName: string, url: string) => {
-    const queryParam = url.split('id=')[1]
+    const queryParam = url?.split('id=')[1]
 
     const item = await getItemById(queryParam ?? '')
 
@@ -62,13 +62,23 @@ const loadPage = async (pageName: string, url: string) => {
             "logs": queryParam ? readFileSync( `${getFolderWithId(queryParam)}/logs.txt`, 'utf8') : ''
         },
         defaultAudits: municipalityAudits,
-        hystoryData:{}
+        reportId: queryParam,
+        historyData:{
+
+        }
     };
 
     const filePath = path.join(__dirname, 'views', `index.ejs`);
 
     if (pageName == 'history') {
-       data.hystoryData  = await getItems(1,1) as any
+        if(url){
+            const queryParam = url?.split('page=')[1];
+            console.log(queryParam, 'query')
+            data.historyData  = await getItems(queryParam ? Number(queryParam) : 1,5);
+            console.log(data.historyData);
+        }else{
+            data.historyData  = await getItems(1,5)
+        }
     }
 
     data.currentPage = pageName;
@@ -97,6 +107,7 @@ ipcMain.on('navigate', async (event, data) => {
 /** flow for 'Avvia scansione' */
 ipcMain.on('start-node-program', async (event, data) => {
     let { type, website, accuracy, scope, timeout, concurrentPages } = data
+
     if (!type) type = 'municipality'
     if (!accuracy) accuracy = 'all'
     if (!scope) scope = 'online'
@@ -164,8 +175,20 @@ ipcMain.on('start-node-program', async (event, data) => {
 
         event.sender.send('scan-finished', [itemId]);
 
-        console.log(failedAudits);
-        updateItem(itemId, executionTime, generalResult, failedAudits, successCount, failedCount, errorCount);
+        const mappedAuditsFailed : string[] = failedAudits.map(audit => {
+            let itemFound;
+            if(type === 'municipality'){
+                itemFound = municipalityAudits.find(el => el.innerId === audit) ? municipalityAudits.find(el => el.innerId === audit)?.id : '';
+            }else{
+                itemFound = schoolAudits.find(el => el.innerId === audit) ? schoolAudits.find(el => el.innerId === audit)?.id : '';
+            }
+
+            return itemFound ?? ''
+        })
+
+        console.log(mappedAuditsFailed);
+
+        updateItem(itemId, type === 'municipality' ? 'Comune' : 'Scuola', executionTime, generalResult, mappedAuditsFailed, successCount, failedCount, errorCount);
 
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });

@@ -56,8 +56,8 @@ const getAuditsFromSettings = (e?:Event) => {
       if(audit.code.length > 0) {
         (AUDITS_FORM as any).innerHTML += `
         <div class="form-check">
-          <input class="form-check-input" id="audit-${audit.id}" type="checkbox" name="audits" checked>
-          <label class="form-check-label" for="audit-${audit.id}">${audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase()}</label>
+          <input class="form-check-input" id="${audit.id}" type="checkbox" name="audits" checked>
+          <label class="form-check-label" for="${audit.id}">${audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase()}</label>
         </div>
       `;
       }});

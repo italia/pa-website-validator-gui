@@ -64,7 +64,7 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], pagina
     if (pageSize != -1) {
         queryArgs = {
             take: pageSize,
-            skip: page - 1,
+            skip: (page - 1)*pageSize,
         }
     } else {
         queryArgs = {}
@@ -78,6 +78,7 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], pagina
     returnValues.items = items
     returnValues.pagination.total = total 
     returnValues.pagination.numberOfPages =  Math.ceil(total / pageSize);
+    returnValues.pagination.currentPage = page;
    
     return returnValues
 };
@@ -129,7 +130,7 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     }
 };
 
-const updateItem = async (id:string, executionTime: number, score: number, failedAudits: string[], successCount: number, failedCount: number, errorCount: number) => {
+const updateItem = async (id:string, type: string, executionTime: number, score: number, failedAudits: string[], successCount: number, failedCount: number, errorCount: number) => {
     if (!itemRepo) return;
 
     try {
@@ -144,7 +145,7 @@ const updateItem = async (id:string, executionTime: number, score: number, faile
             throw new Error(`Item with id=${id} not found`)
         }
 
-        await itemRepo.update(id, {executionTime : executionTime, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits, successCount: successCount, errorCount: errorCount, failedCount: failedCount});
+        await itemRepo.update(id, {executionTime : executionTime, type: type, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits, successCount: successCount, errorCount: errorCount, failedCount: failedCount});
 
         console.log('UPDATED ITEM ID', id)
 

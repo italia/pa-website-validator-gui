@@ -1,20 +1,16 @@
 const pagination = document.getElementById('pagination');
 if (pagination) {
-const prev = pagination.querySelector('.page-item:first-of-type .page-link');
-const next = pagination.querySelector('.page-item:last-of-type .page-link');
-const currentPage = pagination.querySelector<HTMLLinkElement>('.page-item [aria-current="page"]');
-const currentPageValue = Number(currentPage?.dataset?.currentPage);
+const prev = pagination.querySelector('.page-item:first-of-type .page-link') as HTMLAnchorElement;
+const next = pagination.querySelector('.page-item:last-of-type .page-link') as HTMLAnchorElement;
 
 prev?.addEventListener('click', (e) => {
   e.preventDefault();
-  console.log(`Go to page: ${currentPageValue - 1}`);
-  //TODO
+  prev?.click()
 });
 
 next?.addEventListener('click', (e) => {
   e.preventDefault();
-  console.log(`Go to page: ${currentPageValue + 1}`);
-  //TODO
+  next?.click();
 });
-    
+
 }
