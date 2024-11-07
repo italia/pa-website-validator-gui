@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import {getFolderWithId, getItemById, getItems, initializeDatabase, insertItem, searchURL, updateItem} from './db.js';
 import { exec } from 'child_process';
 import path from 'path';
@@ -7,6 +7,7 @@ import * as ejs from 'ejs';
 import {getDataFromJSONReport} from './utils.js'
 import {municipalityAudits, schoolAudits} from "./storage/auditMapping.js";
 import {Item} from "./entities/Item";
+import fs from "fs";
 const __dirname = import.meta.dirname;
 
 let mainWindow: BrowserWindow | null = null;
@@ -220,4 +221,27 @@ ipcMain.on('start-type', async (event, data) => {
 ipcMain.on('recover-report', async (event, data) => {
     const item = await getItemById(data ?? '');
     event.sender.send('return-report-item', item)
+})
+ipcMain.on('download-report', async (event, data) => {
+    const item: Item | null = await getItemById(data['reportId']);
+
+    if(!item){
+        return;
+    }
+
+    const filePath = getFolderWithId(item.id) + '/report.html'
+
+    const { filePath: savePath } = await dialog.showSaveDialog({
+        defaultPath: path.basename(filePath) ,
+    });
+
+    if (savePath) {
+        fs.copyFile(filePath, savePath, (err) => {
+            if (err) {
+                console.error('Errore durante il download:', err);
+            } else {
+                console.log('File scaricato con successo!');
+            }
+        });
+    }
 })

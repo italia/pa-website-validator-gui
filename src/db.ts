@@ -83,16 +83,14 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], pagina
     return returnValues
 };
 
-const getItemById = async (id: string) => {
-    if (!itemRepo) return;
+const getItemById = async (id: string): Promise<Item|null> => {
+    if (!itemRepo) return null;
 
-    const item : Item | null = await itemRepo.findOne({
+    return await itemRepo.findOne({
         where: {
             id: id
         }
-    })
-
-    return item;
+    });
 };
 
 const insertItem = async (url: string, args?: Record<string, unknown>) => {
