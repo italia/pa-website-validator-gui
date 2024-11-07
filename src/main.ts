@@ -20,7 +20,7 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-    //   if (process.platform !== 'darwin') 
+    //   if (process.platform !== 'darwin')
     app.quit();
 });
 
@@ -38,7 +38,7 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
 
     // load first page
-    await loadPage('', '');
+    await loadPage('home', '');
 }
 
 const loadPage = async (pageName: string, url: string) => {
@@ -195,12 +195,11 @@ ipcMain.on('start-node-program', async (event, data) => {
 });
 
 ipcMain.on('start-type', async (event, data) => {
-
-    let urls : Record<string, string>[] | Item[] | undefined = await searchURL(data, 1, 10);
-
+    let urls : string[] | Item[] | undefined = await searchURL(data, 1, 10);
+    
     if(urls?.length){
         urls = urls.map(el => {
-            return {text: el.url}
+            return el.url
         })
     }
 
