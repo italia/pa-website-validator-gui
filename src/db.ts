@@ -48,10 +48,14 @@ const initializeDatabase = async () => {
     return dataSource;
 }
 
-const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], total: number }> => {
+const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], pagination : {total: number, currentPage: number, numberOfPages:number} }> => {
     let returnValues = {
-        total: 0,
-        items: [] as Item[]
+        items: [] as Item[],
+        pagination: {
+            total: 0,
+            numberOfPages: 0,
+            currentPage: 1
+        }
     }
 
     if (!itemRepo) return returnValues;
@@ -72,9 +76,11 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], total:
         itemRepo.count()
     ]);
 
-    returnValues = { items, total }
-
-    return { items, total };
+    returnValues.items = items
+    returnValues.pagination.total = total 
+    returnValues.pagination.numberOfPages =  Math.ceil(total / pageSize);
+   
+    return returnValues
 };
 
 const insertItem = async (url: string, args?: Record<string, unknown>) => {

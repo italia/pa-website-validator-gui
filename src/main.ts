@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { initializeDatabase, insertItem, searchURL, updateItem } from './db.js';
+import { initializeDatabase, insertItem, searchURL, updateItem, getItems } from './db.js';
 import { exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , readFileSync, writeFileSync} from 'fs';
@@ -40,17 +40,23 @@ async function createWindow() {
 }
 
 const loadPage = async (page: string) => {
-    const data = {
+    let data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
         basePathCss: "public/css/",
         basePathJs: "public/js/",
         currentPage: '',
         mock: JSON.parse(readFileSync('mock.json', 'utf8')),
-        defaultAudits: municipalityAudits
+        defaultAudits: municipalityAudits,
+        hystoryData:{}
     };
 
     const filePath = path.join(__dirname, 'views', `index.ejs`);
+
+    if (page == 'history') {
+       console.log('ITEMS',await getItems())
+       data.hystoryData  = await getItems() as any
+    }
 
     console.log('filepath', filePath)
     data.currentPage = page;
