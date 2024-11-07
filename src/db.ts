@@ -1,11 +1,10 @@
-import { DataSource, Repository } from 'typeorm';
-import { Item } from './entities/Item.js';
+import {DataSource, Repository} from 'typeorm';
+import {Item} from './entities/Item.js';
 import path from 'path';
-import { app } from 'electron'
-import { Status } from './types/types.js';
-import { accessSync, mkdir, mkdirSync } from 'fs';
+import {app} from 'electron'
+import {Status} from './types/types.js';
+import {accessSync, mkdirSync} from 'fs';
 
-import { error } from 'console';
 const __dirname = import.meta.dirname;
 
 let dataSource: DataSource | null
@@ -83,6 +82,18 @@ const getItems = async (page = 1, pageSize = 10): Promise<{ items: any[], pagina
     return returnValues
 };
 
+const getItemById = async (id: string) => {
+    if (!itemRepo) return;
+
+    const item : Item | null = await itemRepo.findOne({
+        where: {
+            id: id
+        }
+    })
+
+    return item;
+};
+
 const insertItem = async (url: string, args?: Record<string, unknown>) => {
     if (!itemRepo) return;
 
@@ -116,10 +127,31 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     }
 };
 
-const updateItem = async (id:string, executionTime: number) => {
-    const jsonReport = {}
-    const status = 'success'
-    const percentage = ''
+const updateItem = async (id:string, executionTime: number, score: number, failedAudits: string[], successCount: number, failedCount: number, errorCount: number) => {
+    if (!itemRepo) return;
+
+    try {
+
+        const insertedItem : Item | null = await itemRepo.findOne({
+            where: {
+                id: id
+            }
+        })
+
+        if(!insertedItem){
+            throw new Error(`Item with id=${id} not found`)
+        }
+
+        await itemRepo.update(id, {executionTime : executionTime, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits, successCount: successCount, errorCount: errorCount, failedCount: failedCount});
+
+        console.log('UPDATED ITEM ID', id)
+
+        return
+
+    } catch (error) {
+        console.error('Error updating item:', error);
+        throw error;
+    }
 }
 
 const searchURL = async (searchText: string, page = 1, pageSize = 10) => {
@@ -163,5 +195,29 @@ const createFolderWithId = (id: string): string | null => {
 
 }
 
+const getFolderWithId = (id: string): string | null => {
+    // Create the full path for the new folder
+    const folderPath = path.join(dbFolder, 'reports', id);
 
-export { initializeDatabase, getItems, insertItem, searchURL, updateItem }
+    console.log('DIRNAME',__dirname)
+
+    const absoluteFolderPath = path.resolve(folderPath);
+
+
+    console.log('CREATE INTO',absoluteFolderPath)
+
+    // Check if the folder already exists
+    //await accessSync(folderPath)
+
+    try {
+        accessSync(absoluteFolderPath)
+        return absoluteFolderPath
+    } catch (err) {
+        console.log('error return folder')
+        throw new Error('error return folder')
+    }
+
+}
+
+
+export { initializeDatabase, getItems, insertItem, searchURL, updateItem , getItemById, getFolderWithId}
