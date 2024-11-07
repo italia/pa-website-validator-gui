@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import {getFolderWithId, getItemById, getItems, initializeDatabase, insertItem, searchURL, updateItem} from './db.js';
 import { exec } from 'child_process';
 import path from 'path';
@@ -7,6 +7,7 @@ import * as ejs from 'ejs';
 import {getDataFromJSONReport} from './utils.js'
 import {municipalityAudits, schoolAudits} from "./storage/auditMapping.js";
 import {Item} from "./entities/Item";
+import fs from "fs";
 const __dirname = import.meta.dirname;
 
 let mainWindow: BrowserWindow | null = null;
@@ -53,6 +54,7 @@ const loadPage = async (pageName: string, url: string) => {
         basePathJs: "public/js/",
         currentPage: '',
         mock: {
+            "reportId": item?.id ?? '',
             "results": {
                 "status": item?.status,
                 "total_audits": (item?.successCount ?? 0) + (item?.failedCount ?? 0) + (item?.errorCount ?? 0),
@@ -204,5 +206,28 @@ ipcMain.on('start-type', async (event, data) => {
     }
 
     event.sender.send('update-autocomplete-list', urls)
+})
 
+ipcMain.on('download-report', async (event, data) => {
+    const item: Item | null = await getItemById(data['reportId']);
+
+    if(!item){
+        return;
+    }
+
+    const filePath = getFolderWithId(item.id) + '/report.html'
+
+    const { filePath: savePath } = await dialog.showSaveDialog({
+        defaultPath: path.basename(filePath) ,
+    });
+
+    if (savePath) {
+        fs.copyFile(filePath, savePath, (err) => {
+            if (err) {
+                console.error('Errore durante il download:', err);
+            } else {
+                console.log('File scaricato con successo!');
+            }
+        });
+    }
 })

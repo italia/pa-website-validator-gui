@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between gap-3 flex-wrap">
   <h2>Report</h2>
   <!-- TODO: integrate -->
-  <button id="reportDownloadBtn" data-download="<%=mock.reportId%>" class="btn btn-primary btn-lg btn-icon">
+  <button data-download="<%= mock.reportId %>" class="btn btn-primary btn-lg btn-icon">
     <svg class="icon icon-white me-1">
       <use href="#it-download"></use>
     </svg>
@@ -51,10 +51,11 @@
       <div id="accordion-collapse-logs" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-logs">
         <div class="accordion-body">
           <textarea id="logs" class="font-monospace" readonly>
-            <%= mock.logs%>
+            <%= mock.logs %>
           </textarea>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script src="<%- basePathJs %>downloadButtons.js" type="module"></script>
