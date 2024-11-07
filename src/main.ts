@@ -20,7 +20,7 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
-    //   if (process.platform !== 'darwin') 
+    //   if (process.platform !== 'darwin')
     app.quit();
 });
 
@@ -38,7 +38,7 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
 
     // load first page
-    await loadPage('', '');
+    await loadPage('home', '');
 }
 
 const loadPage = async (pageName: string, url: string) => {
