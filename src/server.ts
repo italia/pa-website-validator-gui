@@ -22,7 +22,9 @@ const data = {
   guiVersion: "1.0.0",
   crawlerVersion: '1.0.0',
   currentPage: '',
-  mock: null
+  mock: null,
+  defaultAudits: [],
+  hystoryData:{}
 };
 
 app.get(['/', '/home'], (req, res) => {

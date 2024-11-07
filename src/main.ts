@@ -172,12 +172,11 @@ ipcMain.on('start-node-program', async (event, data) => {
 });
 
 ipcMain.on('start-type', async (event, data) => {
-
-    let urls : Record<string, string>[] | Item[] | undefined = await searchURL(data, 1, 10);
-
+    let urls : string[] | Item[] | undefined = await searchURL(data, 1, 10);
+    
     if(urls?.length){
         urls = urls.map(el => {
-            return {text: el.url}
+            return el.url
         })
     }
 

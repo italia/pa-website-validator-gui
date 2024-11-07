@@ -17,7 +17,6 @@ import { getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues } fro
 interface OptionI {
   text: string;
 }
-let options: OptionI[] = [{text: 'ciao'}];
 
 const setOption = (e: any) => {
   if (INPUT_URL) {
@@ -25,16 +24,18 @@ const setOption = (e: any) => {
     INPUT_URL.dispatchEvent(new Event('input'));
   }
 };
-const setAutocompleteOptions = (opts: OptionI[] = []) => {
+const setAutocompleteOptions = (opts: string[] = []) => {
   if (AUTOCOMPLETE_LIST) {
     // reset list
     AUTOCOMPLETE_LIST.innerHTML = '';
 
-    if (options.length > 0) {
-      opts.forEach((opt: OptionI) => {
+    if (opts.length > 0 && INPUT_URL?.value) {
+      const filteredOptions = [...new Set(opts)].filter(opt=> isValidURL(opt));
+      
+      filteredOptions.forEach((opt: string) => {
         (AUTOCOMPLETE_LIST as any).innerHTML += `
       <li class="autocomplete-option" >
-       <a href="${opt.text}" >${opt.text}</a>
+       <a href="${opt}" >${opt}</a>
       </li>
       `;
       });
@@ -82,7 +83,7 @@ INPUT_URL?.addEventListener('input', (e: any) => {
 });
 /* INPUT & AUTOCOMPLETE LOGICS END */
 
-window.electronAPI?.receive('update-autocomplete-list', (urls : OptionI[]) => {
+window.electronAPI?.receive('update-autocomplete-list', (urls : string[]) => {
   setAutocompleteOptions(urls);
 });
 
