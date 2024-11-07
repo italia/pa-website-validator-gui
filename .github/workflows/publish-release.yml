@@ -12,9 +12,25 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [macos-latest, macos-13, ubuntu-latest, windows-latest]
+        target:
+          - arch: arm64
+            os: mac
+            runner: macos-latest
+            build-type-file: zip
+          - arch: intel
+            os: mac
+            runner: macos-13
+            build-type-file: zip
+          - arch: x64
+            os: linux
+            runner: ubuntu-latest
+            build-type-file: AppImage
+          - arch: x64
+            os: win
+            runner: windows-latest
+            build-type-file: zip
         node-version: [20]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.target.runner }}
 
     steps:
       - name: Check out the repository
@@ -28,17 +44,32 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Snapcraft on Ubuntu
+        if: runner.os == 'Linux' && matrix.target.runner == 'ubuntu-latest'
+        run: |
+          sudo snap install snapcraft --classic
+
       - name: Compile code
-        run: npm run build
+        run: npx electron-builder --${{ matrix.target.os }} --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List files in dist
+        run: ls -l dist/
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          name: Release ${{ github.ref_name }} | App ${{ matrix.os }}
-          tag: ${{ github.ref_name }}
-          body: "Automated release of Electron app"
-          artifacts: "dist/**/*.zip"
-          allowUpdates: true
+          name: Release-${{ github.ref_name }}-App-${{ matrix.target.os }}_${{ matrix.target.arch }}
+          path: dist/**/*.${{ matrix.target.build-type-file }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/**/*.${{ matrix.target.build-type-file }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
