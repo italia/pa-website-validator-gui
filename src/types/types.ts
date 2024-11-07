@@ -1,7 +1,7 @@
 enum Status {
-    PASSED = 'passed',
-    FAILED = 'failed',
-    ERRORED = 'errored',
+    PASSED = 'pass',
+    FAILED = 'fail',
+    ERRORED = 'error',
     PENDING = 'pending'
   }
 

@@ -46,7 +46,20 @@
       <div id="collapse-audits" class="accordion-collapse collapse" role="region" aria-labelledby="heading-audits">
         <div class="accordion-body">
           <form id="auditsForm" class="audits-wrapper">
-            <p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>
+
+            <% if (defaultAudits.length === 0) { %>
+              <p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>
+            <% } else { %>
+              <% defaultAudits.forEach(function(audit) {
+                if(audit.code.length > 0){
+              %>
+                <div class="form-check">
+                  <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
+                  <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+                </div>
+              <% }}); %>
+            <% } %>
+
           </form>
         </div>
       </div>

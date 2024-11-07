@@ -6,7 +6,9 @@ document.querySelectorAll('a[data-page]').forEach((link) => {
             if (event && event.target) {
                 //@ts-ignore
                 const pageName = event.target.getAttribute('data-page');
-                window.electronAPI.send('navigate', pageName);
+                //@ts-ignore
+                const url = event.target.getAttribute('href');
+                window.electronAPI.send('navigate', {pageName: pageName, url: url});
             }
         }
     });
