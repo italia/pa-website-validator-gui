@@ -26,6 +26,15 @@ export class Item {
   @Column({ type: 'simple-array' , nullable:true})
   failedAudits?: string[];
 
+  @Column({ type: 'integer' , nullable:true})
+  failedCount?: number;
+
+  @Column({ type: 'integer' , nullable:true})
+  successCount?: number;
+
+  @Column({ type: 'integer' , nullable:true})
+  errorCount?: number;
+
   @Column({ type: 'json' , nullable:true} )
   args?: Record<string, unknown>;
 }

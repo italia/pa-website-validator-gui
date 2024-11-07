@@ -16,13 +16,12 @@ import { getSettingsFormValues, getAuditsFormValues, getUrlInputFormValues } fro
 /* INPUT & AUTOCOMPLETE LOGICS START */
 interface OptionI {
   text: string;
-  link: string;
 }
-const options: OptionI[] = [
-  { text: 'www.comune.errato.it', link: '#' },
-  { text: 'http://www.comune.it', link: '#' },
-  { text: 'https://scuola.esempio.it', link: '#' },
-];
+
+const options = [{
+  text: 'https://comune.it'
+}]
+
 const setOption = (e: any) => {
   if (INPUT_URL) {
     INPUT_URL.value = e?.target?.innerText || '';
@@ -34,11 +33,12 @@ const setAutocompleteOptions = (opts: OptionI[] = []) => {
     // reset list
     AUTOCOMPLETE_LIST.innerHTML = '';
 
+
     if (options.length > 0) {
       opts.forEach((opt: OptionI) => {
         (AUTOCOMPLETE_LIST as any).innerHTML += `
       <li class="autocomplete-option" >
-       <a href="${opt.link}" >${opt.text}</a>
+       <a href="${opt.text}" >${opt.text}</a>
       </li>
       `;
       });
@@ -113,12 +113,12 @@ URL_FORM?.addEventListener('submit', (e) => {
   if (typeof window.electronAPI?.send === "function")
     window.electronAPI.send('start-node-program', args);
   else {
-    setTimeout(() => { 
-      //? TODO remove browser 
+    setTimeout(() => {
+      //? TODO remove browser
       console.log('SCAN FINISHED');
-      completeProgress();
+      completeProgress('a');
     }, 3000);
-  } 
+  }
 });
 
 function showStep(step: number) {
@@ -155,11 +155,6 @@ function setIsLoading(status: any) {
   }
 }
 
-window.electronAPI?.receive('start-node-program', (event, data) => {
-    console.log('SCAN FINISHED');
-    completeProgress();
-  });
-
 window.electronAPI?.receive('log-update', (data) => {
   if (LOGS_TEXTAREA) {
     (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
@@ -169,10 +164,10 @@ window.electronAPI?.receive('log-update', (data) => {
 /* SCAN WEBSITE FLOW END */
 
 /* REPORT PAGE START */
-window.electronAPI?.receive('scan-finished', () => {
+window.electronAPI?.receive('scan-finished', (id) => {
   setTimeout(() => { //! TODO remove timeout
-    console.log('SCAN FINISHED');
-    completeProgress();
+    console.log('SCAN FINISHED', id);
+    completeProgress(id);
   }, 3000);
 });
 
@@ -184,9 +179,14 @@ window.electronAPI?.receive('open-report', (reportPath) => {
   }
 });
 
-const completeProgress = () => {
+const completeProgress = (id: string) => {
   inScan = false;
   // workaround to navigate programmatically
+  const reportLink : HTMLAnchorElement | null = document.querySelector<HTMLAnchorElement>('[data-page="report"]')
+  if(reportLink){
+    reportLink.href = reportLink.href + `?id=${id}`
+    console.log(reportLink.href);
+  }
   document.querySelector<HTMLAnchorElement>('[data-page="report"]')?.click();
   setIsLoading(false);
 };

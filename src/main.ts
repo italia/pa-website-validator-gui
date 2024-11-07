@@ -1,5 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { getItems, initializeDatabase, insertItem, searchURL, updateItem } from './db.js';
+import {getFolderWithId, getItemById, getItems, initializeDatabase, insertItem, searchURL, updateItem} from './db.js';
 import { ChildProcess, exec } from 'child_process';
 import path from 'path';
 import { createWriteStream , readFileSync, writeFileSync} from 'fs';
@@ -39,10 +39,13 @@ async function createWindow() {
     mainWindow.webContents.openDevTools();
 
     // load first page
-    loadPage('');
+    await loadPage('', '');
 }
 
-const loadPage = (page: string) => {
+const loadPage = async (pageName: string, url: string) => {
+    const queryParam = url.split('id=')[1]
+
+    const item = await getItemById(queryParam ?? '')
 
     const data = {
         crawlerVersion: '1.0.0',
@@ -50,13 +53,20 @@ const loadPage = (page: string) => {
         basePathCss: "public/css/",
         basePathJs: "public/js/",
         currentPage: '',
-        mock: JSON.parse(readFileSync('mock.json', 'utf8'))
+        mock: {
+            "results": {
+                "status": item?.status,
+                "total_audits": (item?.successCount ?? 0) + (item?.failedCount ?? 0) + (item?.errorCount ?? 0),
+                "passed_audits": item?.successCount ? item?.successCount : 0,
+                "failed_audits": item?.failedCount && item?.errorCount ? item?.failedCount + item?.errorCount : item?.failedCount ? item.failedCount: item?.errorCount ? item.errorCount : 0,
+            },
+            "logs": queryParam ? readFileSync( `${getFolderWithId(queryParam)}/logs.txt`, 'utf8') : ''
+        }
     };
 
     const filePath = path.join(__dirname, 'views', `index.ejs`);
 
-    console.log('filepath', filePath)
-    data.currentPage = page;
+    data.currentPage = pageName;
     ejs.renderFile(filePath, data, {}, (err, str) => {
         if (err) {
             console.error("Error rendering EJS:", err);
@@ -75,8 +85,8 @@ const loadPage = (page: string) => {
     })
 }
 
-ipcMain.on('navigate', (event, page) => {
-    loadPage(page);
+ipcMain.on('navigate', async (event, data) => {
+    await loadPage(data.pageName, data.url);
 });
 
 /** flow for 'Avvia scansione' */
@@ -131,7 +141,6 @@ ipcMain.on('start-node-program', async (event, data) => {
         const executionTime = endTime - startTime
 
         event.sender.send('log-update', `Process finished with code ${code}`);
-        event.sender.send('scan-finished', `${code}`);
 
         logStream.write('Execution time: ' + executionTime);
         setTimeout(() => {
@@ -139,10 +148,17 @@ ipcMain.on('start-node-program', async (event, data) => {
         }, 5000)
 
         //get data from jsonReport
-        const {generalResult, failedAudits} = getDataFromJSONReport(`${reportFolder}/report.json`)
+        const {
+            generalResult,
+            failedAudits,
+            successCount,
+            failedCount,
+            errorCount} = getDataFromJSONReport(`${reportFolder}/report.json`);
+
+        event.sender.send('scan-finished', [itemId]);
 
         console.log(failedAudits);
-        updateItem(itemId, executionTime, generalResult, failedAudits);
+        updateItem(itemId, executionTime, generalResult, failedAudits, successCount, failedCount, errorCount);
 
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });
