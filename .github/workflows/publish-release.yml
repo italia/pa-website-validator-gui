@@ -29,9 +29,9 @@ jobs:
         run: npm ci
 
       - name: Update GeoIP database
-         run: npm run updateGeoIPData
-         env:
-           LICENSE_KEY: ${{ secrets.GEOIP_LICENSE_KEY }}
+        run: npm run updateGeoIPData
+        env:
+          LICENSE_KEY: ${{ secrets.GEOIP_LICENSE_KEY }}
 
       - name: Compile code
         run: npm run build
