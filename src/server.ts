@@ -26,7 +26,7 @@ const data = {
 };
 
 app.get(['/', '/home'], (req, res) => {
-  data.currentPage = "";
+  data.currentPage = "home";
   data.mock = JSON.parse(readFileSync('mock.json', 'utf8'));
   res.render('index', data);
 });

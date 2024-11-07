@@ -1,37 +1,45 @@
 @use "variables" as *;
 
-.it-header-center-wrapper .it-header-center-content-wrapper {
-  padding-left: 0;
-  padding-right: 0;
-  align-items: end;
+.it-header-wrapper {
+  background-color: #06c;
 
-  .it-brand-text,
-  .it-brand-title {
-    color: $white;
-    margin-bottom: 0;
-  }
-}
+  .it-nav-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
 
-.it-right-zone {
-  
-  ul {
-    gap: 1.5rem;
-    margin-bottom: 0;
-  }
+    .it-header-center-wrapper {
+      height: auto;
+      min-height: 80px;
 
-  li {
-    list-style-type: none;
+      @media screen and (max-width: 992px) {
+        * {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+      }
 
-    a {
-      display: block;
-      min-width: fit-content;
-      width: 150px;
-      text-align: center;
-      color: $white;
-      text-decoration: none;
+      .it-header-center-content-wrapper {
+        padding-left: 0;
+        padding-right: 0;
 
-      &:hover {
-        text-decoration: underline;
+        .it-brand-text,
+        .it-brand-title {
+          color: $white;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .it-header-navbar-wrapper {
+      @media screen and (max-width: 992px) {
+        right: 12px;
+      }
+
+      .navbar {
+        justify-content: flex-end;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
   }
