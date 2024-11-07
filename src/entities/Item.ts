@@ -12,7 +12,19 @@ export class Item {
   type!: string;
 
   @Column({ type: 'varchar', nullable:true})
+  accuracy!: string;
+
+  @Column({ type: 'varchar', nullable:true})
+  scope!: string;
+
+  @Column({ type: 'integer', nullable:true})
+  timeout!: number;
+
+  @Column({ type: 'varchar', nullable:true})
   url!: string;
+
+  @Column({ type: 'integer', nullable:true})
+  concurrentPages!: number;
 
   @Column({ enum: Status, default: Status.PENDING , nullable:true})
   status?: Status;

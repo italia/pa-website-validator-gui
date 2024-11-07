@@ -19,6 +19,8 @@
     <div id="content" class="container">
       <% if (currentPage === 'home' || currentPage === '') { %>
       <%- include('home') %>
+        <% } else if (currentPage === 'scanning') { %>
+          <%- include('scanning') %>
       <% } else if (currentPage === 'report') { %>
       <%- include('report') %>
       <% } else if (currentPage === 'history') { %>

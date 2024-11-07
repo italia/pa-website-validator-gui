@@ -1,7 +1,7 @@
-import { AuditI } from "../../types/audits.js";
-import { AUDITS_REDO_BTN, AUDITS_REDO_FORM } from "./elements.js";
+import {AUDITS_REDO_BTN, AUDITS_REDO_FORM, REPORT_FRAME} from "./elements.js";
+import {Item} from "../../entities/Item";
 
-const AUDITS_REDO_NAME = 'audits-redo';
+const AUDITS_REDO_NAME = 'audits';
 
 const getCheckedIds = (name: string) => {
   const checkboxes = Array.from(document.querySelectorAll(
@@ -12,34 +12,28 @@ const getCheckedIds = (name: string) => {
     return [...acc, cur.id];
   }, []);
 
-  console.log("checkedIds:", checkedIds);
   return checkedIds;
 };
 
 AUDITS_REDO_BTN?.addEventListener('click', () => {
-  getCheckedIds(AUDITS_REDO_NAME); //TODO
+    document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
+
+  window.electronAPI.send('recover-report', AUDITS_REDO_FORM?.getAttribute('data-report-id'));
 });
 
-const buildAuditsRedoForm = () => {
-  const failedAudits:AuditI[] = [];
+window.electronAPI?.receive('return-report-item', (item : Item) => {
 
-  fetch('https://jsonplaceholder.typicode.com/todos') //TODO
-    .then((response) => response.json())
-    .then((json) => {
-      failedAudits.push(...json.splice(0, 4)); //TODO
+ const args = {
+    type: item.type === 'Comune' ? 'municipality' : 'school',
+   website: item.url,
+   accuracy: item.accuracy,
+   scope: item.scope,
+   timeout: item.timeout,
+   concurrentPages: item.concurrentPages,
+     audits: getCheckedIds(AUDITS_REDO_NAME)
+ }
 
-      if (AUDITS_REDO_FORM) {
-        AUDITS_REDO_FORM.innerHTML = '';
-        failedAudits.forEach(({ id, title }, i) => {
-          (AUDITS_REDO_FORM as any).innerHTML += `
-            <div class="form-check">
-              <input class="form-check-input" id="${AUDITS_REDO_NAME}-${id}" type="checkbox" name="${AUDITS_REDO_NAME}" checked>
-              <label class="form-check-label" for="${AUDITS_REDO_NAME}-${id}">${title}</label>
-            </div>
-          `;
-        });
-      }
-    });
-};
+  window.electronAPI.send('start-node-program', args);
+});
 
 

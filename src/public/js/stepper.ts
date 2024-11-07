@@ -98,7 +98,7 @@ URL_FORM?.addEventListener('submit', (e) => {
 
   console.log('start');
   showStep(2);
-  setIsLoading(true);
+  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
 
   console.log('type', type);
   console.log('website', website);
@@ -149,14 +149,6 @@ function showStep(step: number) {
   }
 }
 
-function setIsLoading(status: any) {
-  if (status) {
-    START_BUTTON && START_BUTTON.setAttribute('disabled', 'true');
-  } else {
-    START_BUTTON && START_BUTTON.removeAttribute('disabled');
-  }
-}
-
 window.electronAPI?.receive('log-update', (data) => {
   if (LOGS_TEXTAREA) {
     (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
@@ -174,7 +166,6 @@ window.electronAPI?.receive('scan-finished', (id) => {
 });
 
 window.electronAPI?.receive('open-report', (reportPath) => {
-  // TODO popolare pagina report correttamente
   if (REPORT_FRAME) {
     (REPORT_FRAME as HTMLIFrameElement).src = reportPath;
     REPORT_FRAME.style.display = 'block';
@@ -190,6 +181,5 @@ const completeProgress = (id: string) => {
     console.log(reportLink.href);
   }
   document.querySelector<HTMLAnchorElement>('[data-page="report"]')?.click();
-  setIsLoading(false);
 };
 /* REPORT PAGE START */

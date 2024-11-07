@@ -130,7 +130,7 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     }
 };
 
-const updateItem = async (id:string, type: string, executionTime: number, score: number, failedAudits: string[], successCount: number, failedCount: number, errorCount: number) => {
+const updateItem = async (id:string, type: string, executionTime: number, score: number, failedAudits: string[], successCount: number, failedCount: number, errorCount: number, accuracy : string, timeout : number, concurrentPages: number, scope: string) => {
     if (!itemRepo) return;
 
     try {
@@ -145,7 +145,7 @@ const updateItem = async (id:string, type: string, executionTime: number, score:
             throw new Error(`Item with id=${id} not found`)
         }
 
-        await itemRepo.update(id, {executionTime : executionTime, type: type, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits, successCount: successCount, errorCount: errorCount, failedCount: failedCount});
+        await itemRepo.update(id, {executionTime : executionTime, type: type, status: score === 1 ? Status.PASSED : score === -1 ? Status.ERRORED : Status.FAILED, failedAudits: failedAudits, successCount: successCount, errorCount: errorCount, failedCount: failedCount, accuracy: accuracy, timeout: timeout, concurrentPages: concurrentPages, scope: scope});
 
         console.log('UPDATED ITEM ID', id)
 

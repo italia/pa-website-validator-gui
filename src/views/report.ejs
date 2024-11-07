@@ -33,7 +33,19 @@
       </h2>
       <div id="accordion-collapse-errors" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-errors">
         <div class="accordion-body p-3">
-          <form id="auditsRedoForm">
+          <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
+
+            <% if(mock.redo_audits && mock.redo_audits.length ){ %>
+            <% mock.redo_audits.forEach(function(audit) {
+            if(audit.code.length > 0){
+            %>
+              <div class="form-check">
+                <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
+                <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+              </div>
+            <% }}); %>
+            <% } %>
+
           </form>
           <button id="auditsRedoBtn" class="btn btn-primary btn-xs mt-3">
             Riavvia scansione
@@ -51,10 +63,12 @@
       <div id="accordion-collapse-logs" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-logs">
         <div class="accordion-body">
           <textarea id="logs" class="font-monospace" readonly>
-            <%= mock.logs%>
+            <%= mock.logs %>
           </textarea>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<a class="visually-hidden" aria-hidden="true" data-page="scanning" href="/scanning">Report</a>

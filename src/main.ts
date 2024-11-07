@@ -44,7 +44,20 @@ async function createWindow() {
 const loadPage = async (pageName: string, url: string) => {
     const queryParam = url?.split('id=')[1]
 
-    const item = await getItemById(queryParam ?? '')
+    const item = await getItemById(queryParam ?? '');
+    const mappedAuditsFailedObject: ({ title: string; code: string; id: string; innerId: string; weight: number; } | undefined)[] = [];
+    if(item?.failedAudits){
+        item.failedAudits.forEach(audit => {
+            let itemFound;
+            if(item.type === 'Comune'){
+                itemFound = municipalityAudits.find(el => el.id === audit);
+            }else{
+                itemFound = schoolAudits.find(el => el.id === audit);
+            }
+
+            mappedAuditsFailedObject.push(itemFound);
+        })
+    }
 
     const data = {
         crawlerVersion: '1.0.0',
@@ -53,12 +66,14 @@ const loadPage = async (pageName: string, url: string) => {
         basePathJs: "public/js/",
         currentPage: '',
         mock: {
+            "id": item?.id,
             "results": {
                 "status": item?.status,
                 "total_audits": (item?.successCount ?? 0) + (item?.failedCount ?? 0) + (item?.errorCount ?? 0),
                 "passed_audits": item?.successCount ? item?.successCount : 0,
                 "failed_audits": item?.failedCount && item?.errorCount ? item?.failedCount + item?.errorCount : item?.failedCount ? item.failedCount: item?.errorCount ? item.errorCount : 0,
             },
+            "redo_audits": mappedAuditsFailedObject && mappedAuditsFailedObject.length ? mappedAuditsFailedObject : [],
             "logs": queryParam ? readFileSync( `${getFolderWithId(queryParam)}/logs.txt`, 'utf8') : ''
         },
         defaultAudits: municipalityAudits,
@@ -73,9 +88,7 @@ const loadPage = async (pageName: string, url: string) => {
     if (pageName == 'history') {
         if(url){
             const queryParam = url?.split('page=')[1];
-            console.log(queryParam, 'query')
             data.historyData  = await getItems(queryParam ? Number(queryParam) : 1,5);
-            console.log(data.historyData);
         }else{
             data.historyData  = await getItems(1,5)
         }
@@ -175,20 +188,18 @@ ipcMain.on('start-node-program', async (event, data) => {
 
         event.sender.send('scan-finished', [itemId]);
 
-        const mappedAuditsFailed : string[] = failedAudits.map(audit => {
-            let itemFound;
+        const mappedAuditsFailedString : string[] = failedAudits.map(audit => {
+            let idFound;
             if(type === 'municipality'){
-                itemFound = municipalityAudits.find(el => el.innerId === audit) ? municipalityAudits.find(el => el.innerId === audit)?.id : '';
+                idFound = municipalityAudits.find(el => el.innerId === audit) ? municipalityAudits.find(el => el.innerId === audit)?.id : '';
             }else{
-                itemFound = schoolAudits.find(el => el.innerId === audit) ? schoolAudits.find(el => el.innerId === audit)?.id : '';
+                idFound = schoolAudits.find(el => el.innerId === audit) ? schoolAudits.find(el => el.innerId === audit)?.id : '';
             }
 
-            return itemFound ?? ''
+            return idFound ?? ''
         })
 
-        console.log(mappedAuditsFailed);
-
-        updateItem(itemId, type === 'municipality' ? 'Comune' : 'Scuola', executionTime, generalResult, mappedAuditsFailed, successCount, failedCount, errorCount);
+        updateItem(itemId, type === 'municipality' ? 'Comune' : 'Scuola', executionTime, generalResult, mappedAuditsFailedString, successCount, failedCount, errorCount, accuracy, timeout, concurrentPages, scope);
 
         event.sender.send('open-report', `${reportFolder}/report.html`);
     });
@@ -204,5 +215,9 @@ ipcMain.on('start-type', async (event, data) => {
     }
 
     event.sender.send('update-autocomplete-list', urls)
+})
 
+ipcMain.on('recover-report', async (event, data) => {
+    const item = await getItemById(data ?? '');
+    event.sender.send('return-report-item', item)
 })
