@@ -1,0 +1,49 @@
+name: Build GUI App
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, macos-13, ubuntu-latest, windows-latest]
+        node-version: [20]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Update GeoIP database
+         run: npm run updateGeoIPData
+         env:
+           LICENSE_KEY: ${{ secrets.GEOIP_LICENSE_KEY }}
+
+      - name: Compile code
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: Release ${{ github.ref_name }} | App ${{ matrix.os }}
+          tag: ${{ github.ref_name }}
+          body: "Automated release of Electron app"
+          artifacts: "dist/**/*.zip"
+          allowUpdates: true

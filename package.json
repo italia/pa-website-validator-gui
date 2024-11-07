@@ -1,6 +1,6 @@
 {
   "name": "pa-website-validator-ng-gui",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
@@ -29,15 +29,5 @@
     "electron": "^32.2.0",
     "electron-builder": "^25.1.7",
     "sass": "^1.80.4"
-  },
-  "build": {
-    "appId": "com.myapp.app",
-    "productName": "MyElectronApp",
-    "win": {
-      "target": [
-        "nsis",
-        "zip"
-      ]
-    }
   }
 }
