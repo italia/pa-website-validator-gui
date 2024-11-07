@@ -1,5 +1,6 @@
 import { AuditI } from "../../types/audits";
 import {SETTINGS_FORM, AUDITS_FORM, URL_FORM, TYPE_SELECT } from './elements.js';
+import {municipalityAudits, schoolAudits} from "../../storage/auditMapping.js";
 
 export const getUrlInputFormValues = () => {
   if (URL_FORM) {
@@ -36,26 +37,30 @@ const audits:AuditI[] = [];
 const getAuditsFromSettings = (e?:Event) => {
   e?.preventDefault();
   const type = TYPE_SELECT?.value;
-  if (type) {
-  // get Audits according to selected settings
-  fetch('https://jsonplaceholder.typicode.com/todos')
-    .then((response) => response.json())
-    .then((json) => {
-      audits.splice(0, audits.length);
-      audits.push(...json.splice(Math.round(Math.random() * 100), 10));
+  let audits: {
+    title: string,
+    code: string,
+    id: string,
+    innerId: string,
+    weight: number
+  }[] = [];
+  if (type == 'municipality') {
+    audits = municipalityAudits;
+  } else {
+    audits = schoolAudits;
+  }
 
-      if (AUDITS_FORM) {
-        AUDITS_FORM.innerHTML = '';
-        audits.forEach((audit, i) => {
-          (AUDITS_FORM as any).innerHTML += `
-            <div class="form-check">
-              <input class="form-check-input" id="audit-${audit.id}" type="checkbox" name="audits" checked>
-              <label class="form-check-label" for="audit-${audit.id}">${audit.title}</label>
-            </div>
-          `;
-        });
-      }
-    }); 
-  } else (AUDITS_FORM as any).innerHTML = '<p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>';
+  if (AUDITS_FORM) {
+    AUDITS_FORM.innerHTML = '';
+    audits.forEach((audit, i) => {
+      if(audit.code.length > 0) {
+        (AUDITS_FORM as any).innerHTML += `
+        <div class="form-check">
+          <input class="form-check-input" id="audit-${audit.id}" type="checkbox" name="audits" checked>
+          <label class="form-check-label" for="audit-${audit.id}">${audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase()}</label>
+        </div>
+      `;
+      }});
+  }
 };
 
