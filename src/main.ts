@@ -40,7 +40,7 @@ async function createWindow() {
     width: 1400,
     height: 1000,
     icon: path.join(__dirname, "icon.png"),
-    title: "App di valutazione",
+    title: "DTD - App di valutazione",
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
       nodeIntegration: true,
