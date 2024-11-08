@@ -143,7 +143,9 @@ ipcMain.on('start-node-program', async (event, data) => {
     const logStream = createWriteStream(logFilePath, { flags: 'a' });
     const startTime = Date.now();
 
-    let command = `node ${__dirname + '/commands/scan'} --type ${type} --destination ${reportFolder} --report report --website ${website} --scope ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} `;
+    let command = `node ${__dirname + '/commands/scan'} --type ${type} --destination "${reportFolder}" --report report --website ${website} --scope ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} `;
+
+    console.log('AAAAAAAAAAA', command);
 
     if (data.audits.length > 0) {
         const selectedAudits = data.audits;

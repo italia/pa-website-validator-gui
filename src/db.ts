@@ -6,10 +6,12 @@ import {Status} from './types/types.js';
 import {accessSync, mkdirSync} from 'fs';
 
 const __dirname = import.meta.dirname;
+const saveDirname = app.getPath('userData');
 
 let dataSource: DataSource | null
 let itemRepo: Repository<Item> | null
-let dbFolder = path.join(__dirname,'..', 'db')
+//TODO
+let dbFolder = path.join(saveDirname, 'db')
 
 async function createFullTextIndex(dataSource: DataSource): Promise<void> {
 
@@ -33,7 +35,7 @@ const initializeDatabase = async () => {
     console.log('INIT DB', path.join(app.getPath('userData'), 'myapp.sqlite'))
     dataSource = new DataSource({
         type: 'sqlite',
-        database: path.join(dbFolder,'database.db'),//path.join(app.getPath('userData'), 'myapp.sqlite'),
+        database: path.join(dbFolder,'database.db'),
         entities: [Item],
         synchronize: true
     });
