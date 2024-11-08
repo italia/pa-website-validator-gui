@@ -98,7 +98,7 @@ URL_FORM?.addEventListener('submit', (e) => {
 
   console.log('start');
   showStep(2);
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
+  //document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
 
   console.log('type', type);
   console.log('website', website);

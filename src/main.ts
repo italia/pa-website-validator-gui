@@ -1,14 +1,16 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import {getFolderWithId, getItemById, getItems, initializeDatabase, insertItem, searchURL, updateItem} from './db.js';
-import { exec } from 'child_process';
+import { fork } from 'child_process';
 import path from 'path';
-import { createWriteStream , readFileSync, writeFileSync} from 'fs';
+import { createWriteStream , readFileSync, writeFileSync } from 'fs';
 import * as ejs from 'ejs';
 import {getDataFromJSONReport} from './utils.js'
 import {municipalityAudits, schoolAudits} from "./storage/auditMapping.js";
 import {Item} from "./entities/Item";
 import fs from "fs";
+
 const __dirname = import.meta.dirname;
+const saveDirname = app.getPath('userData');
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -32,7 +34,7 @@ async function createWindow() {
         webPreferences: {
             preload: path.join(__dirname, "preload.mjs"),
             nodeIntegration: true,
-            contextIsolation: true, // Disabilita l'isolamento del contesto
+            contextIsolation: true,
         }
     });
 
@@ -63,8 +65,8 @@ const loadPage = async (pageName: string, url: string) => {
     const data = {
         crawlerVersion: '1.0.0',
         guiVersion: '1.0.0',
-        basePathCss: "public/css/",
-        basePathJs: "public/js/",
+        basePathCss: path.join(__dirname, 'public/css/'),
+        basePathJs: path.join(__dirname, 'public/js/'),
         currentPage: '',
         mock: {
             "id": item?.id,
@@ -101,12 +103,13 @@ const loadPage = async (pageName: string, url: string) => {
             console.error("Error rendering EJS:", err);
             return;
         }
-        const outputPath = path.join(__dirname, './', 'index.html');
+
+        const outputPathFile = path.join(saveDirname,'index.html');
         try {
-            writeFileSync(outputPath, str)
-            console.log('File HTML generato con successo:', outputPath);
+            writeFileSync(outputPathFile, str)
+            console.log('File HTML generato con successo:', outputPathFile);
             if (mainWindow)
-                mainWindow.loadFile('index.html')
+                mainWindow.loadFile(outputPathFile)
         } catch (err: unknown) {
 
             console.error('Errore nel salvare il file HTML:', err);
@@ -132,7 +135,7 @@ ipcMain.on('start-node-program', async (event, data) => {
 
     console.log(' SEARCH URL ', await searchURL('save'))
 
-    const reportFolder = itemValues?.reportFolder
+    let reportFolder = itemValues?.reportFolder
     const itemId = itemValues?.id
 
     if (!reportFolder || !itemId) {
@@ -143,30 +146,46 @@ ipcMain.on('start-node-program', async (event, data) => {
     const logStream = createWriteStream(logFilePath, { flags: 'a' });
     const startTime = Date.now();
 
-    let command = `node ${__dirname + '/commands/scan'} --type ${type} --destination "${reportFolder}" --report report --website ${website} --scope ${scope} --accuracy ${accuracy} --concurrentPages ${concurrentPages} --timeout ${timeout} `;
-
-    console.log('AAAAAAAAAAA', command);
-
+    let auditsString = ''
     if (data.audits.length > 0) {
         const selectedAudits = data.audits;
         if(type == 'municipality' && selectedAudits.includes('lighthouse')){
             selectedAudits.push('municipality_improvement_plan')
         }
 
-        const auditsString = selectedAudits.join(',');
-        command += `--auditsSubset ${auditsString}`
+        auditsString = selectedAudits.join(',');
     }
 
-    console.log(command);
-    const nodeProcess = exec(command)
+    let folderScript = __dirname;
+    let commandPath = path.join(folderScript, 'commands', 'scan');
+    if (process.env.NODE_ENV !== 'development') {
+        folderScript = process.resourcesPath;
+        commandPath = path.join(folderScript, 'dist','commands', 'scan');
+    }
+
+    const args = [
+        '--type', type,
+        '--destination', reportFolder,
+        '--report', 'report',
+        '--website', website,
+        '--scope', scope,
+        '--accuracy', accuracy,
+        '--concurrentPages', concurrentPages,
+        '--timeout', timeout,
+        '--auditsSubset', auditsString
+    ];
+
+    const nodeProcess = fork(commandPath, args, {
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc']
+    });
 
     nodeProcess.stdout && nodeProcess.stdout.on('data', (data) => {
-        event.sender.send('log-update', data);
+        event.sender.send('log-update', data.toString());
         logStream.write(data.toString());
     });
 
     nodeProcess.stderr && nodeProcess.stderr.on('data', (data) => {
-        event.sender.send('log-update', `${data}`);
+        event.sender.send('log-update', data.toString());
         logStream.write(data.toString());
     });
 

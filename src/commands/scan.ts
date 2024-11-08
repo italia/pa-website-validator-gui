@@ -69,6 +69,7 @@ try {
     await mkdir(args.destination, { recursive: true });
   }
   const subset = args.auditsSubset ? args.auditsSubset.split(",") : undefined;
+  console.log(args.destination);
   await run(
       args.website,
       args.type,

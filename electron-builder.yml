@@ -1,5 +1,5 @@
 appId: com.example.myapp
-productName: "DTD - App di valutazione"
+productName: DTD-AppDiValutazione
 directories:
   output: dist
 win:
@@ -10,4 +10,4 @@ extends: null
 files:
   - dist/**
   - node_modules/**
-extraResources: []
+extraResources: ["dist/commands"]
