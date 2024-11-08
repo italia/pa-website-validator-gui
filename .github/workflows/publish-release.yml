@@ -57,6 +57,10 @@ jobs:
       - name: List files in dist
         run: ls -l dist/
 
+      - name: Remove extended attributes on macOS
+        if: runner.os == 'macOS'
+        run: xattr -rd com.apple.quarantine *.app
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

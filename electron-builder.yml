@@ -6,6 +6,7 @@ win:
   target:
     - nsis
     - zip
+extends: null
 files:
   - dist/**
   - node_modules/**
