@@ -7,7 +7,7 @@
     "start": "export NODE_ENV=development && npm run prepare && electron dist/main.js",
     "start:local": "export NODE_ENV=development && node dist/server.js",
     "build": "rm -rf dist && npm install && npx electron-builder --publish never",
-    "prepare": "npm run build:css && rm -rf dist && tsc && npm run copy-files && mv dist/preload.js dist/preload.mjs",
+    "prepare": "npm run build:css && rm -rf dist && tsc && npm run copy-files && mv dist/preload.js dist/preload.mjs && cp package.json dist/commands",
     "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,js,ttf,woff,woff2,png}\" dist/",
     "build:css": "sass css/style.scss:src/public/css/style.css",
     "lint:check": "eslint --max-warnings 0 ./src",
@@ -28,7 +28,8 @@
     "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.0.8",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20",
-    "yargs": "^17.7.2"
+    "yargs": "^17.7.2",
+    "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

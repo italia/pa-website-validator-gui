@@ -1,14 +1,22 @@
-appId: com.example.myapp
-productName: DTD-AppDiValutazione
 directories:
   output: dist
+  buildResources: resources
+appId: com.example.myapp
+productName: DTD-AppDiValutazione
 win:
   target:
-    - nsis
     - zip
 extends: null
 files:
-  - dist/**
-  - node_modules/**
-extraResources: ["dist/commands"]
-icon: "dist/icon.png"
+  - filter:
+      - dist/**/*
+      - node_modules/**/*
+extraResources:
+  - filter:
+      - dist/commands
+      - node_modules/**/*
+icon: dist/icon.png
+mac:
+  identity: null
+  target:
+    - zip
