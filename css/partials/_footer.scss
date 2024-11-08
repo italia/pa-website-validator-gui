@@ -8,6 +8,10 @@ footer {
   padding: 1rem 0;
   background-color: $bg-dark;
   color: $white;
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 10; // to stay on top of input number spinner
 
   a {
     color: $white;

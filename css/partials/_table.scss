@@ -1,7 +1,7 @@
 @use "variables" as *;
 
 .table-wrapper {
-  max-height: 500px;
+  max-height: calc(100vh - 440px);
   overflow: auto;
 
   .table {

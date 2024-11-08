@@ -1,4 +1,4 @@
-<form id="urlForm" class="form-group pt-4 d-flex align-items-start gap-4">
+<form id="urlForm">
   <div class="select-wrapper">
     <label for="type-select">Tipologia</label>
     <select id="type-select" name="type" required>
@@ -6,18 +6,20 @@
       <option value="school">Scuola</option>
     </select>
   </div>
-  <div class="input-group">
-    <span class="input-group-text"><svg class="icon icon-sm">
-        <use href="#it-search"></use>
-      </svg></span>
-    <label for="inputUrl" class="active">Url sito</label>
-    <input type="search" placeholder="Inserisci l'url del sito che si vuole scansionare" class="form-control autocomplete" id="inputUrl" name="website" required />
-    <ul class="autocomplete-list"></ul>
-    <div class="input-group-append">
-      <button class="btn btn-primary" type="submit" id="startBtn" disabled>
-        Avvia scansione
-      </button>
+  <div class="form-group">
+    <div class="input-group">
+      <span class="input-group-text"><svg class="icon icon-sm">
+          <use href="#it-search"></use>
+        </svg></span>
+      <label for="inputUrl" class="active">Url sito</label>
+      <input type="search" placeholder="Inserisci l'url del sito che si vuole scansionare" class="form-control autocomplete" id="inputUrl" name="website" required />
+      <ul class="autocomplete-list"></ul>
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit" id="startBtn" disabled>
+          Avvia scansione
+        </button>
+      </div>
+      <div class="more-info"></div>
     </div>
-    <div class="more-info"></div>
   </div>
 </form>

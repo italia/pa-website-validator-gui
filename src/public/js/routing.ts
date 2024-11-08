@@ -1,17 +1,14 @@
-document.querySelectorAll('a[data-page]').forEach((link) => {
-    console.log(link, link.getAttribute('href'), link.getAttribute('data-page'))
-    link.addEventListener('click', (event) => {
-        if (typeof window?.electronAPI?.send === "function") {
-            event.preventDefault();
+document.querySelectorAll("a[data-page]").forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (typeof window?.electronAPI?.send === "function") {
+      event.preventDefault();
 
-            if (event && event.target) {
-                //@ts-ignore
-                const pageName = event.target.getAttribute('data-page');
-                //@ts-ignore
-                const url = event.target.getAttribute('href');
+      if (event && event.target) {
+        const pageName = link.getAttribute("data-page");
+        const url = link.getAttribute("href");
 
-                window.electronAPI.send('navigate', {pageName: pageName, url: url});
-            }
-        }
-    });
+        window.electronAPI.send("navigate", { pageName: pageName, url: url });
+      }
+    }
+  });
 });

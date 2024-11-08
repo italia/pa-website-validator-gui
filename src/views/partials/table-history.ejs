@@ -3,10 +3,10 @@
     <thead>
       <tr>
         <th>Tipologia</th>
-        <th>Data</th>
         <th>Url sito</th>
         <th>Durata</th>
         <th>% Successo</th>
+        <th>Data</th>
         <th><span class="visually-hidden">Azioni</span></th>
       </tr>
     </thead>
@@ -14,23 +14,53 @@
       <% items.forEach(item => { %>
       <tr>
         <td><%- item.type %></td>
-        <td><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %></td>
         <td>
           <a href="<%- item.url %>" target="_blank" rel="noopener noreferrer">
             <%- item.url %>
             <span class="visually-hidden"> - apre in una nuova scheda</span>
           </a>
         </td>
-        <td><%- new Date(item.executionTime).toISOString().slice(11,19) %></td>
-        <td><%- (item.successCount / (item.successCount + item.failedCount + item.errorCount))*100 %>%</td>
         <td>
-          <!-- TODO: integrate -->
-          <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary btn-xs" data-page="report" href="/report?id=<%=item.id %>">
-              Visualizza
+          <% if (item.executionTime) { %> <%- new
+          Date(item.executionTime).toISOString().slice(11,19) %> <% } else { %>
+          <span aria-hidden="true">-</span
+          ><span class="visually-hidden">Non definito</span>
+          <% } %>
+        </td>
+        <td>
+          <% if (item.successCount || item.failedCount || item.errorCount) { %>
+          <%- Math.round((item.successCount / (item.successCount +
+          item.failedCount + item.errorCount)) * 100) %>% <% } else { %>
+          <span aria-hidden="true">-</span
+          ><span class="visually-hidden">Non definito</span>
+          <% } %>
+        </td>
+        <td>
+          <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
+          "medium" }).format(new Date(item.date)) %>
+        </td>
+        <td>
+          <div class="d-flex align-items-end gap-2">
+            <a
+              class="icon-link"
+              data-page="report"
+              href="/report?id=<%=item.id %>"
+              title="Pagina di dettaglio"
+            >
+              <svg class="icon">
+                <use href="#it-password-visible"></use>
+              </svg>
+              <span class="visually-hidden">Pagina di dettaglio</span>
             </a>
-            <button class="btn btn-primary btn-xs" data-download="<%=item.id %>">
-              Scarica
+            <button
+              class="icon-link"
+              data-download="<%=item.id %>"
+              title="Scarica record"
+            >
+              <svg class="icon">
+                <use href="#it-download"></use>
+              </svg>
+              <span class="visually-hidden">Scarica record</span>
             </button>
           </div>
         </td>

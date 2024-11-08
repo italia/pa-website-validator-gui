@@ -1,13 +1,26 @@
 <div class="d-flex justify-content-between gap-3 flex-wrap">
   <h2>Report</h2>
   <!-- TODO: integrate -->
-  <button data-download="<%= mock.id %>" class="btn btn-primary btn-lg btn-icon">
+  <button
+    data-download="<%= mock.id %>"
+    class="btn btn-primary btn-lg btn-icon"
+  >
     <svg class="icon icon-white me-1">
       <use href="#it-download"></use>
     </svg>
     <span>Scarica il report</span>
   </button>
 </div>
+
+<p></p>
+<p class="d-flex align-items-center gap-2">
+  <span class="h5 mb-0"><%= mock?.type %>:</span>
+  <a href="<%= mock?.website %>" target="_blank"><%= mock?.website %></a>
+  <span class="mb-0" style="margin-left: auto">
+    Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
+    "short" }).format(new Date(mock.date)) %>
+  </span>
+</p>
 
 <div id="report-container">
   <!--
@@ -20,32 +33,49 @@
   -->
 
   <div class="cards-container d-flex justify-content-between gap-5 mb-2">
-    <%- include('partials/card-pass', { results: mock.results }); %>
-    <%- include('partials/card-stats', { results: mock.results }); %>
+    <%- include('partials/card-pass', { results: mock.results }); %> <%-
+    include('partials/card-stats', { results: mock.results }); %>
   </div>
 
   <div class="accordion">
     <div class="accordion-item">
       <h2 class="accordion-header" id="accordion-header-errors">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-errors" aria-expanded="false" aria-controls="accordion-collapse-errors">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#accordion-collapse-errors"
+          aria-expanded="false"
+          aria-controls="accordion-collapse-errors"
+        >
           Eventuali errori
         </button>
       </h2>
-      <div id="accordion-collapse-errors" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-errors">
+      <div
+        id="accordion-collapse-errors"
+        class="accordion-collapse collapse"
+        role="region"
+        aria-labelledby="accordion-header-errors"
+      >
         <div class="accordion-body p-3">
           <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
-
-            <% if(mock.redo_audits && mock.redo_audits.length ){ %>
-            <% mock.redo_audits.forEach(function(audit) {
-            if(audit.code.length > 0){
-            %>
-              <div class="form-check">
-                <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
-                <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
-              </div>
-            <% }}); %>
-            <% } %>
-
+            <% if(mock.redo_audits && mock.redo_audits.length ){ %> <%
+            mock.redo_audits.forEach(function(audit) { if(audit.code.length >
+            0){ %>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                id="<%= audit.id %>"
+                type="checkbox"
+                name="audits"
+                checked
+              />
+              <label class="form-check-label" for="<%= audit.id %>"
+                ><%= audit.code.toUpperCase() + ' - ' +
+                audit.title.toUpperCase() %></label
+              >
+            </div>
+            <% }}); %> <% } %>
           </form>
           <button id="auditsRedoBtn" class="btn btn-primary btn-xs mt-3">
             Riavvia scansione
@@ -56,11 +86,23 @@
 
     <div class="accordion-item">
       <h2 class="accordion-header" id="accordion-header-logs">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-collapse-logs" aria-expanded="false" aria-controls="accordion-collapse-logs">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#accordion-collapse-logs"
+          aria-expanded="false"
+          aria-controls="accordion-collapse-logs"
+        >
           Consulta il log
         </button>
       </h2>
-      <div id="accordion-collapse-logs" class="accordion-collapse collapse" role="region" aria-labelledby="accordion-header-logs">
+      <div
+        id="accordion-collapse-logs"
+        class="accordion-collapse collapse"
+        role="region"
+        aria-labelledby="accordion-header-logs"
+      >
         <div class="accordion-body">
           <textarea id="logs" class="font-monospace" readonly>
             <%= mock.logs %>
@@ -71,5 +113,11 @@
   </div>
 </div>
 
-<a class="visually-hidden" aria-hidden="true" data-page="scanning" href="/scanning">Report</a>
+<a
+  class="visually-hidden"
+  aria-hidden="true"
+  data-page="scanning"
+  href="/scanning"
+  >Report</a
+>
 <script src="<%- basePathJs %>downloadButtons.js" type="module"></script>

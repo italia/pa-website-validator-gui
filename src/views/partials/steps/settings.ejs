@@ -1,6 +1,6 @@
 <div id="full-settings-container">
   <!-- ALERT SECTION -->
-  <div class="alert alert-primary" role="alert" id="alert-container">
+  <div class="alert alert-primary mb-5" role="alert" id="alert-container">
     <p class="h5">Informazioni generali</p>
     <p>
       Inserire il link che si desidera scansionare e attendere il
@@ -26,11 +26,11 @@
       </h2>
       <div id="collapse-settings" class="accordion-collapse collapse" role="region" aria-labelledby="heading-settings">
         <div class="accordion-body">
-          <form id="settingsForm" class="setting-wrapper">
-            <%- include('../components/select', {label: "Ambito", name: "scope", options: [{label: "Online", value:"online"},{label: "Locale", value:"local"}], checked: "online"});  %>
-            <%- include('../components/select', {label: "Accuratezza", name: "accuracy", options: [{label: "Tutti", value:"all"},{label: "Alto", value:"high"},{label: "Suggeriti", value:"suggested"},{label: "Basso", value:"min"}], checked: "suggested"});  %>
-            <%- include('../components/input-numeric', {label: "Pagine scansionate simultaneamente", defaultValue:10, name: "concurrentPages", step: 1});  %>
-            <%- include('../components/input-numeric', {label: "Timeout (ms)", defaultValue: 30000,name: "timeout", step: 1000});  %>
+          <form id="settingsForm" class="settings-wrapper">
+            <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
+            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Massima", value: "all" }, { label: "Alta", value: "high" }, { label: "Suggerita", value: "suggested" }, { label: "Bassa", value: "min" }], checked: "suggested" }); %>
+            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Inserire un valore compreso tra 1 e 20" }); %>
+            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0 }); %>
           </form>
         </div>
       </div>

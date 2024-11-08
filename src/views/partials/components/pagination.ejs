@@ -1,7 +1,20 @@
-<nav class="pagination-wrapper justify-content-center mt-4" aria-label="Paginazione">
-  <ul id="pagination" class="pagination mb-0" aria-label="Pagina <%- pagination.currentPage %> di <%- pagination.numberOfPages %>">
+<nav
+  class="pagination-wrapper justify-content-center mt-4"
+  aria-label="Paginazione"
+>
+  <ul
+    id="pagination"
+    class="pagination mb-0"
+    aria-label="Pagina <%- pagination.currentPage %> di <%- pagination.numberOfPages %>"
+  >
     <li class="page-item <%- pagination.currentPage === 1 ? 'disabled' : '' %>">
-      <a class="page-link" data-page="history" href="/history?page=<%=pagination.currentPage - 1 %>" tabindex="<%- pagination.currentPage === 1 ? '-1' : '0' %>" aria-hidden="<%- pagination.currentPage === 1 ? 'true' : 'false' %>">
+      <a
+        class="page-link"
+        data-page="history"
+        href="/history?page=<%=pagination.currentPage - 1 %>"
+        tabindex="<%- pagination.currentPage === 1 ? '-1' : '0' %>"
+        aria-hidden="<%- pagination.currentPage === 1 ? 'true' : 'false' %>"
+      >
         <svg class="icon icon-primary">
           <use href="#it-chevron-left"></use>
         </svg>
@@ -9,15 +22,31 @@
       </a>
     </li>
     <li class="page-item">
-      <span class="page-link" aria-current="page" data-current-page="<%- pagination.currentPage %>">
+      <span
+        class="page-link"
+        aria-current="page"
+        data-current-page="<%- pagination.currentPage %>"
+      >
         <%- pagination.currentPage %>
       </span>
     </li>
-    <li class="page-item" aria-hidden="true"><span class="page-link">/</span></li>
+    <li class="page-item" aria-hidden="true">
+      <span class="page-link">/</span>
+    </li>
     <!-- TODO: make last page clickable(?) -->
-    <li class="page-item" aria-hidden="true"><span class="page-link"><%- pagination.numberOfPages %></span></li>
-    <li class="page-item <%- pagination.currentPage === pagination.numberOfPages ? 'disabled' : '' %>">
-      <a class="page-link" data-page="history" href="/history?page=<%=pagination.currentPage + 1 %>" tabindex="<%- pagination.currentPage === pagination.numberOfPages ? '-1' : '0' %>" aria-hidden="<%- pagination.currentPage === pagination.numberOfPages ? 'true' : 'false' %>">
+    <li class="page-item" aria-hidden="true">
+      <span class="page-link"><%- pagination.numberOfPages %></span>
+    </li>
+    <li
+      class="page-item <%- pagination.currentPage === pagination.numberOfPages ? 'disabled' : '' %>"
+    >
+      <a
+        class="page-link"
+        data-page="history"
+        href="/history?page=<%=pagination.currentPage + 1 %>"
+        tabindex="<%- pagination.currentPage === pagination.numberOfPages ? '-1' : '0' %>"
+        aria-hidden="<%- pagination.currentPage === pagination.numberOfPages ? 'true' : 'false' %>"
+      >
         <svg class="icon icon-primary">
           <use href="#it-chevron-right"></use>
         </svg>
@@ -25,12 +54,11 @@
       </a>
     </li>
   </ul>
-  <!-- TODO: integrate -->
-  <div class="form-group mb-0">
+  <!-- <div class="form-group mb-0">
     <input type="text" class="form-control" id="jumpToPage">
     <label for="jumpToPage">
       <span aria-hidden="true">Vai a ...</span>
       <span class="visually-hidden">Indica la pagina desiderata</span>
     </label>
-  </div>
+  </div> -->
 </nav>

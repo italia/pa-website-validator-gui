@@ -11,3 +11,5 @@ files:
   - dist/**
   - node_modules/**
 extraResources: ["dist/commands"]
+icon: "dist/icon.png"
+

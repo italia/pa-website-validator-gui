@@ -1,8 +1,11 @@
-<div class="select-wrapper">
-  <label for="<%= label %>-select"><%= label %></label>
-  <select id="<%= name %>-select" name="<%= name %>">
+<div class="form-group select-wrapper">
+  <label for="<%= name %>-select"><%= label %></label>
+  <select id="<%= name %>-select" name="<%= name %>" aria-describedby="<%= name %>-desc">
     <% options.forEach((opt, i) => { %>
-    <option <%= checked === opt.value ? "selected":"" %> value="<%= opt.value %>"><%= opt.label %></option>
+      <option <%= checked === opt.value ? "selected" : "" %> value="<%= opt.value %>"><%= opt.label %></option>
     <% }); %>
   </select>
+  <% if (locals.description) { %>
+    <small id="<%= name %>-desc" class="form-text"><%= description %></small>
+  <% } %>
 </div>

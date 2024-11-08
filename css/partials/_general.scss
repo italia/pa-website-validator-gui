@@ -36,3 +36,17 @@ body {
   background-color: $border-color;
   margin-bottom: 1rem;
 }
+
+.icon-link {
+  background: transparent;
+  border: none;
+  padding-inline: 0;
+
+  svg {
+    fill: $primary;
+  }
+
+  &:hover svg {
+    fill: #0053a5;
+  }
+}

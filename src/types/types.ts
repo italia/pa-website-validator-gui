@@ -1,9 +1,8 @@
 enum Status {
-    PASSED = 'ok',
-    FAILED = 'ko',
-    ERRORED = 'error',
-    PENDING = 'pending'
-  }
+  PASSED = "ok",
+  FAILED = "ko",
+  ERRORED = "error",
+  PENDING = "pending",
+}
 
-  
-  export {Status}
+export { Status };
