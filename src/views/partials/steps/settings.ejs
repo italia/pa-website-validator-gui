@@ -16,7 +16,7 @@
     </p>
   </div>
 
-  <div class="accordion" id="collapseExample">
+  <div class="accordion" id="accordion-container">
     <!-- SETTINGS -->
     <div class="accordion-item" id="settings-container">
       <h2 class="accordion-header " id="heading-settings">
@@ -24,7 +24,7 @@
           Impostazioni avanzate
         </button>
       </h2>
-      <div id="collapse-settings" class="accordion-collapse collapse" role="region" aria-labelledby="heading-settings">
+      <div id="collapse-settings" class="accordion-collapse collapse" data-bs-parent="#accordion-container" role="region" aria-labelledby="heading-settings">
         <div class="accordion-body">
           <form id="settingsForm" class="settings-wrapper">
             <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
@@ -43,7 +43,7 @@
           Audits
         </button>
       </h2>
-      <div id="collapse-audits" class="accordion-collapse collapse" role="region" aria-labelledby="heading-audits">
+      <div id="collapse-audits" class="accordion-collapse collapse" data-bs-parent="#accordion-container" role="region" aria-labelledby="heading-audits">
         <div class="accordion-body">
           <form id="auditsForm" class="audits-wrapper">
 
