@@ -227,6 +227,11 @@ ipcMain.on("start-node-program", async (event, data) => {
   });
 
   if (nodeProcess.stdout) {
+    // update input form with current website & disable form
+    nodeProcess.stdout.once("data", () => {
+      event.sender.send("input-form-update", {type, website});
+    });
+
     nodeProcess.stdout.on("data", (data) => {
       event.sender.send("log-update", data.toString());
       logStream.write(data.toString());
