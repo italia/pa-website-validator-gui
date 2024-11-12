@@ -14,7 +14,8 @@
     "lint:fix": "eslint --fix ./src",
     "type:check": "tsc --noEmit",
     "format:check": "prettier -c .",
-    "format:write": "prettier --write ."
+    "format:write": "prettier --write .",
+    "updateGeoIPData": "npm explore geoip-lite -- npm run updatedb"
   },
   "author": "",
   "license": "ISC",
