@@ -17,9 +17,9 @@
     "format:write": "prettier --write .",
     "updateGeoIPData": "npm explore geoip-lite -- npm run updatedb"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "author": "Presidenza del Consiglio dei Ministri",
+  "license": "BSD-3-Clause",
+  "description": "Applicativo desktop a supporto degli sviluppatori che aiuta a valutare la qualità dei siti istituzionali di Comuni e scuole.",
   "dependencies": {
     "@types/express": "^5.0.0",
     "copyfiles": "^2.4.1",

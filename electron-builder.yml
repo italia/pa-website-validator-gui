@@ -1,7 +1,7 @@
 directories:
   output: dist
   buildResources: resources
-appId: com.example.myapp
+appId: it.dtd.appdivalitazione
 productName: DTD-AppDiValutazione
 win:
   target:
@@ -15,7 +15,7 @@ extraResources:
   - filter:
       - dist/commands
       - node_modules/**/*
-icon: dist/icon.png
+icon: dist/public/images/RoundedIcon.png
 mac:
   identity: null
   target:
