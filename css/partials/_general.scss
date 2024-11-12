@@ -12,6 +12,11 @@ body {
   }
 }
 
+/* Disable user text-selection on the whole app */
+body {
+  user-select: none;
+}
+
 /* TEXTS */
 .uppercase {
   text-transform: uppercase;
@@ -48,5 +53,14 @@ body {
 
   &:hover svg {
     fill: #0053a5;
+  }
+
+  &:disabled, 
+  &.link-disabled {
+    cursor: not-allowed;
+
+    svg {
+      fill: $secondary;
+    }
   }
 }

@@ -1,26 +1,53 @@
-<div class="d-flex justify-content-between gap-3 flex-wrap">
-  <h2>Report</h2>
-  <!-- TODO: integrate -->
-  <button
-    data-download="<%= mock.id %>"
-    class="btn btn-primary btn-lg btn-icon"
-  >
-    <svg class="icon icon-white me-1">
-      <use href="#it-download"></use>
-    </svg>
-    <span>Scarica il report</span>
-  </button>
+<div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3 mb-lg-0">
+  <h2 class="mb-0">Report</h2>
+  <div class="d-flex gap-3">
+    <a class="btn btn-outline-primary btn-lg w-100 text-nowrap" href="<%=mock.urlReport%>" target="_blank">
+      <svg class="icon icon-primary me-1">
+        <use href="#it-password-visible"></use>
+      </svg>
+      <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
+    </a>
+    <button
+      data-download="<%= mock.id %>"
+      class="btn btn-primary btn-lg w-100 text-nowrap"
+    >
+      <svg class="icon icon-white me-1">
+        <use href="#it-download"></use>
+      </svg>
+      <span>Scarica il report</span>
+    </button>
+  </div>
 </div>
 
-<p></p>
-<p class="d-flex align-items-baseline gap-2">
-  <span class="h5 mb-0"><%= mock?.type %>:</span>
-  <%= mock?.website %>
-  <span class="mb-0" style="margin-left: auto">
-    Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
-    "short" }).format(new Date(mock.date)) %>
-  </span>
-</p>
+<div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
+  <div class="d-flex align-items-center gap-3">
+    <svg class="icon icon-xl" alt="<%= mock?.type %>">
+      <use href="<%= mock?.type === 'Scuola' ? '#it-scuole' : '#it-comuni' %>"></use>
+    </svg>
+    <span class="h4 mb-0"><%= mock?.website %></span>
+  </div>
+
+  <div class="d-flex flex-lg-column justify-content-end text-end">
+    <small>
+      Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
+      "short" }).format(new Date(mock.date)) %>
+    </small>
+    <small class="ms-auto">
+      Accuratezza:
+      <%-
+        mock.accuracy === 'all'
+        ? 'Massima (Tutte le pagine)'
+        : mock.accuracy === 'high'
+        ? 'Alta (10 pagine)'
+        : mock.accuracy === 'suggested'
+        ? 'Suggerita (5 pagine)'
+        : mock.accuracy === 'min'
+        ? 'Bassa (1 pagina)'
+        : 'Non definita'
+      %>
+    </small>
+  </div>
+</div>
 
 <div id="report-container">
   <!--
@@ -33,8 +60,35 @@
   -->
 
   <div class="cards-container d-flex justify-content-between gap-5 mb-2">
-    <%- include('partials/card-pass', { results: mock.results }); %> <%-
-    include('partials/card-stats', { results: mock.results }); %>
+    <%- include('partials/card-pass', { results: mock.results }); %>
+    <%- include('partials/card-stats', { results: mock.results }); %>
+  </div>
+
+  <div class="legend">
+    <b>Legenda:</b>
+    <div class="legend-item">
+      <div class="circle pass">
+      </div>
+      <p>Criterio superato</p>
+    </div>
+    <div class="legend-item">
+      <div class="circle fail">
+      </div>
+      <p>Criterio fallito</p>
+    </div>
+    <div class="legend-item">
+      <div class="circle error">
+        x
+      </div>
+      <p>Criterio in errore</p>
+    </div>
+
+    <div class="legend-item">
+      <div class="circle undone">
+        x
+      </div>
+      <p>Criterio non eseguito</p>
+    </div>
   </div>
 
   <div class="accordion" id="accordion-container">
@@ -48,7 +102,7 @@
           aria-expanded="false"
           aria-controls="accordion-collapse-errors"
         >
-          Eventuali errori
+          Criteri di valutazione
         </button>
       </h2>
       <div
@@ -64,6 +118,12 @@
             mock.redo_audits.forEach(function(audit) { if(audit.code.length >
             0){ %>
             <div class="form-check">
+              <div class="circle <%= audit.status %>">
+                <%if (audit.status === 'undone' || audit.status === 'error') { %>
+                  x
+                <%}%>
+              </div>
+              <%if (audit.status === 'fail' || audit.status === 'error') { %>
               <input
                 class="form-check-input"
                 id="<%= audit.id %>"
@@ -71,6 +131,15 @@
                 name="audits"
                 checked
               />
+                <%} else {%>
+                  <input
+                          class="form-check-input"
+                          id="<%= audit.id %>"
+                          type="checkbox"
+                          name="audits"
+                  />
+                <%}%>
+
               <label class="form-check-label" for="<%= audit.id %>"
                 ><%= audit.code.toUpperCase() + ' - ' +
                 audit.title.toUpperCase() %></label

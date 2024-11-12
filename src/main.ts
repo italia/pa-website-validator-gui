@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow, ipcMain, dialog, Menu, MenuItem } from "electron";
 import {
   deleteItem,
   getFolderWithId,
@@ -13,7 +13,7 @@ import { fork } from "child_process";
 import path from "path";
 import { createWriteStream, readFileSync, writeFileSync } from "fs";
 import * as ejs from "ejs";
-import { getDataFromJSONReport } from "./utils.js";
+import { getDataFromJSONReport, cleanConsoleOutput, AuditI } from "./utils.js";
 import { municipalityAudits, schoolAudits } from "./storage/auditMapping.js";
 import { Item } from "./entities/Item";
 import fs from "fs";
@@ -38,17 +38,48 @@ app.on("window-all-closed", () => {
 
 async function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1400,
+    width: 1200,
+    minWidth: 600,
     height: 1000,
+    minHeight: 600,
     icon: path.join(__dirname, "icon.png"),
     title: "DTD - App di valutazione",
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs"),
       nodeIntegration: true,
       contextIsolation: true,
+      zoomFactor: 1,
     },
   });
 
+  mainWindow.webContents.on("before-input-event", (event, input) => {
+    if (
+      (input.control || input.meta) &&
+      (input.key === "+" || input.key === "-" || input.key === "0")
+    ) {
+      event.preventDefault();
+    }
+  });
+
+  const defaultMenu = Menu.getApplicationMenu();
+  if (!defaultMenu) return;
+
+  const modifiedMenuTemplate: MenuItem[] = defaultMenu.items.map((item) => {
+    if (item.submenu) {
+      const modifiedSubmenu = item.submenu.items.filter((subItem) => {
+        return !["zoomin", "zoomout", "resetzoom", "toggledevtools"].includes(
+          subItem.role as string,
+        );
+      });
+      return { ...item, submenu: Menu.buildFromTemplate(modifiedSubmenu) };
+    }
+    return item;
+  });
+
+  const modifiedMenu = Menu.buildFromTemplate(modifiedMenuTemplate);
+  Menu.setApplicationMenu(modifiedMenu);
+
+  //To remove comment only for development reason
   //mainWindow.webContents.openDevTools();
 
   // load first page
@@ -61,24 +92,32 @@ const loadPage = async (pageName: string, url: string) => {
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
-        title: string;
-        code: string;
-        id: string;
-        innerId: string;
-        weight: number;
+        title: string | undefined;
+        code: string | undefined;
+        id: string | undefined;
+        innerId: string | undefined;
+        weight: number | undefined;
+        status: string | undefined;
       }
     | undefined
   )[] = [];
+
   if (item?.failedAudits) {
-    item.failedAudits.forEach((audit) => {
+    JSON.parse(item.failedAudits).forEach((audit: AuditI) => {
       let itemFound;
       if (item.type === "Comune") {
-        itemFound = municipalityAudits.find((el) => el.id === audit);
+        itemFound = municipalityAudits.find(
+          (el) => el.id === audit?.text || el.innerId === audit?.text,
+        );
       } else {
-        itemFound = schoolAudits.find((el) => el.id === audit);
+        itemFound = schoolAudits.find(
+          (el) => el.id === audit?.text || el.innerId === audit?.text,
+        );
       }
 
-      mappedAuditsFailedObject.push(itemFound);
+      mappedAuditsFailedObject.push(
+        itemFound ? { ...itemFound, status: audit?.status } : undefined,
+      );
     });
   }
 
@@ -90,9 +129,11 @@ const loadPage = async (pageName: string, url: string) => {
     basePathImages: path.join(__dirname, "public/images/"),
     currentPage: "",
     mock: {
+      urlReport: queryParam ? `${getFolderWithId(queryParam)}/report.html` : "",
       id: item?.id,
       date: item?.date,
       type: item?.type,
+      accuracy: item?.accuracy,
       website: item?.url,
       results: {
         status: item?.status,
@@ -197,7 +238,7 @@ ipcMain.on("start-node-program", async (event, data) => {
 
   let folderScript = __dirname;
   let commandPath = path.join(folderScript, "commands", "scan");
-  if (process.env.NODE_ENV !== "development") {
+  if (process.env.NODE_ENV?.toString().trim() !== "development") {
     folderScript = process.resourcesPath;
     commandPath = path.join(folderScript, "dist", "commands", "scan");
   }
@@ -234,15 +275,17 @@ ipcMain.on("start-node-program", async (event, data) => {
     });
 
     nodeProcess.stdout.on("data", (data) => {
-      event.sender.send("log-update", data.toString());
-      logStream.write(data.toString());
+      const logString = cleanConsoleOutput(data.toString());
+      event.sender.send("log-update", logString);
+      logStream.write(logString);
     });
   }
 
   if (nodeProcess.stderr) {
     nodeProcess.stderr.on("data", (data) => {
-      event.sender.send("log-update", data.toString());
-      logStream.write(data.toString());
+      const logString = cleanConsoleOutput(data.toString());
+      event.sender.send("log-update", logString);
+      logStream.write(logString);
     });
   }
 
@@ -268,19 +311,23 @@ ipcMain.on("start-node-program", async (event, data) => {
 
     event.sender.send("scan-finished", [itemId]);
 
-    const mappedAuditsFailedString: string[] = failedAudits.map((audit) => {
-      let idFound;
-      if (type === "municipality") {
-        idFound = municipalityAudits.find((el) => el.innerId === audit)
-          ? municipalityAudits.find((el) => el.innerId === audit)?.id
-          : "";
+    const referenceArray =
+      type === "municipality" ? municipalityAudits : schoolAudits;
+    const mappedAudit: (AuditI | undefined)[] = referenceArray.map((item) => {
+      if (
+        failedAudits.find(
+          (el) => el.text === item.innerId || el.text === item.id,
+        )
+      ) {
+        return failedAudits.find(
+          (el) => el.text === item.innerId || el.text === item.id,
+        );
       } else {
-        idFound = schoolAudits.find((el) => el.innerId === audit)
-          ? schoolAudits.find((el) => el.innerId === audit)?.id
-          : "";
+        return {
+          text: item.id,
+          status: "undone",
+        };
       }
-
-      return idFound ?? "";
     });
 
     updateItem(
@@ -288,7 +335,7 @@ ipcMain.on("start-node-program", async (event, data) => {
       type === "municipality" ? "Comune" : "Scuola",
       executionTime,
       generalResult,
-      mappedAuditsFailedString,
+      JSON.stringify(mappedAudit),
       successCount,
       failedCount,
       errorCount,
@@ -325,7 +372,7 @@ ipcMain.on("download-report", async (event, data) => {
     return;
   }
 
-  const filePath = getFolderWithId(item.id) + "/report.html";
+  const filePath = getFolderWithId(item.id) + `/report_${item.url.toString().replace('https://', '').replace('/', '')}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
 
   const { filePath: savePath } = await dialog.showSaveDialog({
     defaultPath: path.basename(filePath),
@@ -341,6 +388,16 @@ ipcMain.on("download-report", async (event, data) => {
     });
   }
 });
+
+ipcMain.on("get-report-path", async (event, data) => {
+  if (!data.reportId) {
+    return;
+  }
+
+  const filePath = getFolderWithId(data.reportId) + "/report.html";
+  event.sender.send("open-html-report", filePath);
+});
+
 ipcMain.on("delete-record", async (event, data) => {
   if (!data["reportId"]) {
     return;

@@ -42,7 +42,7 @@ export class Item {
   auditsExecuted?: string[];
 
   @Column({ type: "simple-array", nullable: true })
-  failedAudits?: string[];
+  failedAudits?: string;
 
   @Column({ type: "integer", nullable: true })
   failedCount?: number;

@@ -7,7 +7,7 @@
         <th>Durata</th>
         <th>% Successo</th>
         <th>Data</th>
-        <th><span class="visually-hidden">Azioni</span></th>
+        <th style="width: 0" ><span class="visually-hidden">Azioni</span></th>
       </tr>
     </thead>
     <tbody>
@@ -21,16 +21,14 @@
         <td>
           <% if (item.executionTime) { %> <%- new
           Date(item.executionTime).toISOString().slice(11,19) %> <% } else { %>
-          <span aria-hidden="true">-</span
-          ><span class="visually-hidden">Non definito</span>
+          <span aria-hidden="true">-</span><span class="visually-hidden">Non definito</span>
           <% } %>
         </td>
         <td>
           <% if (item.successCount || item.failedCount || item.errorCount) { %>
           <%- Math.round((item.successCount / (item.successCount +
           item.failedCount + item.errorCount)) * 100) %>% <% } else { %>
-          <span aria-hidden="true">-</span
-          ><span class="visually-hidden">Non definito</span>
+          <span aria-hidden="true">Errore</span><span class="visually-hidden">Non definito</span>
           <% } %>
         </td>
         <td>
@@ -39,35 +37,25 @@
         </td>
         <td>
           <div class="d-flex align-items-end gap-2">
-            <a
-              class="icon-link"
-              data-page="report"
-              href="/report?id=<%=item.id %>"
-              title="Pagina di dettaglio"
-            >
+            <a class="<%= item?.status === "pending" ? "icon-link link-disabled":"icon-link" %>" data-page="report" href="<%= (item?.status === "pending")? "": "/report?id="+item.id %>" title="Pagina di dettaglio">
               <svg class="icon">
-                <use href="#it-password-visible"></use>
+                <use href="#it-note"></use>
               </svg>
               <span class="visually-hidden">Pagina di dettaglio</span>
             </a>
-            <button
-              class="icon-link"
-              data-download="<%=item.id %>"
-              title="Scarica report"
-            >
+            <button class="icon-link" data-open-report="<%=item.id %>" title="Vedi dettaglio in una nuova scheda" <%= (item?.status === "pending")? "disabled":"" %>>
+              <svg class="icon">
+                <use href="#it-password-visible"></use>
+              </svg>
+              <span class="visually-hidden">Vedi dettaglio in una nuova scheda</span>
+            </button>
+            <button class="icon-link" data-download="<%=item.id %>" title="Scarica report" <%= (item?.status === "pending")? "disabled":"" %>>
               <svg class="icon">
                 <use href="#it-download"></use>
               </svg>
               <span class="visually-hidden">Scarica report</span>
             </button>
-            <button
-              class="icon-link"
-              data-delete="<%=item.id %>"
-              title="Elimina report"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-confirm-delete"
-              aria-haspopup="dialog"
-            >
+            <button class="icon-link" data-delete="<%=item.id %>" title="Elimina report" data-bs-toggle="modal" data-bs-target="#modal-confirm-delete" aria-haspopup="dialog">
               <svg class="icon">
                 <use href="#it-delete"></use>
               </svg>

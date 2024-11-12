@@ -1,8 +1,13 @@
 @use "variables" as *;
 
 .table-wrapper {
-  max-height: calc(100vh - 440px);
+  height: calc(100vh - 440px);
   overflow: auto;
+  contain: paint;
+
+  @media screen and (max-width: 992px) {
+    height: calc(100vh - 370px);
+  }
 
   .table {
     border-collapse: separate;

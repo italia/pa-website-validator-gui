@@ -149,7 +149,7 @@ const updateItem = async (
   type: string,
   executionTime: number,
   score: number,
-  failedAudits: string[],
+  failedAudits: string,
   successCount: number,
   failedCount: number,
   errorCount: number,
