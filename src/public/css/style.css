@@ -347,6 +347,9 @@ form .select-wrapper select {
 form .input-group input {
   color: #1a1a1a;
 }
+form .form-text {
+  display: block;
+}
 
 /* Keep footer at bottom */
 body {
@@ -535,7 +538,8 @@ textarea {
   display: block;
 }
 
-select {
+select,
+::-webkit-search-cancel-button {
   cursor: pointer;
 }
 

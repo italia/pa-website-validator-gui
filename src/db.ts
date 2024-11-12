@@ -199,6 +199,21 @@ const updateItem = async (
   }
 };
 
+const deleteItem = async (id: string) => {
+  if (!itemRepo) return;
+
+  try {
+    await itemRepo.delete(id);
+
+    console.log("DELETED ITEM ID", id);
+
+    return;
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    throw error;
+  }
+};
+
 const searchURL = async (searchText: string, page = 1, pageSize = 10) => {
   if (!itemRepo) return;
 
@@ -240,7 +255,6 @@ const createFolderWithId = (id: string): string | null => {
 };
 
 const getFolderWithId = (id: string): string | null => {
-  // Create the full path for the new folder
   const folderPath = path.join(dbFolder, "reports", id);
 
   console.log("DIRNAME", __dirname);
@@ -248,9 +262,6 @@ const getFolderWithId = (id: string): string | null => {
   const absoluteFolderPath = path.resolve(folderPath);
 
   console.log("CREATE INTO", absoluteFolderPath);
-
-  // Check if the folder already exists
-  //await accessSync(folderPath)
 
   try {
     accessSync(absoluteFolderPath);
@@ -269,4 +280,5 @@ export {
   updateItem,
   getItemById,
   getFolderWithId,
+  deleteItem,
 };

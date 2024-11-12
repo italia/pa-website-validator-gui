@@ -15,10 +15,8 @@
       <tr>
         <td><%- item.type %></td>
         <td>
-          <a href="<%- item.url %>" target="_blank" rel="noopener noreferrer">
-            <%- item.url %>
-            <span class="visually-hidden"> - apre in una nuova scheda</span>
-          </a>
+          <%- item.url %>
+          <span class="visually-hidden"> - apre in una nuova scheda</span>
         </td>
         <td>
           <% if (item.executionTime) { %> <%- new
@@ -55,12 +53,25 @@
             <button
               class="icon-link"
               data-download="<%=item.id %>"
-              title="Scarica record"
+              title="Scarica report"
             >
               <svg class="icon">
                 <use href="#it-download"></use>
               </svg>
-              <span class="visually-hidden">Scarica record</span>
+              <span class="visually-hidden">Scarica report</span>
+            </button>
+            <button
+              class="icon-link"
+              data-delete="<%=item.id %>"
+              title="Elimina report"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-confirm-delete"
+              aria-haspopup="dialog"
+            >
+              <svg class="icon">
+                <use href="#it-delete"></use>
+              </svg>
+              <span class="visually-hidden">Elimina report</span>
             </button>
           </div>
         </td>

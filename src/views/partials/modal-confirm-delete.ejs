@@ -1,0 +1,24 @@
+<div class="it-example-modal">
+  <div class="modal fade alert-modal" tabindex="-1" role="dialog" id="modal-confirm-delete" aria-labelledby="modal-confirm-delete-title" aria-describedby="modal-confirm-delete-description">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <svg class="icon icon-danger"><use href="#it-warning-circle"></use></svg>
+          <h2 class="modal-title h5" id="modal-confirm-delete-title">Eliminare il report?</h2>
+        </div>
+        <div class="modal-body">
+          <p id="modal-confirm-delete-description">L'eliminazione non è reversibile.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-primary btn-sm" type="button" data-bs-dismiss="modal">Annulla</button>
+          <button id="delete-record" data-bs-dismiss="modal" class="btn btn-danger btn-sm btn-icon" type="button" aria-label="Elimina report">
+            <svg class="icon icon-white me-1">
+              <use href="#it-delete"></use>
+            </svg>
+            <span>Elimina</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

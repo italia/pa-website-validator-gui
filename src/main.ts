@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
 import {
+  deleteItem,
   getFolderWithId,
   getItemById,
   getItems,
@@ -227,6 +228,11 @@ ipcMain.on("start-node-program", async (event, data) => {
   });
 
   if (nodeProcess.stdout) {
+    // update input form with current website & disable form
+    nodeProcess.stdout.once("data", () => {
+      event.sender.send("input-form-update", { type, website });
+    });
+
     nodeProcess.stdout.on("data", (data) => {
       event.sender.send("log-update", data.toString());
       logStream.write(data.toString());
@@ -334,4 +340,28 @@ ipcMain.on("download-report", async (event, data) => {
       }
     });
   }
+});
+ipcMain.on("delete-record", async (event, data) => {
+  if (!data["reportId"]) {
+    return;
+  }
+  await deleteItem(data["reportId"]);
+
+  if (getFolderWithId(data["reportId"])) {
+    fs.rm(
+      getFolderWithId(data["reportId"]) ?? "",
+      { recursive: true, force: true },
+      (err) => {
+        if (err) {
+          throw err;
+        }
+
+        console.log(`Folder eliminata!`);
+
+        loadPage("history", "");
+      },
+    );
+  }
+
+  return;
 });

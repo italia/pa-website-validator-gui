@@ -3,6 +3,7 @@ textarea {
   display: block;
 }
 
-select {
+select,
+::-webkit-search-cancel-button {
   cursor: pointer;
 }

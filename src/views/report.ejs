@@ -13,9 +13,9 @@
 </div>
 
 <p></p>
-<p class="d-flex align-items-center gap-2">
+<p class="d-flex align-items-baseline gap-2">
   <span class="h5 mb-0"><%= mock?.type %>:</span>
-  <a href="<%= mock?.website %>" target="_blank"><%= mock?.website %></a>
+  <%= mock?.website %>
   <span class="mb-0" style="margin-left: auto">
     Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
     "short" }).format(new Date(mock.date)) %>

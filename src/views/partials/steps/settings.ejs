@@ -12,7 +12,9 @@
       a Report per poter essere consultato
     </p>
     <p>
-      <a href="#" target="_blank">Documentazione delle App di valutazione</a>
+      <a href="https://docs.italia.it/italia/designers-italia/app-valutazione-modelli-docs/it/versione-attuale/index.html" target="_blank">
+        Documentazione delle App di valutazione <span class="visually-hidden"> - apre in una nuova scheda</span>
+      </a>
     </p>
   </div>
 
@@ -28,9 +30,9 @@
         <div class="accordion-body">
           <form id="settingsForm" class="settings-wrapper">
             <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
-            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Massima", value: "all" }, { label: "Alta", value: "high" }, { label: "Suggerita", value: "suggested" }, { label: "Bassa", value: "min" }], checked: "suggested" }); %>
-            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Inserire un valore compreso tra 1 e 20" }); %>
-            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0 }); %>
+            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Massima (Tutte le pagine)", value: "all" }, { label: "Alta (10 pagine)", value: "high" }, { label: "Suggerita (5 pagine)", value: "suggested" }, { label: "Bassa (1 pagina)", value: "min" }], checked: "suggested", description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Massima' per superare il controllo di asseverazione." }); %>
+            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Inserire un valore compreso tra 1 e 20." }); %>
+            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0, description: "Inserire il tempo massimo di timeout per il caricamento delle pagine in millisecondi." }); %>
           </form>
         </div>
       </div>

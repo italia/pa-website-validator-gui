@@ -157,6 +157,10 @@ window.electronAPI?.receive("open-report", (reportPath) => {
   }
 });
 
+window.electronAPI?.receive("reload-history", () => {
+  //location.reload();
+});
+
 const completeProgress = (id: string) => {
   // workaround to navigate programmatically
   const reportLink: HTMLAnchorElement | null =
