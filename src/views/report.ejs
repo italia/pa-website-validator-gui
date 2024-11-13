@@ -6,19 +6,23 @@
     <span class="h4 mb-0"><%= mock?.website %></span>
   </div>
   <div class="d-flex gap-3 align-items-center">
-    <button class="btn btn-outline-primary btn-xs w-100 text-nowrap <%= (mock.results.status === 'pending') ? 'disabled' : '' %>" data-open-report="<%=mock.id%>" target="_blank">
-      <svg class="icon icon-primary me-1 icon-btn">
+    <button
+      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      data-open-report="<%=mock.id%>"
+      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+    >
+      <svg class="icon icon-primary me-1">
         <use href="#it-password-visible"></use>
       </svg>
-      <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
+      <span>Visualizza il report</span>
     </button>
 
     <button
+      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
       data-download="<%= mock.id %>"
-      class="btn btn-primary btn-xs w-100 text-nowrap"
-      <%= (mock.results.status === 'pending') ? 'disabled' : '' %>
+      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
     >
-      <svg class="icon icon-white me-1 icon-btn">
+      <svg class="icon icon-white me-1">
         <use href="#it-download"></use>
       </svg>
       <span>Scarica</span>
