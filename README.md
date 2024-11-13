@@ -39,7 +39,7 @@ PA Website Validator utilizza le seguenti tecnologie
 - [Typescript] - Linguaggio di programmazione fortemente tipizzato che si basa su JavaScript
 - [Electron] - Consente lo sviluppo della GUI di applicazioni desktop utilizzando tecnologie Web
 
-## Requirements
+## Requisiti
 
 L'applicativo necessita un computer con almeno 16GB di RAM per una corretta esecuzione.
 
