@@ -107,7 +107,13 @@ const getChromePath = () => {
 
     chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
     chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
-    return path.join(chromeFilePath, "chrome-headless-shell");
+    chromeFilePath = path.join(chromeFilePath, "chrome-headless-shell");
+
+    if (process.platform === "win32") {
+      chromeFilePath += ".exe";
+    }
+
+    return chromeFilePath;
   }
 };
 
