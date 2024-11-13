@@ -147,16 +147,16 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
 const updateItem = async (
   id: string,
   type: string,
-  executionTime: number,
+  executionTime: number | undefined,
   score: number,
   failedAudits: string,
-  successCount: number,
-  failedCount: number,
-  errorCount: number,
-  accuracy: string,
-  timeout: number,
-  concurrentPages: number,
-  scope: string,
+  successCount: number | undefined,
+  failedCount: number | undefined,
+  errorCount: number| undefined,
+  accuracy?: string,
+  timeout?: number,
+  concurrentPages?: number,
+  scope?: string,
 ) => {
   if (!itemRepo) return;
 

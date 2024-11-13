@@ -303,6 +303,27 @@ ipcMain.on("start-node-program", async (event, data) => {
     });
   }
 
+  document.querySelector('.mybtn ')?.addEventListener('click', () => {
+    nodeProcess.disconnect();
+    nodeProcess.kill();
+  })
+
+  nodeProcess.on('disconnect', (code : string) => {
+
+    event.sender.send("log-update", `Process finished with code ${code}`);
+
+    updateItem(
+        itemId,
+        type === "municipality" ? "Comune" : "Scuola",
+        undefined,
+        -1,
+        '',
+        undefined,
+        undefined,
+        undefined,
+    );
+  })
+
   nodeProcess.on("close", (code) => {
     const endTime = Date.now();
     const executionTime = endTime - startTime;
@@ -431,6 +452,32 @@ ipcMain.on("delete-record", async (event, data) => {
 
         loadPage("history", "");
       },
+    );
+  }
+
+  return;
+});
+
+ipcMain.on("kill-process", async (event, data) => {
+  if (!data["reportId"]) {
+    return;
+  }
+
+  await deleteItem(data["reportId"]);
+
+  if (getFolderWithId(data["reportId"])) {
+    fs.rm(
+        getFolderWithId(data["reportId"]) ?? "",
+        { recursive: true, force: true },
+        (err) => {
+          if (err) {
+            throw err;
+          }
+
+          console.log(`Folder eliminata!`);
+
+          loadPage("history", "");
+        },
     );
   }
 
