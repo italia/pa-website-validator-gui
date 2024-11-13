@@ -25,7 +25,7 @@
         <div class="accordion-body">
           <form id="settingsForm" class="settings-wrapper">
             <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
-            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Massima (Tutte le pagine)", value: "all" }, { label: "Alta (10 pagine)", value: "high" }, { label: "Suggerita (5 pagine)", value: "suggested" }, { label: "Bassa (1 pagina)", value: "min" }], checked: "suggested", description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Massima' per superare il controllo di asseverazione." }); %>
+            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Massima (Tutte le pagine)", value: "all" }, { label: "Alta (10 pagine)", value: "high" }, { label: "Media (5 pagine)", value: "suggested" }, { label: "Bassa (1 pagina)", value: "min" }], checked: "all", description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Massima' per superare il controllo di asseverazione." }); %>
             <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Inserire un valore compreso tra 1 e 20." }); %>
             <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0, description: "Inserire il tempo massimo di timeout per il caricamento delle pagine in millisecondi." }); %>
           </form>
@@ -37,7 +37,7 @@
     <div class="accordion-item" id="audits-container">
       <h2 class="accordion-header " id="heading-audits">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-audits" aria-expanded="false" aria-controls="collapse-audits">
-          Criteri di valutazione
+          Criteri e raccomandazioni
         </button>
       </h2>
       <div id="collapse-audits" class="accordion-collapse collapse" data-bs-parent="#accordion-container" role="region" aria-labelledby="heading-audits">

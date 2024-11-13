@@ -51,7 +51,7 @@ const initializeDatabase = async () => {
 
 const getItems = async (
   page = 1,
-  pageSize = 10,
+  pageSize = 8,
 ): Promise<{
   items: Item[];
   pagination: { total: number; currentPage: number; numberOfPages: number };
