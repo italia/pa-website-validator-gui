@@ -185,10 +185,10 @@ const loadPage = async (pageName: string, url: string) => {
       const queryParam = url?.split("page=")[1];
       data.historyData = await getItems(
         queryParam ? Number(queryParam) : 1,
-        10,
+        8,
       );
     } else {
-      data.historyData = await getItems(1, 10);
+      data.historyData = await getItems(1, 8);
     }
   }
 

@@ -1,8 +1,13 @@
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3 mb-lg-0">
-  <h2 class="mb-0">Report</h2>
-  <div class="d-flex gap-3">
-    <button class="btn btn-outline-primary btn-lg w-100 text-nowrap <%= (mock.results.status === 'pending') ? 'disabled' : '' %>" data-open-report="<%=mock.id%>" target="_blank">
-      <svg class="icon icon-primary me-1">
+  <div class="d-flex align-items-center gap-3">
+    <svg class="icon icon-xl" alt="<%= mock?.type %>">
+      <use href="<%= mock?.type === 'Scuola' ? '#it-scuole' : '#it-comuni' %>"></use>
+    </svg>
+    <span class="h4 mb-0"><%= mock?.website %></span>
+  </div>
+  <div class="d-flex gap-3 align-items-center">
+    <button class="btn btn-outline-primary btn-xs w-100 text-nowrap <%= (mock.results.status === 'pending') ? 'disabled' : '' %>" data-open-report="<%=mock.id%>" target="_blank">
+      <svg class="icon icon-primary me-1 icon-btn">
         <use href="#it-password-visible"></use>
       </svg>
       <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
@@ -10,10 +15,10 @@
   
     <button
       data-download="<%= mock.id %>"
-      class="btn btn-primary btn-lg w-100 text-nowrap"
+      class="btn btn-primary btn-xs w-100 text-nowrap"
       <%= (mock.results.status === 'pending') ? 'disabled' : '' %>
     >
-      <svg class="icon icon-white me-1">
+      <svg class="icon icon-white me-1 icon-btn">
         <use href="#it-download"></use>
       </svg>
       <span>Scarica</span>
@@ -22,14 +27,7 @@
 </div>
 
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
-  <div class="d-flex align-items-center gap-3">
-    <svg class="icon icon-xl" alt="<%= mock?.type %>">
-      <use href="<%= mock?.type === 'Scuola' ? '#it-scuole' : '#it-comuni' %>"></use>
-    </svg>
-    <span class="h4 mb-0"><%= mock?.website %></span>
-  </div>
-
-  <div class="d-flex flex-lg-column justify-content-end text-end">
+  <div class="d-flex justify-content-between w-100">
     <small>
       Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
       "short" }).format(new Date(mock.date)) %>
