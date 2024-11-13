@@ -1,15 +1,17 @@
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3 mb-lg-0">
   <h2 class="mb-0">Report</h2>
   <div class="d-flex gap-3">
-    <a class="btn btn-outline-primary btn-lg w-100 text-nowrap" href="<%=mock.urlReport%>" target="_blank">
+    <a class="btn btn-outline-primary btn-lg w-100 text-nowrap <%= (mock.results.status === 'error' || mock.results.status === 'pending') ? 'disabled' : '' %>" href="<%=mock.urlReport%>" target="_blank">
       <svg class="icon icon-primary me-1">
         <use href="#it-password-visible"></use>
       </svg>
       <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
     </a>
+  
     <button
       data-download="<%= mock.id %>"
       class="btn btn-primary btn-lg w-100 text-nowrap"
+      <%= (mock.results.status === 'error' || mock.results.status === 'pending') ? 'disabled' : '' %>
     >
       <svg class="icon icon-white me-1">
         <use href="#it-download"></use>
