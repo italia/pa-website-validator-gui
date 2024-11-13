@@ -7,6 +7,7 @@ import {
   MORE_INFO_URL,
   AUTOCOMPLETE_LIST,
   TYPE_SELECT,
+  URL_FORM_PENDING,
 } from "./elements.js";
 import {
   getSettingsFormValues,
@@ -69,7 +70,7 @@ INPUT_URL?.addEventListener("input", (e) => {
     } else {
       START_BUTTON.setAttribute("disabled", "");
       MORE_INFO_URL.classList.add("error");
-      MORE_INFO_URL.innerHTML = "L'url inserito non è valido";
+      MORE_INFO_URL.innerHTML = "L’URL inserito non è valido. Assicurati che sia nel formato corretto, ad esempio: https://xyz.it.";
     }
   } else if (MORE_INFO_URL) {
     MORE_INFO_URL.classList.remove("error");
@@ -79,7 +80,6 @@ INPUT_URL?.addEventListener("input", (e) => {
   if (typeof window.electronAPI?.send === "function")
     window.electronAPI.send("start-type", url);
 });
-/* INPUT & AUTOCOMPLETE LOGICS END */
 
 window.electronAPI?.receive("update-autocomplete-list", (urls: string[]) => {
   setAutocompleteOptions(urls);
@@ -125,7 +125,6 @@ window.electronAPI?.receive("input-form-update", (data) => {
   if (TYPE_SELECT) {
     TYPE_SELECT.value = data.type;
     TYPE_SELECT.setAttribute("disabled", "");
-    TYPE_SELECT.style.background = "transparent";
   }
   if (INPUT_URL) {
     INPUT_URL.value = data.website;
@@ -143,6 +142,7 @@ window.electronAPI?.receive("log-update", (data) => {
 
 /* REPORT PAGE START */
 window.electronAPI?.receive("scan-finished", (id) => {
+  console.log("ricevo");
   setTimeout(() => {
     //! TODO remove timeout
     console.log("SCAN FINISHED", id);
@@ -157,8 +157,11 @@ window.electronAPI?.receive("open-report", (reportPath) => {
   }
 });
 
-window.electronAPI?.receive("reload-history", () => {
-  //location.reload();
+URL_FORM_PENDING?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  window.electronAPI.send("kill-process", {
+    id: document.querySelector("#stop-process")?.getAttribute("data-item-id"),
+  });
 });
 
 const completeProgress = (id: string) => {

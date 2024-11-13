@@ -11,18 +11,25 @@
   &.focus--mouse {
     border-color: $border-color !important;
   }
+
   &:not(.collapsed) {
     color: $black;
     background-color: $bg-light;
     border-bottom: 1px solid $border-color;
   }
+
   &:after {
     color: $border-color;
   }
 }
 
 .accordion-body {
-  padding: 0;
+  padding-bottom: 12px !important;
+
+  button[data-deselect-all] {
+    width: auto !important;
+  }
+
   .row {
     margin-right: 0;
   }
@@ -69,9 +76,11 @@
         &.fail {
           background-color: $error;
         }
+
         &.pass {
           background-color: $success;
         }
+
         &.average {
           background-color: $warning;
         }

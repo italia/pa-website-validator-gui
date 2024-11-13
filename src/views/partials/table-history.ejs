@@ -25,11 +25,13 @@
           <% } %>
         </td>
         <td>
-          <% if (item.successCount || item.failedCount || item.errorCount) { %>
-          <%- Math.round((item.successCount / (item.successCount +
-          item.failedCount + item.errorCount)) * 100) %>% <% } else { %>
-          <span aria-hidden="true">Errore</span><span class="visually-hidden">Non definito</span>
-          <% } %>
+          <span aria-hidden="true">
+            <% if (item.status === 'pending' || item.status === 'cancelled') { %>
+              Interrotta
+            <% } else { %>
+              <%= isNaN(Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100)) ? 0 : Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100) %>%
+            <% } %>
+          </span><span class="visually-hidden">Non definito</span>
         </td>
         <td>
           <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
@@ -37,19 +39,19 @@
         </td>
         <td>
           <div class="d-flex align-items-end gap-2">
-            <a class="<%= item?.status === "pending" ? "icon-link link-disabled":"icon-link" %>" data-page="report" href="<%= (item?.status === "pending")? "": "/report?id="+item.id %>" title="Pagina di dettaglio">
+            <a class="icon-link" data-page="report" href="<%= "/report?id="+item.id %>" title="Pagina di dettaglio">
               <svg class="icon">
                 <use href="#it-note"></use>
               </svg>
               <span class="visually-hidden">Pagina di dettaglio</span>
             </a>
-            <button class="icon-link" data-open-report="<%=item.id %>" title="Vedi dettaglio in una nuova scheda" <%= (item?.status === "pending")? "disabled":"" %>>
+            <button class="icon-link" data-open-report="<%=item.id %>" title="Vedi dettaglio in una nuova scheda" <%= (item.status === 'pending' || item.status === 'cancelled')? "disabled":"" %>>
               <svg class="icon">
                 <use href="#it-password-visible"></use>
               </svg>
               <span class="visually-hidden">Vedi dettaglio in una nuova scheda</span>
             </button>
-            <button class="icon-link" data-download="<%=item.id %>" title="Scarica report" <%= (item?.status === "pending")? "disabled":"" %>>
+            <button class="icon-link" data-download="<%=item.id %>" title="Scarica report" <%= (item.status === 'pending' || item.status === 'cancelled')? "disabled":"" %>>
               <svg class="icon">
                 <use href="#it-download"></use>
               </svg>

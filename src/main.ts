@@ -9,7 +9,7 @@ import {
   searchURL,
   updateItem,
 } from "./db.js";
-import { fork } from "child_process";
+import { fork, ChildProcess } from "child_process";
 import path from "path";
 import { createWriteStream, readFileSync, writeFileSync } from "fs";
 import * as ejs from "ejs";
@@ -35,6 +35,9 @@ app.on("window-all-closed", () => {
   //   if (process.platform !== 'darwin')
   app.quit();
 });
+
+let nodeProcess: ChildProcess;
+let killedManually = false;
 
 async function createWindow() {
   mainWindow = new BrowserWindow({
@@ -102,7 +105,11 @@ const loadPage = async (pageName: string, url: string) => {
     | undefined
   )[] = [];
 
-  if (item?.failedAudits) {
+  if (
+    item?.failedAudits &&
+    item?.failedAudits.length &&
+    item.failedAudits[0] !== "[]"
+  ) {
     JSON.parse(item.failedAudits).forEach((audit: AuditI) => {
       let itemFound;
       if (item.type === "Comune") {
@@ -119,6 +126,16 @@ const loadPage = async (pageName: string, url: string) => {
         itemFound ? { ...itemFound, status: audit?.status } : undefined,
       );
     });
+  } else {
+    if (item?.type === "Comune" || item?.type === "municipality") {
+      municipalityAudits.forEach((audit) => {
+        mappedAuditsFailedObject.push({ ...audit, status: "undone" });
+      });
+    } else {
+      schoolAudits.forEach((audit) => {
+        mappedAuditsFailedObject.push({ ...audit, status: "undone" });
+      });
+    }
   }
 
   const data = {
@@ -129,7 +146,6 @@ const loadPage = async (pageName: string, url: string) => {
     basePathImages: path.join(__dirname, "public/images/"),
     currentPage: "",
     mock: {
-      urlReport: queryParam ? `${getFolderWithId(queryParam)}/report.html` : "",
       id: item?.id,
       date: item?.date,
       type: item?.type,
@@ -169,12 +185,9 @@ const loadPage = async (pageName: string, url: string) => {
   if (pageName == "history") {
     if (url) {
       const queryParam = url?.split("page=")[1];
-      data.historyData = await getItems(
-        queryParam ? Number(queryParam) : 1,
-        10,
-      );
+      data.historyData = await getItems(queryParam ? Number(queryParam) : 1, 8);
     } else {
-      data.historyData = await getItems(1, 10);
+      data.historyData = await getItems(1, 8);
     }
   }
 
@@ -264,7 +277,7 @@ ipcMain.on("start-node-program", async (event, data) => {
     auditsString,
   ];
 
-  const nodeProcess = fork(commandPath, args, {
+  nodeProcess = fork(commandPath, args, {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
   });
 
@@ -289,64 +302,109 @@ ipcMain.on("start-node-program", async (event, data) => {
     });
   }
 
-  nodeProcess.on("close", (code) => {
-    const endTime = Date.now();
-    const executionTime = endTime - startTime;
+  nodeProcess.on("exit", (code, signal) => {
+    if (signal) {
+      console.log(`Processo figlio terminato tramite segnale ${signal}`);
+    } else {
+      console.log(`Processo figlio terminato con codice ${code}`);
+    }
 
-    event.sender.send("log-update", `Process finished with code ${code}`);
-
-    logStream.write("Execution time: " + executionTime);
-    setTimeout(() => {
-      logStream.close();
-    }, 5000);
-
-    //get data from jsonReport
-    const {
-      generalResult,
-      failedAudits,
-      successCount,
-      failedCount,
-      errorCount,
-    } = getDataFromJSONReport(`${reportFolder}/report.json`);
-
-    event.sender.send("scan-finished", [itemId]);
-
-    const referenceArray =
-      type === "municipality" ? municipalityAudits : schoolAudits;
-    const mappedAudit: (AuditI | undefined)[] = referenceArray.map((item) => {
-      if (
-        failedAudits.find(
-          (el) => el.text === item.innerId || el.text === item.id,
-        )
-      ) {
-        return failedAudits.find(
-          (el) => el.text === item.innerId || el.text === item.id,
-        );
-      } else {
-        return {
-          text: item.id,
-          status: "undone",
-        };
+    if (code) {
+      if (code) {
+        const logString = cleanConsoleOutput(code.toString());
+        event.sender.send("log-update", logString);
+        logStream.write(logString);
+        event.sender.send("log-update", `Process finished with code ${code}`);
       }
-    });
+
+      logStream.close();
+    }
+
+    console.log(" console.log(passo);", itemId, reportFolder);
 
     updateItem(
       itemId,
       type === "municipality" ? "Comune" : "Scuola",
-      executionTime,
-      generalResult,
-      JSON.stringify(mappedAudit),
-      successCount,
-      failedCount,
-      errorCount,
-      accuracy,
-      timeout,
-      concurrentPages,
-      scope,
+      undefined,
+      -2,
+      "[]",
+      undefined,
+      undefined,
+      undefined,
     );
 
-    event.sender.send("open-report", `${reportFolder}/report.html`);
+    event.sender.send("scan-finished", [itemId]);
   });
+
+  nodeProcess.on("close", (code) => {
+    console.log("passo");
+    if (!killedManually) {
+      console.log("passaaaaaa");
+      const endTime = Date.now();
+      const executionTime = endTime - startTime;
+
+      event.sender.send("log-update", `Process finished with code ${code}`);
+
+      logStream.write("Execution time: " + executionTime);
+      setTimeout(() => {
+        logStream.close();
+      }, 5000);
+
+      //get data from jsonReport
+      const {
+        generalResult,
+        failedAudits,
+        successCount,
+        failedCount,
+        errorCount,
+      } = getDataFromJSONReport(`${reportFolder}/report.json`);
+
+      event.sender.send("scan-finished", [itemId]);
+
+      const referenceArray =
+        type === "municipality" ? municipalityAudits : schoolAudits;
+      const mappedAudit: (AuditI | undefined)[] = referenceArray.map((item) => {
+        if (
+          failedAudits.find(
+            (el) => el.text === item.innerId || el.text === item.id,
+          )
+        ) {
+          return failedAudits.find(
+            (el) => el.text === item.innerId || el.text === item.id,
+          );
+        } else {
+          return {
+            text: item.id,
+            status: "undone",
+          };
+        }
+      });
+
+      updateItem(
+        itemId,
+        type === "municipality" ? "Comune" : "Scuola",
+        executionTime,
+        generalResult,
+        JSON.stringify(mappedAudit),
+        successCount,
+        failedCount,
+        errorCount,
+        accuracy,
+        timeout,
+        concurrentPages,
+        scope,
+      );
+
+      event.sender.send("open-report", `${reportFolder}/report.html`);
+    }
+
+    killedManually = false;
+  });
+});
+
+ipcMain.on("kill-process", async (event, { data }) => {
+  killedManually = true;
+  nodeProcess.kill("SIGKILL");
 });
 
 ipcMain.on("start-type", async (event, data) => {
@@ -372,7 +430,9 @@ ipcMain.on("download-report", async (event, data) => {
     return;
   }
 
-  const filePath = getFolderWithId(item.id) + `/report_${item.url.toString().replace('https://', '').replace('/', '')}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
+  const filePath =
+    getFolderWithId(item.id) +
+    `/report_${item.url.toString().replace("https://", "").replace("/", "")}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
 
   const { filePath: savePath } = await dialog.showSaveDialog({
     defaultPath: path.basename(filePath),

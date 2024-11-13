@@ -51,7 +51,7 @@ const initializeDatabase = async () => {
 
 const getItems = async (
   page = 1,
-  pageSize = 10,
+  pageSize = 8,
 ): Promise<{
   items: Item[];
   pagination: { total: number; currentPage: number; numberOfPages: number };
@@ -114,9 +114,12 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
   try {
     const newItem = new Item();
     newItem.url = url;
-    newItem.type = args?.type as string;
-
-    // Set optional fields
+    newItem.type =
+      args?.type === "municipality"
+        ? "Comune"
+        : args?.type === "school"
+          ? "Scuola"
+          : (args?.type as string);
 
     if (args?.audits !== undefined)
       newItem.auditsExecuted = args.audits as string[];
@@ -147,16 +150,16 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
 const updateItem = async (
   id: string,
   type: string,
-  executionTime: number,
+  executionTime: number | undefined,
   score: number,
   failedAudits: string,
-  successCount: number,
-  failedCount: number,
-  errorCount: number,
-  accuracy: string,
-  timeout: number,
-  concurrentPages: number,
-  scope: string,
+  successCount: number | undefined,
+  failedCount: number | undefined,
+  errorCount: number | undefined,
+  accuracy?: string,
+  timeout?: number,
+  concurrentPages?: number,
+  scope?: string,
 ) => {
   if (!itemRepo) return;
 
@@ -179,7 +182,9 @@ const updateItem = async (
           ? Status.PASSED
           : score === -1
             ? Status.ERRORED
-            : Status.FAILED,
+            : score === -2
+              ? Status.STOPPED
+              : Status.FAILED,
       failedAudits: failedAudits,
       successCount: successCount,
       errorCount: errorCount,

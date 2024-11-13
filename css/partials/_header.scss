@@ -81,4 +81,14 @@
       }
     }
   }
+
+  .nav-item {
+    &:has(.nav-link.disabled) {
+      cursor: not-allowed !important;
+    }
+
+    .nav-link.disabled {
+      opacity: 0.7 !important;
+    }
+  }
 }

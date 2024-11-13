@@ -1,7 +1,7 @@
 @use "variables" as *;
 
 .footer-spacer {
-  height: 32px;
+  height: 48px;
 }
 
 footer {
@@ -16,7 +16,6 @@ footer {
   a {
     color: $white;
     text-decoration: none;
-    margin-right: 12px;
 
     &:hover,
     &:visited {

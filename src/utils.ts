@@ -22,7 +22,8 @@ const getDataFromJSONReport = (reportPath: string) => {
   let generalResult = 1;
   Object.keys(jsonData.audits).forEach((key) => {
     if (
-      !jsonData.audits[key].info && !jsonData.audits[key].infoScore &&
+      !jsonData.audits[key].info &&
+      !jsonData.audits[key].infoScore &&
       jsonData.audits[key].specificScore !== undefined &&
       key !== "municipality-performance-improvement-plan"
     ) {

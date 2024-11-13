@@ -17,7 +17,7 @@
               </div>
               <div class="it-right-zone">
                 <p>Versione GUI: <%- guiVersion %></p>
-                <p>Versione Engine: <%- crawlerVersion %></p>
+                <p>Versione Validatore: <%- crawlerVersion %></p>
               </div>
             </div>
           </div>
@@ -48,12 +48,26 @@
                 <div class="menu-wrapper">
                   <ul class="navbar-nav">
                     <li class="nav-item <%- currentPage === 'home' ? 'active' : '' %>">
-                      <a class="nav-link <%- currentPage === 'home' ? 'active' : '' %>" data-page="home" href="/home" aria-current="<%- currentPage === 'home' ? 'page' : 'false' %>">
+                      <a
+                        class="nav-link <%- currentPage === 'home' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>"
+                        data-page="home"
+                        href="/home"
+                        aria-current="<%- currentPage === 'home' ? 'page' : 'false' %>"
+                        aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>"
+                        tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>"
+                      >
                         Nuova scansione
                       </a>
                     </li>
                     <li class="nav-item <%- currentPage === 'history' ? 'active' : '' %>">
-                      <a class="nav-link <%- currentPage === 'history' ? 'active' : '' %>" data-page="history" href="/history" aria-current="<%- currentPage === 'history' ? 'page' : 'false' %>">
+                      <a
+                        class="nav-link <%- currentPage === 'history' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>"
+                        data-page="history"
+                        href="/history"
+                        aria-current="<%- currentPage === 'history' ? 'page' : 'false' %>"
+                        aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>"
+                        tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>"
+                      >
                         Storico
                       </a>
                     </li>

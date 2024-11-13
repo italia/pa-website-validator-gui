@@ -1,33 +1,37 @@
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3 mb-lg-0">
-  <h2 class="mb-0">Report</h2>
-  <div class="d-flex gap-3">
-    <a class="btn btn-outline-primary btn-lg w-100 text-nowrap" href="<%=mock.urlReport%>" target="_blank">
-      <svg class="icon icon-primary me-1">
-        <use href="#it-password-visible"></use>
-      </svg>
-      <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
-    </a>
-    <button
-      data-download="<%= mock.id %>"
-      class="btn btn-primary btn-lg w-100 text-nowrap"
-    >
-      <svg class="icon icon-white me-1">
-        <use href="#it-download"></use>
-      </svg>
-      <span>Scarica il report</span>
-    </button>
-  </div>
-</div>
-
-<div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
   <div class="d-flex align-items-center gap-3">
     <svg class="icon icon-xl" alt="<%= mock?.type %>">
       <use href="<%= mock?.type === 'Scuola' ? '#it-scuole' : '#it-comuni' %>"></use>
     </svg>
     <span class="h4 mb-0"><%= mock?.website %></span>
   </div>
+  <div class="d-flex gap-3 align-items-center">
+    <button
+      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      data-open-report="<%=mock.id%>"
+      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+    >
+      <svg class="icon icon-primary me-1">
+        <use href="#it-password-visible"></use>
+      </svg>
+      <span>Visualizza il report</span>
+    </button>
 
-  <div class="d-flex flex-lg-column justify-content-end text-end">
+    <button
+      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      data-download="<%= mock.id %>"
+      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+    >
+      <svg class="icon icon-white me-1">
+        <use href="#it-download"></use>
+      </svg>
+      <span>Scarica</span>
+    </button>
+  </div>
+</div>
+
+<div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
+  <div class="d-flex justify-content-between w-100">
     <small>
       Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
       "short" }).format(new Date(mock.date)) %>
@@ -36,11 +40,11 @@
       Accuratezza:
       <%-
         mock.accuracy === 'all'
-        ? 'Massima (Tutte le pagine)'
+        ? 'Completa (Tutte le pagine)'
         : mock.accuracy === 'high'
         ? 'Alta (10 pagine)'
         : mock.accuracy === 'suggested'
-        ? 'Suggerita (5 pagine)'
+        ? 'Media (5 pagine)'
         : mock.accuracy === 'min'
         ? 'Bassa (1 pagina)'
         : 'Non definita'
@@ -64,33 +68,6 @@
     <%- include('partials/card-stats', { results: mock.results }); %>
   </div>
 
-  <div class="legend">
-    <b>Legenda:</b>
-    <div class="legend-item">
-      <div class="circle pass">
-      </div>
-      <p>Criterio superato</p>
-    </div>
-    <div class="legend-item">
-      <div class="circle fail">
-      </div>
-      <p>Criterio fallito</p>
-    </div>
-    <div class="legend-item">
-      <div class="circle error">
-        x
-      </div>
-      <p>Criterio in errore</p>
-    </div>
-
-    <div class="legend-item">
-      <div class="circle undone">
-        x
-      </div>
-      <p>Criterio non eseguito</p>
-    </div>
-  </div>
-
   <div class="accordion" id="accordion-container">
     <div class="accordion-item">
       <h2 class="accordion-header" id="accordion-header-errors">
@@ -102,7 +79,7 @@
           aria-expanded="false"
           aria-controls="accordion-collapse-errors"
         >
-          Criteri di valutazione
+          Criteri e raccomandazioni
         </button>
       </h2>
       <div
@@ -113,6 +90,39 @@
         aria-labelledby="accordion-header-errors"
       >
         <div class="accordion-body p-3">
+          <div class="d-flex justify-content-between gap-lg-3 gap-1 align-items-center mb-3 flex-wrap">
+            <div class="legend">
+              <b>Legenda:</b>
+              <div class="legend-item">
+                <div class="circle pass">
+                </div>
+                <p>Superato</p>
+              </div>
+              <div class="legend-item">
+                <div class="circle fail">
+                </div>
+                <p>Fallito</p>
+              </div>
+              <div class="legend-item">
+                <div class="circle error">
+                  x
+                </div>
+                <p>Errore</p>
+              </div>
+
+              <div class="legend-item">
+                <div class="circle undone">
+                  x
+                </div>
+                <p>Non eseguito</p>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-end gap-1">
+              <a href="#" data-select-all><span>Seleziona tutto</span></a> / <a href="#" data-deselect-all><span>Deseleziona tutto</span></a>
+            </div>
+          </div>
+
           <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
             <% if(mock.redo_audits && mock.redo_audits.length ){ %> <%
             mock.redo_audits.forEach(function(audit) { if(audit.code.length >
@@ -133,17 +143,18 @@
               />
                 <%} else {%>
                   <input
-                          class="form-check-input"
-                          id="<%= audit.id %>"
-                          type="checkbox"
-                          name="audits"
+                    class="form-check-input"
+                    id="<%= audit.id %>"
+                    type="checkbox"
+                    name="audits"
                   />
                 <%}%>
 
-              <label class="form-check-label" for="<%= audit.id %>"
-                ><%= audit.code.toUpperCase() + ' - ' +
-                audit.title.toUpperCase() %></label
-              >
+              <% if(audit.code.toUpperCase() === audit.title.toUpperCase()) {%>
+                <label class="form-check-label" for="<%= audit.id %>"><%= audit.title.toUpperCase() %></label>
+              <%} else {%>
+                <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+              <%} %>
             </div>
             <% }}); %> <% } %>
           </form>

@@ -1,6 +1,9 @@
 // URL SEARCH BAR
 export const URL_FORM: HTMLFormElement | null =
   document.querySelector("form#urlForm");
+export const URL_FORM_PENDING: HTMLFormElement | null = document.querySelector(
+  "form#urlFormPending",
+);
 export const TYPE_SELECT: HTMLSelectElement | null =
   document.querySelector("select#type-select");
 export const INPUT_URL = document.querySelector<HTMLInputElement>("#inputUrl");
