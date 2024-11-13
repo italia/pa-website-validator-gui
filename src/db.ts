@@ -114,7 +114,7 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
   try {
     const newItem = new Item();
     newItem.url = url;
-    newItem.type = args?.type as string;
+    newItem.type = args?.type === 'municipality' ? 'Comune' : args?.type === 'school' ? 'Scuola' :  args?.type as string;
 
     // Set optional fields
 

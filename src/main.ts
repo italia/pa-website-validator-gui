@@ -119,6 +119,21 @@ const loadPage = async (pageName: string, url: string) => {
         itemFound ? { ...itemFound, status: audit?.status } : undefined,
       );
     });
+  }else{
+    if (item?.type === "Comune" || item?.type === 'municipality') {
+      municipalityAudits.forEach(audit => {
+        mappedAuditsFailedObject.push(
+            {...audit, status: 'undone' }
+        );
+      })
+
+    } else {
+      schoolAudits.forEach(audit => {
+        mappedAuditsFailedObject.push(
+            {...audit, status: 'undone' }
+        );
+      })
+    }
   }
 
   const data = {
@@ -129,7 +144,6 @@ const loadPage = async (pageName: string, url: string) => {
     basePathImages: path.join(__dirname, "public/images/"),
     currentPage: "",
     mock: {
-      urlReport: queryParam ? `${getFolderWithId(queryParam)}/report.html` : "",
       id: item?.id,
       date: item?.date,
       type: item?.type,
