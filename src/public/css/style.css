@@ -332,7 +332,7 @@
   src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
 }
 .footer-spacer {
-  height: 32px;
+  height: 48px;
 }
 
 footer {
