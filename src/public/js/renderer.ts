@@ -52,7 +52,7 @@ if (formSubmit)
     console.log("CLICKED", data);
     let website = "";
     if (inputURL) {
-      console.log("FOUND TEZTAREA", inputURL);
+      console.log("FOUND TEXTAREA", inputURL);
       website = (inputURL as HTMLTextAreaElement).value;
     }
 
