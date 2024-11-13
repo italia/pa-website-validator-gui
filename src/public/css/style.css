@@ -169,7 +169,7 @@
 }
 
 .cards-container {
-  margin-block: 42px;
+  margin-block: 20px;
 }
 .cards-container .card-wrapper {
   width: 50%;
@@ -178,7 +178,7 @@
   display: none;
 }
 .cards-container .card-wrapper .card .card-body {
-  padding: 46px;
+  padding: 16px 24px;
 }
 .cards-container .card-wrapper .card .card-body.error {
   background-color: #bc4050;
@@ -231,7 +231,7 @@
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-donut {
   font-size: 16px;
-  margin-top: 16px;
+  margin-top: 8px;
   text-align: center;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-donut span {
