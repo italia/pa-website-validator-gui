@@ -27,8 +27,8 @@
           <form id="settingsForm" class="settings-wrapper">
             <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
             <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Completa (Tutte le pagine)", value: "all" }, { label: "Alta (10 pagine)", value: "high" }, { label: "Media (5 pagine)", value: "suggested" }, { label: "Bassa (1 pagina)", value: "min" }], checked: "all", description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Completa' per superare il controllo di asseverazione." }); %>
-            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Inserire un valore compreso tra 1 e 20." }); %>
-            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0, description: "Inserire il tempo massimo di timeout per il caricamento delle pagine in millisecondi." }); %>
+            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Definisce il numero di pagine del sito web che possono essere scansionate in parallelo. Un valore più alto accelera il processo di scansione. Si consiglia un valore di 10." }); %>
+            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0, description: "Definisce il timeout massimo per il caricamento di ciascuna pagina web. Il valore, espresso in millisecondi, non deve superare i 30.000 ms per superare i controlli di asseverazione." }); %>
           </form>
         </div>
       </div>
