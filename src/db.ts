@@ -1,10 +1,10 @@
-import { DataSource, FindOptionsOrderValue, Repository } from "typeorm";
-import { Item } from "./entities/Item.js";
+import {DataSource, FindOptionsOrderValue, Repository} from "typeorm";
+import {Item} from "./entities/Item.js";
 import path from "path";
-import { app } from "electron";
-import { Status } from "./types/types.js";
-import { accessSync, mkdirSync } from "fs";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import {app} from "electron";
+import {Status} from "./types/types.js";
+import {accessSync, mkdirSync} from "fs";
+import {QueryDeepPartialEntity} from "typeorm/query-builder/QueryPartialEntity";
 
 const __dirname = import.meta.dirname;
 const saveDirname = app.getPath("userData");
@@ -179,6 +179,8 @@ const updateItem = async (
           ? Status.PASSED
           : score === -1
             ? Status.ERRORED
+            : score === -2
+                    ? Status.STOPPED
             : Status.FAILED,
       failedAudits: failedAudits,
       successCount: successCount,

@@ -1,4 +1,4 @@
-<form id="urlForm">
+<form id="urlForm<%-currentPage === 'scanning' ? 'Pending' : '' %>">
   <div class="select-wrapper">
     <label for="type-select">Tipologia ente</label>
     <select id="type-select" name="type" required>
@@ -16,7 +16,7 @@
       <ul class="autocomplete-list"></ul>
       <div class="input-group-append">
         <% if (currentPage === 'scanning') { %>
-          <button class="btn btn-primary">
+          <button id="stop-process" class="btn btn-primary">
             Annulla scansione
           </button>
         <% } else { %>
