@@ -1,10 +1,10 @@
-import { DataSource, FindOptionsOrderValue, Repository } from "typeorm";
-import { Item } from "./entities/Item.js";
+import {DataSource, FindOptionsOrderValue, Repository} from "typeorm";
+import {Item} from "./entities/Item.js";
 import path from "path";
-import { app } from "electron";
-import { Status } from "./types/types.js";
-import { accessSync, mkdirSync } from "fs";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
+import {app} from "electron";
+import {Status} from "./types/types.js";
+import {accessSync, mkdirSync} from "fs";
+import {QueryDeepPartialEntity} from "typeorm/query-builder/QueryPartialEntity";
 
 const __dirname = import.meta.dirname;
 const saveDirname = app.getPath("userData");
@@ -147,16 +147,16 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
 const updateItem = async (
   id: string,
   type: string,
-  executionTime: number,
+  executionTime: number | undefined,
   score: number,
   failedAudits: string,
-  successCount: number,
-  failedCount: number,
-  errorCount: number,
-  accuracy: string,
-  timeout: number,
-  concurrentPages: number,
-  scope: string,
+  successCount: number | undefined,
+  failedCount: number | undefined,
+  errorCount: number| undefined,
+  accuracy?: string,
+  timeout?: number,
+  concurrentPages?: number,
+  scope?: string,
 ) => {
   if (!itemRepo) return;
 
@@ -179,6 +179,8 @@ const updateItem = async (
           ? Status.PASSED
           : score === -1
             ? Status.ERRORED
+            : score === -2
+                    ? Status.STOPPED
             : Status.FAILED,
       failedAudits: failedAudits,
       successCount: successCount,

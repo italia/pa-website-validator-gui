@@ -26,8 +26,8 @@
         </td>
         <td>
           <span aria-hidden="true">
-            <% if (item.status === 'pending') { %>
-              Errore
+            <% if (item.status === 'pending' || item.status === 'annullata') { %>
+              Interrotta
             <% } else { %>
               <%= isNaN(Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100)) ? 0 : Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100) %>%
             <% } %>
@@ -45,13 +45,13 @@
               </svg>
               <span class="visually-hidden">Pagina di dettaglio</span>
             </a>
-            <button class="icon-link" data-open-report="<%=item.id %>" title="Vedi dettaglio in una nuova scheda" <%= (item?.status === "pending")? "disabled":"" %>>
+            <button class="icon-link" data-open-report="<%=item.id %>" title="Vedi dettaglio in una nuova scheda" <%= (item.status === 'pending' || item.status === 'annullata')? "disabled":"" %>>
               <svg class="icon">
                 <use href="#it-password-visible"></use>
               </svg>
               <span class="visually-hidden">Vedi dettaglio in una nuova scheda</span>
             </button>
-            <button class="icon-link" data-download="<%=item.id %>" title="Scarica report" <%= (item?.status === "pending")? "disabled":"" %>>
+            <button class="icon-link" data-download="<%=item.id %>" title="Scarica report" <%= (item.status === 'pending' || item.status === 'annullata')? "disabled":"" %>>
               <svg class="icon">
                 <use href="#it-download"></use>
               </svg>

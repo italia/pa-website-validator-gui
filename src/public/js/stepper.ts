@@ -7,6 +7,7 @@ import {
   MORE_INFO_URL,
   AUTOCOMPLETE_LIST,
   TYPE_SELECT,
+    URL_FORM_PENDING
 } from "./elements.js";
 import {
   getSettingsFormValues,
@@ -142,6 +143,7 @@ window.electronAPI?.receive("log-update", (data) => {
 
 /* REPORT PAGE START */
 window.electronAPI?.receive("scan-finished", (id) => {
+  console.log('ricevo')
   setTimeout(() => {
     //! TODO remove timeout
     console.log("SCAN FINISHED", id);
@@ -155,6 +157,11 @@ window.electronAPI?.receive("open-report", (reportPath) => {
     REPORT_FRAME.style.display = "block";
   }
 });
+
+URL_FORM_PENDING?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  window.electronAPI.send("kill-process", {id: document.querySelector('#stop-process')?.getAttribute('data-item-id') });
+})
 
 const completeProgress = (id: string) => {
   // workaround to navigate programmatically

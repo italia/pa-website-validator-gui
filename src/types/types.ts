@@ -3,6 +3,7 @@ enum Status {
   FAILED = "ko",
   ERRORED = "error",
   PENDING = "pending",
+  STOPPED = "annullata"
 }
 
 export { Status };

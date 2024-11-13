@@ -53,7 +53,11 @@
               %>
                 <div class="form-check">
                   <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
-                  <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+                  <% if(audit.code.toUpperCase() === audit.title.toUpperCase()) {%>
+                  <label class="form-check-label" for="<%= audit.id %>"><%= audit.title.toUpperCase() %></label>
+                  <%} else {%>
+                    <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+                  <%} %>
                 </div>
               <% }}); %>
             <% } %>

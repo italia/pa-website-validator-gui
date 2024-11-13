@@ -68,33 +68,6 @@
     <%- include('partials/card-stats', { results: mock.results }); %>
   </div>
 
-  <div class="legend">
-    <b>Legenda:</b>
-    <div class="legend-item">
-      <div class="circle pass">
-      </div>
-      <p>Criterio superato</p>
-    </div>
-    <div class="legend-item">
-      <div class="circle fail">
-      </div>
-      <p>Criterio fallito</p>
-    </div>
-    <div class="legend-item">
-      <div class="circle error">
-        x
-      </div>
-      <p>Criterio in errore</p>
-    </div>
-
-    <div class="legend-item">
-      <div class="circle undone">
-        x
-      </div>
-      <p>Criterio non eseguito</p>
-    </div>
-  </div>
-
   <div class="accordion" id="accordion-container">
     <div class="accordion-item">
       <h2 class="accordion-header" id="accordion-header-errors">
@@ -117,6 +90,32 @@
         aria-labelledby="accordion-header-errors"
       >
         <div class="accordion-body p-3">
+          <div class="legend">
+            <b>Legenda:</b>
+            <div class="legend-item">
+              <div class="circle pass">
+              </div>
+              <p>Superato</p>
+            </div>
+            <div class="legend-item">
+              <div class="circle fail">
+              </div>
+              <p>Fallito</p>
+            </div>
+            <div class="legend-item">
+              <div class="circle error">
+                x
+              </div>
+              <p>Errore</p>
+            </div>
+
+            <div class="legend-item">
+              <div class="circle undone">
+                x
+              </div>
+              <p>Non eseguito</p>
+            </div>
+          </div>
           <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
             <% if(mock.redo_audits && mock.redo_audits.length ){ %> <%
             mock.redo_audits.forEach(function(audit) { if(audit.code.length >
