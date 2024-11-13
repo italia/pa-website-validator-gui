@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "export NODE_ENV=development && npm run prepare && electron dist/main.js",
-    "start:local": "export NODE_ENV=development && node dist/server.js",
+    "start:local": "export NODE_ENV=development && npm run prepare && node dist/server.js",
     "build": "rm -rf dist && npm install && npx electron-builder --publish never",
     "prepare": "npm run build:css && rm -rf dist && tsc && npm run copy-files && mv dist/preload.js dist/preload.mjs && cp package.json dist/commands",
     "copy-files": "copyfiles -u 1 \"src/**/*.{ejs,html,json,scss,css,map,js,ttf,woff,woff2,png}\" dist/",
