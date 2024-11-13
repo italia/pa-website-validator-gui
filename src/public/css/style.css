@@ -14,8 +14,8 @@
   color: #c5c7c9;
 }
 
-.accordion-body {
-  padding: 0;
+.accordion-body button[data-deselect-all] {
+  width: auto !important;
 }
 .accordion-body .row {
   margin-right: 0;
@@ -354,23 +354,27 @@ footer a:hover, footer a:visited {
   color: #ffffff;
 }
 
-#urlForm {
+#urlForm, #urlFormPending {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 24px;
   margin-bottom: 16px;
 }
-#urlForm .input-group {
+#urlForm .input-group, #urlFormPending .input-group {
   position: relative;
 }
-#urlForm .input-group .more-info {
+#urlForm .input-group .more-info, #urlFormPending .input-group .more-info {
   position: absolute;
   top: 45px;
   left: 8px;
   color: var(--bs-gray);
 }
-#urlForm .input-group .more-info.error {
+#urlForm .input-group .more-info.error, #urlFormPending .input-group .more-info.error {
   color: #bc4050;
+}
+
+#auditsRedoForm {
+  margin-top: 8px;
 }
 
 form.settings-wrapper, form.audits-wrapper {

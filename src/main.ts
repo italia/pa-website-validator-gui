@@ -83,7 +83,7 @@ async function createWindow() {
   Menu.setApplicationMenu(modifiedMenu);
 
   //To remove comment only for development reason
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
 
   // load first page
   await loadPage("home", "");
