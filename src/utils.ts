@@ -1,5 +1,6 @@
 import { readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
+import puppeteer from "puppeteer";
 
 export interface AuditI {
   text: string;
@@ -77,7 +78,7 @@ const cleanConsoleOutput = (consoleOutput: string) => {
 
 const getPathDirectoryInDirectory = (startPath: string) => {
   const files = readdirSync(startPath);
-  for (let file of files) {
+  for (const file of files) {
     const findPathChrome = path.join(startPath, file);
     if (statSync(findPathChrome).isDirectory()) {
       startPath = findPathChrome;
@@ -88,4 +89,26 @@ const getPathDirectoryInDirectory = (startPath: string) => {
   return startPath;
 };
 
-export { getDataFromJSONReport, cleanConsoleOutput, getPathDirectoryInDirectory};
+const getChromePath = () => {
+  try {
+    return puppeteer.executablePath();
+  } catch {
+    let chromeFilePath = path.join(
+      import.meta.dirname,
+      "../",
+      "chrome-headless-shell",
+    );
+    if (process.env.NODE_ENV?.toString().trim() !== "development") {
+      chromeFilePath = path.join(
+        process.resourcesPath,
+        "chrome-headless-shell",
+      );
+    }
+
+    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+    return path.join(chromeFilePath, "chrome-headless-shell");
+  }
+};
+
+export { getDataFromJSONReport, cleanConsoleOutput, getChromePath };
