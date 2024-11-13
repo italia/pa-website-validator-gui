@@ -5,3 +5,4 @@ node_modules
 index.html
 db
 .idea
+chrome-headless-shell

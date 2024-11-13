@@ -15,7 +15,8 @@
     "type:check": "tsc --noEmit",
     "format:check": "prettier -c .",
     "format:write": "prettier --write .",
-    "updateGeoIPData": "npm explore geoip-lite -- npm run updatedb"
+    "updateGeoIPData": "npm explore geoip-lite -- npm run updatedb",
+    "installChromeShell": "npx @puppeteer/browsers install chrome-headless-shell@stable"
   },
   "author": "Presidenza del Consiglio dei Ministri",
   "license": "BSD-3-Clause",

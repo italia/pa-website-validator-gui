@@ -1,4 +1,5 @@
-import { readFileSync } from "fs";
+import { readFileSync, readdirSync, statSync } from "fs";
+import path from "path";
 
 export interface AuditI {
   text: string;
@@ -74,4 +75,17 @@ const cleanConsoleOutput = (consoleOutput: string) => {
   return consoleOutput.replace("[32m", "").replace("[0m", "");
 };
 
-export { getDataFromJSONReport, cleanConsoleOutput };
+const getPathDirectoryInDirectory = (startPath: string) => {
+  const files = readdirSync(startPath);
+  for (let file of files) {
+    const findPathChrome = path.join(startPath, file);
+    if (statSync(findPathChrome).isDirectory()) {
+      startPath = findPathChrome;
+      break;
+    }
+  }
+
+  return startPath;
+};
+
+export { getDataFromJSONReport, cleanConsoleOutput, getPathDirectoryInDirectory};

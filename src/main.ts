@@ -13,7 +13,7 @@ import { fork, ChildProcess } from "child_process";
 import path from "path";
 import { createWriteStream, readFileSync, writeFileSync } from "fs";
 import * as ejs from "ejs";
-import { getDataFromJSONReport, cleanConsoleOutput, AuditI } from "./utils.js";
+import { getDataFromJSONReport, cleanConsoleOutput, AuditI, getPathDirectoryInDirectory } from "./utils.js";
 import { municipalityAudits, schoolAudits } from "./storage/auditMapping.js";
 import { Item } from "./entities/Item";
 import fs from "fs";
@@ -277,8 +277,23 @@ ipcMain.on("start-node-program", async (event, data) => {
     auditsString,
   ];
 
+  let chromeFilePath = path.join(__dirname, "../", "chrome-headless-shell");
+  if (process.env.NODE_ENV?.toString().trim() !== "development") {
+    chromeFilePath = path.join(process.resourcesPath, "chrome-headless-shell");
+  }
+
+  chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+  chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+  chromeFilePath = path.join(chromeFilePath, "chrome-headless-shell");
+
+  console.log("CHROME FILE PATH:", chromeFilePath, );
+
   nodeProcess = fork(commandPath, args, {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
+    env: {
+      ...process.env,
+      PUPPETEER_EXECUTABLE_PATH: chromeFilePath
+    }
   });
 
   if (nodeProcess.stdout) {

@@ -44,6 +44,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install dependencies
+        run: npm run installChromeShell
+
       - name: Update GeoIP database
         run: npm run updateGeoIPData
         env:
