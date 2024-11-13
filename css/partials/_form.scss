@@ -31,7 +31,6 @@ form {
   &.settings-wrapper,
   &.audits-wrapper {
     margin-top: 1rem;
-  
   }
 
   &.settings-wrapper {
@@ -90,7 +89,8 @@ input:read-only {
   background-color: #d8d9da !important;
 }
 
-.form-check [type=checkbox]+label, .form-check [type=radio]+label {
+.form-check [type="checkbox"] + label,
+.form-check [type="radio"] + label {
   font-size: 1rem !important;
 
   @media screen and (max-width: 992px) {
@@ -100,8 +100,8 @@ input:read-only {
 
 .form-check {
   margin-bottom: 0.25rem !important;
-  
-  +.form-check {
-     margin-top: 0.25rem !important;
-   }
- }
+
+  + .form-check {
+    margin-top: 0.25rem !important;
+  }
+}

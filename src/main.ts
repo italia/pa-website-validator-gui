@@ -402,7 +402,7 @@ ipcMain.on("start-node-program", async (event, data) => {
   });
 });
 
-ipcMain.on("kill-process", async (event, { data }) => {
+ipcMain.on("kill-process", async () => {
   killedManually = true;
   nodeProcess.kill("SIGKILL");
 });

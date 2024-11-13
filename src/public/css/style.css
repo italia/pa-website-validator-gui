@@ -432,11 +432,13 @@ input:read-only {
   background-color: #d8d9da !important;
 }
 
-.form-check [type=checkbox] + label, .form-check [type=radio] + label {
+.form-check [type=checkbox] + label,
+.form-check [type=radio] + label {
   font-size: 1rem !important;
 }
 @media screen and (max-width: 992px) {
-  .form-check [type=checkbox] + label, .form-check [type=radio] + label {
+  .form-check [type=checkbox] + label,
+  .form-check [type=radio] + label {
     font-size: 0.875rem !important;
   }
 }

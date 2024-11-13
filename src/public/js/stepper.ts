@@ -70,7 +70,8 @@ INPUT_URL?.addEventListener("input", (e) => {
     } else {
       START_BUTTON.setAttribute("disabled", "");
       MORE_INFO_URL.classList.add("error");
-      MORE_INFO_URL.innerHTML = "L’URL inserito non è valido. Assicurati che sia nel formato corretto, ad esempio: https://xyz.it.";
+      MORE_INFO_URL.innerHTML =
+        "L’URL inserito non è valido. Assicurati che sia nel formato corretto, ad esempio: https://xyz.it.";
     }
   } else if (MORE_INFO_URL) {
     MORE_INFO_URL.classList.remove("error");
