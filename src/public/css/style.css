@@ -418,6 +418,12 @@ form .form-text {
   display: block;
 }
 
+/* Disabled styles */
+select:disabled,
+input:read-only {
+  background-color: #d8d9da !important;
+}
+
 /* Keep footer at bottom */
 body {
   min-height: 100vh;

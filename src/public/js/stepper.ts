@@ -125,7 +125,6 @@ window.electronAPI?.receive("input-form-update", (data) => {
   if (TYPE_SELECT) {
     TYPE_SELECT.value = data.type;
     TYPE_SELECT.setAttribute("disabled", "");
-    TYPE_SELECT.style.background = "transparent";
   }
   if (INPUT_URL) {
     INPUT_URL.value = data.website;

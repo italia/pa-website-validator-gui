@@ -78,3 +78,9 @@ form {
     display: block;
   }
 }
+
+/* Disabled styles */
+select:disabled,
+input:read-only {
+  background-color: #d8d9da !important;
+}
