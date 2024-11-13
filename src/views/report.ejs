@@ -12,7 +12,7 @@
       </svg>
       <span>Visualizza il report <span class="visually-hidden"> - apre in una nuova scheda</span></span>
     </button>
-  
+
     <button
       data-download="<%= mock.id %>"
       class="btn btn-primary btn-xs w-100 text-nowrap"
@@ -102,7 +102,7 @@
           aria-expanded="false"
           aria-controls="accordion-collapse-errors"
         >
-          Criteri di valutazione
+          Criteri e raccomandazioni
         </button>
       </h2>
       <div
@@ -133,10 +133,10 @@
               />
                 <%} else {%>
                   <input
-                          class="form-check-input"
-                          id="<%= audit.id %>"
-                          type="checkbox"
-                          name="audits"
+                    class="form-check-input"
+                    id="<%= audit.id %>"
+                    type="checkbox"
+                    name="audits"
                   />
                 <%}%>
 
