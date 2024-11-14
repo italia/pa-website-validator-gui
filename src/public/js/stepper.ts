@@ -124,17 +124,6 @@ URL_FORM?.addEventListener("submit", (e) => {
   }
 });
 
-window.electronAPI?.receive("input-form-update", (data) => {
-  if (TYPE_SELECT) {
-    TYPE_SELECT.value = data.type;
-    TYPE_SELECT.setAttribute("disabled", "");
-  }
-  if (INPUT_URL) {
-    INPUT_URL.value = data.website;
-    INPUT_URL.setAttribute("readonly", "");
-  }
-});
-
 window.electronAPI?.receive("log-update", (data) => {
   if (LOGS_TEXTAREA) {
     (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
