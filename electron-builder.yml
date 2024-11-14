@@ -15,6 +15,7 @@ extraResources:
   - filter:
       - dist/commands
       - node_modules/**/*
+      - chrome-headless-shell/**/*
 icon: dist/public/images/RoundedIcon.png
 mac:
   identity: null

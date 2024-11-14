@@ -1,4 +1,6 @@
-import { readFileSync } from "fs";
+import { readFileSync, readdirSync, statSync } from "fs";
+import path from "path";
+import puppeteer from "puppeteer";
 
 export interface AuditI {
   text: string;
@@ -74,4 +76,45 @@ const cleanConsoleOutput = (consoleOutput: string) => {
   return consoleOutput.replace("[32m", "").replace("[0m", "");
 };
 
-export { getDataFromJSONReport, cleanConsoleOutput };
+const getPathDirectoryInDirectory = (startPath: string) => {
+  const files = readdirSync(startPath);
+  for (const file of files) {
+    const findPathChrome = path.join(startPath, file);
+    if (statSync(findPathChrome).isDirectory()) {
+      startPath = findPathChrome;
+      break;
+    }
+  }
+
+  return startPath;
+};
+
+const getChromePath = () => {
+  try {
+    return puppeteer.executablePath();
+  } catch {
+    let chromeFilePath = path.join(
+      import.meta.dirname,
+      "../",
+      "chrome-headless-shell",
+    );
+    if (process.env.NODE_ENV?.toString().trim() !== "development") {
+      chromeFilePath = path.join(
+        process.resourcesPath,
+        "chrome-headless-shell",
+      );
+    }
+
+    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+    chromeFilePath = path.join(chromeFilePath, "chrome-headless-shell");
+
+    if (process.platform === "win32") {
+      chromeFilePath += ".exe";
+    }
+
+    return chromeFilePath;
+  }
+};
+
+export { getDataFromJSONReport, cleanConsoleOutput, getChromePath };
