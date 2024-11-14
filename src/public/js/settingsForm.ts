@@ -63,7 +63,7 @@ const getAuditsFromSettings = (e?: Event) => {
         (AUDITS_FORM as HTMLElement).innerHTML += `
         <div class="form-check">
           <input class="form-check-input" id="${audit.id}" type="checkbox" name="audits" checked>
-          <label class="form-check-label" for="${audit.id}">${audit.code.toUpperCase() + " - " + audit.title.toUpperCase()}</label>
+          <label class="form-check-label" for="${audit.id}">${audit.title.toUpperCase() === audit.code.toUpperCase() ? audit.title.toUpperCase() : audit.code.toUpperCase() + " - " + audit.title.toUpperCase()}</label>
         </div>
       `;
       }
