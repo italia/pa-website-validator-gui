@@ -23,6 +23,7 @@ import { municipalityAudits, schoolAudits } from "./storage/auditMapping.js";
 import { Item } from "./entities/Item";
 import fs from "fs";
 import { VERSION, VERSION_VALIDATOR } from "./versions.js";
+import { shell } from "electron";
 
 const __dirname = import.meta.dirname;
 const saveDirname = app.getPath("userData");
@@ -60,6 +61,15 @@ async function createWindow() {
       zoomFactor: 1,
     },
   });
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    if (details.url.startsWith("http")) {
+      shell.openExternal(details.url);
+      return { action: "deny" }; 
+    }
+
+    return { action: "allow" };
+  })
 
   mainWindow.webContents.on("before-input-event", (event, input) => {
     if (
