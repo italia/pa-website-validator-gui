@@ -132,8 +132,6 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
 
     if (args !== undefined) newItem.args = args;
 
-    console.log(args, newItem)
-
     // Insert the item and get the newly created entity
     const insertedItem = await itemRepo.insert(
       newItem as QueryDeepPartialEntity<Item>,
