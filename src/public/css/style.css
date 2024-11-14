@@ -358,24 +358,25 @@ footer a:hover, footer a:visited {
 #urlForm,
 #urlFormPending {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 24px;
-  margin-bottom: 16px;
+  grid-template-columns: 1.1fr 3fr;
+  column-gap: 24px;
+  margin-bottom: 32px;
 }
 #urlForm .input-group,
 #urlFormPending .input-group {
   position: relative;
 }
-#urlForm .input-group .more-info,
-#urlFormPending .input-group .more-info {
+#urlForm .input-group .error-message,
+#urlFormPending .input-group .error-message {
   position: absolute;
   top: 45px;
   left: 8px;
-  color: var(--bs-gray);
-}
-#urlForm .input-group .more-info.error,
-#urlFormPending .input-group .more-info.error {
   color: #b42d43;
+  visibility: hidden;
+}
+#urlForm .input-group [aria-invalid=true] ~ .error-message,
+#urlFormPending .input-group [aria-invalid=true] ~ .error-message {
+  visibility: visible;
 }
 #urlForm .form-group,
 #urlFormPending .form-group {
