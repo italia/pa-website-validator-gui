@@ -59,10 +59,10 @@
   border-radius: 50%;
 }
 .accordion-body .nav-link .result .circle.fail {
-  background-color: #bc4050;
+  background-color: #b42d43;
 }
 .accordion-body .nav-link .result .circle.pass {
-  background-color: #3c825c;
+  background-color: #5cc98d;
 }
 .accordion-body .nav-link .result .circle.average {
   background-color: #976700;
@@ -110,12 +110,12 @@
 
 .legend .legend-item .circle.pass,
 .circle.pass {
-  background-color: #3c825c;
+  background-color: #5cc98d;
 }
 
 .legend .legend-item .circle.fail,
 .circle.fail {
-  background-color: #bc4050;
+  background-color: #b42d43;
 }
 
 .legend .legend-item .circle.error,
@@ -123,9 +123,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #bc4050;
+  color: #b42d43;
   text-transform: uppercase;
-  border: 2px solid #bc4050;
+  border: 2px solid #b42d43;
 }
 
 .legend .legend-item .circle.undone,
@@ -155,13 +155,13 @@
   left: -40px;
 }
 .audit-content .audit-title svg.pass {
-  stroke: #3c825c;
+  stroke: #5cc98d;
 }
 .audit-content .audit-title svg.average {
   stroke: #976700;
 }
 .audit-content .audit-title svg.fail {
-  stroke: #bc4050;
+  stroke: #b42d43;
 }
 
 .top-text p {
@@ -183,7 +183,7 @@
   padding: 16px 24px;
 }
 .cards-container .card-wrapper .card .card-body.error {
-  background-color: #bc4050;
+  background-color: #b42d43;
 }
 .cards-container .card-wrapper .card .card-body.error .card-title {
   color: #ffffff;
@@ -191,7 +191,7 @@
 .cards-container .card-wrapper .card .card-body.error svg {
   width: 70px;
   height: 70px;
-  stroke: #bc4050;
+  stroke: #b42d43;
   stroke-width: 2px;
 }
 .cards-container .card-wrapper .card .card-body .card-title {
@@ -214,10 +214,10 @@
   text-transform: uppercase;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point.ko {
-  background-color: #bc4050;
+  background-color: #b42d43;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point.ok {
-  background-color: #3c825c;
+  background-color: #5cc98d;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-point.error {
   background-color: #ffffff;
@@ -226,10 +226,10 @@
   width: 50px;
   height: 50px;
   font-weight: 700;
-  fill: #bc4050;
+  fill: #b42d43;
 }
 .cards-container .card-wrapper .card .card-body .card-content .progress-donut-wrapper::before {
-  background: #bc4050;
+  background: #b42d43;
 }
 .cards-container .card-wrapper .card .card-body .card-content .result-donut {
   font-size: 16px;
@@ -358,24 +358,25 @@ footer a:hover, footer a:visited {
 #urlForm,
 #urlFormPending {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 24px;
-  margin-bottom: 16px;
+  grid-template-columns: 1.1fr 3fr;
+  column-gap: 24px;
+  margin-bottom: 32px;
 }
 #urlForm .input-group,
 #urlFormPending .input-group {
   position: relative;
 }
-#urlForm .input-group .more-info,
-#urlFormPending .input-group .more-info {
+#urlForm .input-group .error-message,
+#urlFormPending .input-group .error-message {
   position: absolute;
   top: 45px;
   left: 8px;
-  color: var(--bs-gray);
+  color: #b42d43;
+  visibility: hidden;
 }
-#urlForm .input-group .more-info.error,
-#urlFormPending .input-group .more-info.error {
-  color: #bc4050;
+#urlForm .input-group [aria-invalid=true] ~ .error-message,
+#urlFormPending .input-group [aria-invalid=true] ~ .error-message {
+  visibility: visible;
 }
 
 #urlFormPending .form-group {
@@ -476,7 +477,7 @@ body {
 }
 
 .text--fail {
-  color: #bc4050;
+  color: #b42d43;
 }
 
 .text--average {
@@ -484,7 +485,7 @@ body {
 }
 
 .text--pass {
-  color: #3c825c;
+  color: #5cc98d;
 }
 
 .separator {
@@ -608,14 +609,14 @@ section.metrics .legend-item::before {
   position: relative;
   top: 3.5px;
   border-radius: 100%;
-  background-color: #bc4050;
+  background-color: #b42d43;
   margin-right: 12px;
 }
 section.metrics .legend-item.average::before {
   background-color: #976700;
 }
 section.metrics .legend-item.pass::before {
-  background-color: #3c825c;
+  background-color: #5cc98d;
 }
 
 .metrics-container {
@@ -640,12 +641,12 @@ section.metrics .legend-item.pass::before {
   font-weight: 700;
 }
 .metrics-container .metric-wrapper .pass {
-  color: #3c825c;
-  stroke: #3c825c;
+  color: #5cc98d;
+  stroke: #5cc98d;
 }
 .metrics-container .metric-wrapper .fail {
-  color: #bc4050;
-  stroke: #bc4050;
+  color: #b42d43;
+  stroke: #b42d43;
 }
 .metrics-container .metric-wrapper .average {
   color: #976700;

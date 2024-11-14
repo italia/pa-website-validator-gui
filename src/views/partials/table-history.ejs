@@ -67,4 +67,8 @@
       <% }); %>
     </tbody>
   </table>
+
+  <% if (items.length === 0) { %>
+    <%- include('components/no-results'); %>
+  <% } %>
 </div>

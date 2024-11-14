@@ -42,20 +42,20 @@
 
 .legend .legend-item .circle.pass,
 .circle.pass {
-  background-color: #3c825c;
+  background-color: $success;
 }
 .legend .legend-item .circle.fail,
 .circle.fail {
-  background-color: #bc4050;
+  background-color: $error;
 }
 .legend .legend-item .circle.error,
 .circle.error {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #bc4050;
+  color: $error;
   text-transform: uppercase;
-  border: 2px solid #bc4050;
+  border: 2px solid $error;
 }
 .legend .legend-item .circle.undone,
 .circle.undone {

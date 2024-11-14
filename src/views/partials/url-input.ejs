@@ -23,6 +23,7 @@
         id="inputUrl" name="website"
         value="<%- locals.scanningWebsite ?? undefined %>"
         <%- currentPage === "scanning" ? "readonly" : "required" %>
+        aria-errormessage="inputUrlError"
       />
       <ul class="autocomplete-list"></ul>
       <div class="input-group-append">
@@ -38,7 +39,7 @@
           </span>
         <% } %>
       </div>
-      <small class="more-info"></small>
+      <small id="inputUrlError" class="error-message">URL non valido. Rispettare il formato: https://www.xyz.it</small>
     </div>
   </div>
 </form>

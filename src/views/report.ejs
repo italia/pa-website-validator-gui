@@ -35,13 +35,13 @@
 </div>
 
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
-  <div class="d-flex justify-content-between w-100">
-    <small>
-      Data: <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
+  <div class="d-flex justify-content-between gap-2 flex-wrap w-100">
+    <span>
+      <b>Data:</b> <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
       "short" }).format(new Date(mock.date)) %>
-    </small>
-    <small class="ms-auto">
-      Accuratezza:
+    </span>
+    <span>
+      <b>Accuratezza:</b>
       <%-
         mock.accuracy === 'all'
         ? 'Completa (Tutte le pagine)'
@@ -53,7 +53,7 @@
         ? 'Bassa (1 pagina)'
         : 'Non definita'
       %>
-    </small>
+    </span>
   </div>
 </div>
 

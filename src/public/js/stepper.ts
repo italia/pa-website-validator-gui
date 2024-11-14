@@ -4,7 +4,6 @@ import {
   URL_FORM,
   LOGS_TEXTAREA,
   REPORT_FRAME,
-  MORE_INFO_URL,
   AUTOCOMPLETE_LIST,
   TYPE_SELECT,
   URL_FORM_PENDING,
@@ -62,20 +61,12 @@ function isValidURL(string: string) {
 INPUT_URL?.addEventListener("input", (e) => {
   const url = (e.target as HTMLInputElement).value;
 
-  if (url && START_BUTTON && MORE_INFO_URL) {
-    if (isValidURL(url)) {
-      START_BUTTON.removeAttribute("disabled");
-      MORE_INFO_URL.classList.remove("error");
-      MORE_INFO_URL.innerHTML = "";
-    } else {
-      START_BUTTON.setAttribute("disabled", "");
-      MORE_INFO_URL.classList.add("error");
-      MORE_INFO_URL.innerHTML =
-        "L’URL inserito non è valido. Assicurati che sia nel formato corretto, ad esempio: https://xyz.it.";
-    }
-  } else if (MORE_INFO_URL) {
-    MORE_INFO_URL.classList.remove("error");
-    MORE_INFO_URL.innerHTML = "";
+  if (isValidURL(url)) {
+    START_BUTTON?.removeAttribute("disabled");
+    INPUT_URL?.setAttribute("aria-invalid", "false");
+  } else {
+    START_BUTTON?.setAttribute("disabled", "");
+    INPUT_URL?.setAttribute("aria-invalid", "true");
   }
 
   if (typeof window.electronAPI?.send === "function")
