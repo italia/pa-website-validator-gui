@@ -8,8 +8,11 @@ document.querySelectorAll("a[data-page]").forEach((link) => {
         const url = link.getAttribute("href");
         const websiteType = link.getAttribute("data-url-type");
         const website = link.getAttribute("data-url");
+        const accuracy = link.getAttribute("data-url-accuracy");
+        const timeout = link.getAttribute("data-url-timeout");
+        const pages = link.getAttribute("data-url-pages");
 
-        window.electronAPI.send("navigate", { pageName: pageName, url: url, scanningWebsite: website, scanningWebsiteType: websiteType });
+        window.electronAPI.send("navigate", { pageName: pageName, url: url, scanningWebsite: website, scanningWebsiteType: websiteType, accuracy: accuracy, timeout: timeout, pages: pages });
       }
     }
   });
