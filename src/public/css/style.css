@@ -487,7 +487,6 @@ body {
   color: #3c825c;
 }
 
-/* SEPARATOR */
 .separator {
   width: 100%;
   height: 1px;
@@ -506,11 +505,18 @@ body {
 .icon-link:hover svg {
   fill: #0053a5;
 }
-.icon-link:disabled, .icon-link.link-disabled {
-  cursor: not-allowed;
-}
-.icon-link:disabled svg, .icon-link.link-disabled svg {
+.icon-link:disabled svg, .icon-link.disabled svg {
   fill: var(--bs-secondary);
+}
+
+:disabled,
+.disabled {
+  cursor: not-allowed !important;
+}
+
+/* Since :disabled buttons have pointer-events: none wrap them in a <span> and set cursor: not-allowed on it */
+.disabled-wrapper:has(> button:disabled) {
+  cursor: not-allowed;
 }
 
 .it-header-wrapper {

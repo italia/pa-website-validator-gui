@@ -296,6 +296,7 @@ ipcMain.on("start-node-program", async (event, data) => {
 
   nodeProcess = fork(commandPath, args, {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
+    execArgv: ['--max-old-space-size=16384'],
     env: {
       ...process.env,
       PUPPETEER_EXECUTABLE_PATH: getChromePath(),

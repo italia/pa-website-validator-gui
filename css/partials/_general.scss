@@ -34,7 +34,6 @@ body {
   color: $success;
 }
 
-/* SEPARATOR */
 .separator {
   width: 100%;
   height: 1px;
@@ -56,11 +55,19 @@ body {
   }
 
   &:disabled,
-  &.link-disabled {
-    cursor: not-allowed;
-
+  &.disabled {
     svg {
       fill: $secondary;
     }
   }
+}
+
+:disabled,
+.disabled {
+  cursor: not-allowed !important;
+}
+
+/* Since :disabled buttons have pointer-events: none wrap them in a <span> and set cursor: not-allowed on it */
+.disabled-wrapper:has(> button:disabled) {
+  cursor: not-allowed;
 }

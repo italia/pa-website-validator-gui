@@ -31,9 +31,11 @@
             Annulla scansione
           </button>
         <% } else { %>
-          <button id="startBtn" class="btn btn-primary" type="submit" disabled>
-            Avvia scansione
-          </button>
+          <span class="disabled-wrapper">
+            <button id="startBtn" class="btn btn-primary" type="submit" disabled>
+              Avvia scansione
+            </button>
+          </span>
         <% } %>
       </div>
       <small class="more-info"></small>
