@@ -120,7 +120,19 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
 
     if (args?.audits !== undefined)
       newItem.auditsExecuted = args.audits as string[];
+
+    if(args?.accuracy !== undefined)
+      newItem.accuracy = args.accuracy as string;
+
+    if(args?.timeout !== undefined)
+      newItem.timeout = args.timeout as number;
+
+    if(args?.concurrentPages !== undefined)
+      newItem.concurrentPages = args.concurrentPages as number;
+
     if (args !== undefined) newItem.args = args;
+
+    console.log(args, newItem)
 
     // Insert the item and get the newly created entity
     const insertedItem = await itemRepo.insert(
@@ -171,6 +183,8 @@ const updateItem = async (
       throw new Error(`Item with id=${id} not found`);
     }
 
+    console.log(accuracy, insertedItem.accuracy);
+
     await itemRepo.update(id, {
       executionTime: executionTime,
       type: type,
@@ -186,7 +200,7 @@ const updateItem = async (
       successCount: successCount,
       errorCount: errorCount,
       failedCount: failedCount,
-      accuracy: accuracy,
+      accuracy: accuracy ?? insertedItem.accuracy,
       timeout: timeout,
       concurrentPages: concurrentPages,
       scope: scope,
