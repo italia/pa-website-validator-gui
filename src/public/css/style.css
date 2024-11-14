@@ -377,7 +377,7 @@ footer a:hover, footer a:visited {
 #urlFormPending .input-group .more-info.error {
   color: #bc4050;
 }
-#urlForm .form-group,
+
 #urlFormPending .form-group {
   margin-bottom: 0;
 }
