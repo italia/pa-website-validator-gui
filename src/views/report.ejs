@@ -7,9 +7,9 @@
   </div>
   <div class="d-flex gap-3 align-items-center">
     <button
-      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
       data-open-report="<%=mock.id%>"
-      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
     >
       <svg class="icon icon-primary me-1">
         <use href="#it-password-visible"></use>
@@ -18,9 +18,9 @@
     </button>
 
     <button
-      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
       data-download="<%= mock.id %>"
-      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
     >
       <svg class="icon icon-white me-1">
         <use href="#it-download"></use>

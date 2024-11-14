@@ -97,17 +97,16 @@ async function createWindow() {
 
 const loadPage = async (pageName: string, url: string) => {
   const queryParam = url?.split("id=")[1];
-
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
-        title: string | undefined;
-        code: string | undefined;
-        id: string | undefined;
-        innerId: string | undefined;
-        weight: number | undefined;
-        status: string | undefined;
-      }
+      title: string | undefined;
+      code: string | undefined;
+      id: string | undefined;
+      innerId: string | undefined;
+      weight: number | undefined;
+      status: string | undefined;
+    }
     | undefined
   )[] = [];
 
@@ -312,7 +311,7 @@ ipcMain.on("start-node-program", async (event, data) => {
     });
   }
 
-  nodeProcess.on("exit", (code, signal) => {
+  nodeProcess.on("exit", async (code, signal) => {
     if (signal) {
       console.log(`Processo figlio terminato tramite segnale ${signal}`);
     } else {
@@ -332,7 +331,7 @@ ipcMain.on("start-node-program", async (event, data) => {
 
     console.log(" console.log(passo);", itemId, reportFolder);
 
-    updateItem(
+    await updateItem(
       itemId,
       type === "municipality" ? "Comune" : "Scuola",
       undefined,
@@ -341,15 +340,15 @@ ipcMain.on("start-node-program", async (event, data) => {
       undefined,
       undefined,
       undefined,
+      accuracy,
+      timeout,
+      concurrentPages,
+      scope,
     );
-
-    event.sender.send("scan-finished", [itemId]);
   });
 
-  nodeProcess.on("close", (code) => {
-    console.log("passo");
+  nodeProcess.on("close", async (code) => {
     if (!killedManually) {
-      console.log("passaaaaaa");
       const endTime = Date.now();
       const executionTime = endTime - startTime;
 
@@ -368,8 +367,6 @@ ipcMain.on("start-node-program", async (event, data) => {
         failedCount,
         errorCount,
       } = getDataFromJSONReport(`${reportFolder}/report.json`);
-
-      event.sender.send("scan-finished", [itemId]);
 
       const referenceArray =
         type === "municipality" ? municipalityAudits : schoolAudits;
@@ -390,7 +387,7 @@ ipcMain.on("start-node-program", async (event, data) => {
         }
       });
 
-      updateItem(
+      await updateItem(
         itemId,
         type === "municipality" ? "Comune" : "Scuola",
         executionTime,
@@ -404,11 +401,10 @@ ipcMain.on("start-node-program", async (event, data) => {
         concurrentPages,
         scope,
       );
-
-      event.sender.send("open-report", `${reportFolder}/report.html`);
     }
 
     killedManually = false;
+    event.sender.send("scan-finished", [itemId]);
   });
 });
 
@@ -433,6 +429,7 @@ ipcMain.on("recover-report", async (event, data) => {
   const item = await getItemById(data ?? "");
   event.sender.send("return-report-item", item);
 });
+
 ipcMain.on("download-report", async (event, data) => {
   const item: Item | null = await getItemById(data["reportId"]);
 
@@ -440,16 +437,14 @@ ipcMain.on("download-report", async (event, data) => {
     return;
   }
 
-  const filePath =
-    getFolderWithId(item.id) +
-    `/report_${item.url.toString().replace("https://", "").replace("/", "")}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
-
+  const saveFilename = `/report_${item.url.toString().replace("https://", "").replace("/", "")}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
   const { filePath: savePath } = await dialog.showSaveDialog({
-    defaultPath: path.basename(filePath),
+    defaultPath: path.basename(saveFilename),
   });
 
   if (savePath) {
-    fs.copyFile(filePath, savePath, (err) => {
+    const sourceFile = getFolderWithId(data.reportId) + "/report.html";
+    fs.copyFile(sourceFile, savePath, (err) => {
       if (err) {
         console.error("Errore durante il download:", err);
       } else {

@@ -171,7 +171,6 @@ const completeProgress = (id: string) => {
     document.querySelector<HTMLAnchorElement>('[data-page="report"]');
   if (reportLink) {
     reportLink.href = reportLink.href + `?id=${id}`;
-    console.log(reportLink.href);
   }
   document.querySelector<HTMLAnchorElement>('[data-page="report"]')?.click();
 };

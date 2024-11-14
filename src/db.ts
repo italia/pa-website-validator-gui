@@ -195,7 +195,7 @@ const updateItem = async (
       scope: scope,
     });
 
-    console.log("UPDATED ITEM ID", id);
+    console.log("UPDATED ITEM ID", id, score);
 
     return;
   } catch (error) {
@@ -261,18 +261,15 @@ const createFolderWithId = (id: string): string | null => {
 
 const getFolderWithId = (id: string): string | null => {
   const folderPath = path.join(dbFolder, "reports", id);
-
-  console.log("DIRNAME", __dirname);
-
   const absoluteFolderPath = path.resolve(folderPath);
 
-  console.log("CREATE INTO", absoluteFolderPath);
+  console.log("CREATE INTO 2", absoluteFolderPath);
 
   try {
     accessSync(absoluteFolderPath);
     return absoluteFolderPath;
   } catch {
-    console.log("error return folder");
+    console.log("error return folder", absoluteFolderPath);
     throw new Error("error return folder");
   }
 };
