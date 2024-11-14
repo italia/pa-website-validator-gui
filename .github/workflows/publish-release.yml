@@ -51,6 +51,7 @@ jobs:
         run: npm run updateGeoIPData
         env:
           LICENSE_KEY: ${{ secrets.GEOIP_LICENSE_KEY }}
+        continue-on-error: true
 
       - name: Install Snapcraft on Ubuntu
         if: runner.os == 'Linux' && matrix.target.runner == 'ubuntu-latest'
