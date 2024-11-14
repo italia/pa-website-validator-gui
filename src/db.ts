@@ -124,13 +124,12 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
     if (args?.audits !== undefined)
       newItem.auditsExecuted = args.audits as string[];
 
-    if(args?.accuracy !== undefined)
+    if (args?.accuracy !== undefined)
       newItem.accuracy = args.accuracy as string;
 
-    if(args?.timeout !== undefined)
-      newItem.timeout = args.timeout as number;
+    if (args?.timeout !== undefined) newItem.timeout = args.timeout as number;
 
-    if(args?.concurrentPages !== undefined)
+    if (args?.concurrentPages !== undefined)
       newItem.concurrentPages = args.concurrentPages as number;
 
     if (args !== undefined) newItem.args = args;
@@ -193,8 +192,8 @@ const updateItem = async (
           : score === -1
             ? Status.ERRORED
             : score === -2
-                    ? Status.STOPPED
-            : Status.FAILED,
+              ? Status.STOPPED
+              : Status.FAILED,
       failedAudits: failedAudits,
       successCount: successCount,
       errorCount: errorCount,
