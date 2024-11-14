@@ -97,6 +97,8 @@ URL_FORM?.addEventListener("submit", (e) => {
   };
 
   console.log("start");
+  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url', website);
+  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url-type', type);
   document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
 
   console.log("type", type);

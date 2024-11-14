@@ -105,7 +105,7 @@ async function createWindow() {
   await loadPage("home", "");
 }
 
-const loadPage = async (pageName: string, url: string) => {
+const loadPage = async (pageName: string, url: string, scanningWebsite?: string, scanningWebsiteType?: string) => {
   const queryParam = url?.split("id=")[1];
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
@@ -189,6 +189,8 @@ const loadPage = async (pageName: string, url: string) => {
       logs: queryParam
         ? readFileSync(`${getFolderWithId(queryParam)}/logs.txt`, "utf8")
         : "",
+      scanningWebsite: scanningWebsite,
+      scanningWebsiteType: scanningWebsiteType
     },
     defaultAudits: municipalityAudits,
     reportId: queryParam,
@@ -225,7 +227,7 @@ const loadPage = async (pageName: string, url: string) => {
 };
 
 ipcMain.on("navigate", async (event, data) => {
-  await loadPage(data.pageName, data.url);
+  await loadPage(data.pageName, data.url, data.scanningWebsite, data.scanningWebsiteType);
 });
 
 /** flow for 'Avvia scansione' */

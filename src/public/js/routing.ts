@@ -6,8 +6,10 @@ document.querySelectorAll("a[data-page]").forEach((link) => {
       if (event && event.target) {
         const pageName = link.getAttribute("data-page");
         const url = link.getAttribute("href");
+        const websiteType = link.getAttribute("data-url-type");
+        const website = link.getAttribute("data-url");
 
-        window.electronAPI.send("navigate", { pageName: pageName, url: url });
+        window.electronAPI.send("navigate", { pageName: pageName, url: url, scanningWebsite: website, scanningWebsiteType: websiteType });
       }
     }
   });
