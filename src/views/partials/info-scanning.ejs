@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-start mb-2 gap-2">
+  <b>Accuratezza:</b> <%-
+  accuracy === 'all'
+          ? 'Completa (Tutte le pagine)'
+          : accuracy === 'high'
+                  ? 'Alta (10 pagine)'
+                  : accuracy === 'suggested'
+                          ? 'Media (5 pagine)'
+                          : accuracy === 'min'
+                                  ? 'Bassa (1 pagina)'
+                                  : 'Non definita'
+  %>;  <b>Timeout:</b> <%- timeout %>;  <b>Numero di pagine:</b> <%- numberOfPages %>
+</div>

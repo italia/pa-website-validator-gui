@@ -105,7 +105,7 @@ async function createWindow() {
   await loadPage("home", "");
 }
 
-const loadPage = async (pageName: string, url: string, scanningWebsite?: string, scanningWebsiteType?: string) => {
+const loadPage = async (pageName: string, url: string, scanningWebsite?: string, scanningWebsiteType?: string, accuracy?: string, timeout?: string, pages?: string) => {
   const queryParam = url?.split("id=")[1];
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
@@ -164,7 +164,9 @@ const loadPage = async (pageName: string, url: string, scanningWebsite?: string,
       id: item?.id,
       date: item?.date,
       type: item?.type,
-      accuracy: item?.accuracy,
+      accuracy: accuracy ?? item?.accuracy,
+      numberOfPages: pages ?? item?.concurrentPages,
+      timeout: timeout ?? item?.timeout,
       website: item?.url,
       results: {
         status: item?.status,
@@ -227,7 +229,7 @@ const loadPage = async (pageName: string, url: string, scanningWebsite?: string,
 };
 
 ipcMain.on("navigate", async (event, data) => {
-  await loadPage(data.pageName, data.url, data.scanningWebsite, data.scanningWebsiteType);
+  await loadPage(data.pageName, data.url, data.scanningWebsite, data.scanningWebsiteType, data.accuracy, data.timeout, data.pages);
 });
 
 /** flow for 'Avvia scansione' */
@@ -334,8 +336,6 @@ ipcMain.on("start-node-program", async (event, data) => {
 
       logStream.close();
     }
-
-    console.log(" console.log(passo);", itemId, reportFolder);
 
     await updateItem(
       itemId,
