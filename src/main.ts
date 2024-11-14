@@ -100,13 +100,13 @@ const loadPage = async (pageName: string, url: string) => {
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
-      title: string | undefined;
-      code: string | undefined;
-      id: string | undefined;
-      innerId: string | undefined;
-      weight: number | undefined;
-      status: string | undefined;
-    }
+        title: string | undefined;
+        code: string | undefined;
+        id: string | undefined;
+        innerId: string | undefined;
+        weight: number | undefined;
+        status: string | undefined;
+      }
     | undefined
   )[] = [];
 
@@ -230,8 +230,6 @@ ipcMain.on("start-node-program", async (event, data) => {
   if (!concurrentPages) concurrentPages = 20;
 
   const itemValues = await insertItem(website, data);
-
-  console.log(" SEARCH URL ", await searchURL("save"));
 
   const reportFolder = itemValues?.reportFolder;
   const itemId = itemValues?.id;
