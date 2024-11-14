@@ -65,11 +65,11 @@ async function createWindow() {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     if (details.url.startsWith("http")) {
       shell.openExternal(details.url);
-      return { action: "deny" }; 
+      return { action: "deny" };
     }
 
     return { action: "allow" };
-  })
+  });
 
   mainWindow.webContents.on("before-input-event", (event, input) => {
     if (
