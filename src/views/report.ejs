@@ -6,27 +6,31 @@
     <span class="h4 mb-0"><%= mock?.website %></span>
   </div>
   <div class="d-flex gap-3 align-items-center">
-    <button
-      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
-      data-open-report="<%=mock.id%>"
-      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
-    >
-      <svg class="icon icon-primary me-1">
-        <use href="#it-password-visible"></use>
-      </svg>
-      <span>Visualizza il report</span>
-    </button>
+    <span class="disabled-wrapper">
+      <button
+        class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
+        data-open-report="<%=mock.id%>"
+        <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
+      >
+        <svg class="icon icon-primary me-1">
+          <use href="#it-password-visible"></use>
+        </svg>
+        <span>Visualizza il report</span>
+      </button>
+    </span>
 
-    <button
-      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
-      data-download="<%= mock.id %>"
-      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
-    >
-      <svg class="icon icon-white me-1">
-        <use href="#it-download"></use>
-      </svg>
-      <span>Scarica</span>
-    </button>
+    <span class="disabled-wrapper">
+      <button
+        class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
+        data-download="<%= mock.id %>"
+        <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
+      >
+        <svg class="icon icon-white me-1">
+          <use href="#it-download"></use>
+        </svg>
+        <span>Scarica</span>
+      </button>
+    </span>
   </div>
 </div>
 
@@ -117,7 +121,7 @@
                 <p>Non eseguito</p>
               </div>
             </div>
-            
+
             <div class="d-flex justify-content-end gap-1">
               <a href="#" data-select-all><span>Seleziona tutto</span></a> / <a href="#" data-deselect-all><span>Deseleziona tutto</span></a>
             </div>
