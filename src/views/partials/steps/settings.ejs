@@ -18,17 +18,30 @@
     <!-- SETTINGS -->
     <div class="accordion-item" id="settings-container">
       <h2 class="accordion-header " id="heading-settings">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-settings" aria-expanded="false" aria-controls="collapse-settings">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapse-settings" aria-expanded="false" aria-controls="collapse-settings">
           Impostazioni avanzate
         </button>
       </h2>
-      <div id="collapse-settings" class="accordion-collapse collapse" data-bs-parent="#accordion-container" role="region" aria-labelledby="heading-settings">
+      <div id="collapse-settings" class="accordion-collapse collapse" data-bs-parent="#accordion-container"
+        role="region" aria-labelledby="heading-settings">
         <div class="accordion-body">
           <form id="settingsForm" class="settings-wrapper">
             <!-- <%- include('../components/select', { label: "Ambito", name: "scope", options: [{ label: "Online", value: "online" }, { label: "Locale", value: "local" }], checked: "online" }); %> -->
-            <%- include('../components/select', { label: "Accuratezza", name: "accuracy", options: [{ label: "Completa (Tutte le pagine)", value: "all" }, { label: "Alta (10 pagine)", value: "high" }, { label: "Media (5 pagine)", value: "suggested" }, { label: "Bassa (1 pagina)", value: "min" }], checked: "all", description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Completa' per superare il controllo di asseverazione." }); %>
-            <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente", defaultValue: 10, name: "concurrentPages", step: 1, min: 1, max: 20, description: "Definisce il numero di pagine del sito web che possono essere scansionate in parallelo. Un valore più alto accelera il processo di scansione. Si consiglia un valore di 10." }); %>
-            <%- include('../components/input-numeric', { label: "Timeout (ms)", defaultValue: 30000, name: "timeout", step: 1000, min: 0, description: "Definisce il timeout massimo per il caricamento di ciascuna pagina web. Il valore, espresso in millisecondi, non deve superare i 30.000 ms per superare i controlli di asseverazione." }); %>
+            <%- include('../components/select', { label: "Accuratezza" , name: "accuracy" , options: [{
+              label: "Completa (Tutte le pagine)" , value: "all" }, { label: "Alta (10 pagine)" , value: "high" }, {
+              label: "Media (5 pagine)" , value: "suggested" }, { label: "Bassa (1 pagina)" , value: "min" }],
+              checked: "all" ,
+              description: "Definisce la precisione della scansione indicando il numero di pagine analizzate per ogni tipologia di pagina. È necessario avere un risultato positivo dall'esecuzione con 'Completa' per superare il controllo di asseverazione."
+              }); %>
+              <%- include('../components/input-numeric', { label: "Pagine scansionate simultaneamente" , defaultValue:
+                10, name: "concurrentPages" , step: 1, min: 1, max: 20,
+                description: "Definisce il numero di pagine del sito web che possono essere scansionate in parallelo. Un valore più alto accelera il processo di scansione. Si consiglia un valore di 10."
+                }); %>
+                <%- include('../components/input-numeric', { label: "Timeout (ms)" , defaultValue: 30000,
+                  name: "timeout" , step: 1000, min: 0,
+                  description: "Definisce il timeout massimo per il caricamento di ciascuna pagina web. Il valore, espresso in millisecondi, non deve superare i 30.000 ms per superare i controlli di asseverazione."
+                  }); %>
           </form>
         </div>
       </div>
@@ -37,33 +50,43 @@
     <!-- AUDITS -->
     <div class="accordion-item" id="audits-container">
       <h2 class="accordion-header " id="heading-audits">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-audits" aria-expanded="true" aria-controls="collapse-audits">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-audits"
+          aria-expanded="true" aria-controls="collapse-audits">
           Criteri e raccomandazioni
         </button>
       </h2>
-      <div id="collapse-audits" class="accordion-collapse collapse show" data-bs-parent="#accordion-container" role="region" aria-labelledby="heading-audits">
+      <div id="collapse-audits" class="accordion-collapse collapse show" data-bs-parent="#accordion-container"
+        role="region" aria-labelledby="heading-audits">
         <div class="accordion-body">
-          <button data-deselect-all class="btn btn-primary btn-xs w-100 text-nowrap">
-            <span>Deseleziona tutto</span>
-          </button>
+          <div class="d-flex justify-content-between gap-lg-3 gap-1 align-items-center mb-3 flex-wrap">
+            Seleziona i criteri e le raccomandazione che vuoi verificare.
+
+            <div class="d-flex justify-content-end gap-1">
+              <a href="#" data-select-all><span>Seleziona tutto</span></a> / <a href="#"
+                data-deselect-all><span>Deseleziona tutto</span></a>
+            </div>
+          </div>
           <form id="auditsForm" class="audits-wrapper">
 
-            <% if (defaultAudits.length === 0) { %>
+            <% if (defaultAudits.length===0) { %>
               <p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>
-            <% } else { %>
-              <% defaultAudits.forEach(function(audit) {
-                if(audit.code.length > 0){
-              %>
-                <div class="form-check">
-                  <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
-                  <% if(audit.code.toUpperCase() === audit.title.toUpperCase()) {%>
-                  <label class="form-check-label" for="<%= audit.id %>"><%= audit.title.toUpperCase() %></label>
-                  <%} else {%>
-                    <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
-                  <%} %>
-                </div>
-              <% }}); %>
-            <% } %>
+              <% } else { %>
+                <% defaultAudits.forEach(function(audit) { if(audit.code.length> 0){
+                  %>
+                  <div class="form-check">
+                    <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
+                    <% if(audit.code.toUpperCase()===audit.title.toUpperCase()) {%>
+                      <label class="form-check-label" for="<%= audit.id %>">
+                        <%= audit.title.toUpperCase() %>
+                      </label>
+                      <%} else {%>
+                        <label class="form-check-label" for="<%= audit.id %>">
+                          <%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %>
+                        </label>
+                        <%} %>
+                  </div>
+                  <% }}); %>
+                    <% } %>
 
           </form>
         </div>

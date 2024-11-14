@@ -1,6 +1,7 @@
 @use "variables" as *;
 
-#urlForm, #urlFormPending {
+#urlForm,
+#urlFormPending {
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 24px;
@@ -22,7 +23,7 @@
   }
 }
 
-#auditsRedoForm{
+#auditsRedoForm {
   margin-top: 8px;
 }
 
@@ -30,7 +31,6 @@ form {
   &.settings-wrapper,
   &.audits-wrapper {
     margin-top: 1rem;
-    margin-bottom: 2rem;
   }
 
   &.settings-wrapper {
@@ -87,4 +87,21 @@ form {
 select:disabled,
 input:read-only {
   background-color: #d8d9da !important;
+}
+
+.form-check [type="checkbox"] + label,
+.form-check [type="radio"] + label {
+  font-size: 1rem !important;
+
+  @media screen and (max-width: 992px) {
+    font-size: 0.875rem !important;
+  }
+}
+
+.form-check {
+  margin-bottom: 0.25rem !important;
+
+  + .form-check {
+    margin-top: 0.25rem !important;
+  }
 }

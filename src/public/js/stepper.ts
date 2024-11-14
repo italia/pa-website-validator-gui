@@ -7,7 +7,7 @@ import {
   MORE_INFO_URL,
   AUTOCOMPLETE_LIST,
   TYPE_SELECT,
-    URL_FORM_PENDING
+  URL_FORM_PENDING,
 } from "./elements.js";
 import {
   getSettingsFormValues,
@@ -70,7 +70,8 @@ INPUT_URL?.addEventListener("input", (e) => {
     } else {
       START_BUTTON.setAttribute("disabled", "");
       MORE_INFO_URL.classList.add("error");
-      MORE_INFO_URL.innerHTML = "L'url inserito non è valido";
+      MORE_INFO_URL.innerHTML =
+        "L’URL inserito non è valido. Assicurati che sia nel formato corretto, ad esempio: https://xyz.it.";
     }
   } else if (MORE_INFO_URL) {
     MORE_INFO_URL.classList.remove("error");
@@ -80,7 +81,6 @@ INPUT_URL?.addEventListener("input", (e) => {
   if (typeof window.electronAPI?.send === "function")
     window.electronAPI.send("start-type", url);
 });
-/* INPUT & AUTOCOMPLETE LOGICS END */
 
 window.electronAPI?.receive("update-autocomplete-list", (urls: string[]) => {
   setAutocompleteOptions(urls);
@@ -143,7 +143,7 @@ window.electronAPI?.receive("log-update", (data) => {
 
 /* REPORT PAGE START */
 window.electronAPI?.receive("scan-finished", (id) => {
-  console.log('ricevo')
+  console.log("ricevo");
   setTimeout(() => {
     //! TODO remove timeout
     console.log("SCAN FINISHED", id);
@@ -158,10 +158,12 @@ window.electronAPI?.receive("open-report", (reportPath) => {
   }
 });
 
-URL_FORM_PENDING?.addEventListener('submit', (e) => {
+URL_FORM_PENDING?.addEventListener("submit", (e) => {
   e.preventDefault();
-  window.electronAPI.send("kill-process", {id: document.querySelector('#stop-process')?.getAttribute('data-item-id') });
-})
+  window.electronAPI.send("kill-process", {
+    id: document.querySelector("#stop-process")?.getAttribute("data-item-id"),
+  });
+});
 
 const completeProgress = (id: string) => {
   // workaround to navigate programmatically
@@ -169,7 +171,6 @@ const completeProgress = (id: string) => {
     document.querySelector<HTMLAnchorElement>('[data-page="report"]');
   if (reportLink) {
     reportLink.href = reportLink.href + `?id=${id}`;
-    console.log(reportLink.href);
   }
   document.querySelector<HTMLAnchorElement>('[data-page="report"]')?.click();
 };

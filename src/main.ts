@@ -13,11 +13,18 @@ import { fork, ChildProcess } from "child_process";
 import path from "path";
 import { createWriteStream, readFileSync, writeFileSync } from "fs";
 import * as ejs from "ejs";
-import { getDataFromJSONReport, cleanConsoleOutput, AuditI } from "./utils.js";
+import {
+  getDataFromJSONReport,
+  cleanConsoleOutput,
+  AuditI,
+  getChromePath,
+} from "./utils.js";
 import { municipalityAudits, schoolAudits } from "./storage/auditMapping.js";
 import { Item } from "./entities/Item";
 import fs from "fs";
 import { VERSION, VERSION_VALIDATOR } from "./versions.js";
+import { shell } from "electron";
+
 const __dirname = import.meta.dirname;
 const saveDirname = app.getPath("userData");
 
@@ -36,7 +43,7 @@ app.on("window-all-closed", () => {
   app.quit();
 });
 
-let nodeProcess : ChildProcess;
+let nodeProcess: ChildProcess;
 let killedManually = false;
 
 async function createWindow() {
@@ -53,6 +60,15 @@ async function createWindow() {
       contextIsolation: true,
       zoomFactor: 1,
     },
+  });
+
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    if (details.url.startsWith("http")) {
+      shell.openExternal(details.url);
+      return { action: "deny" };
+    }
+
+    return { action: "allow" };
   });
 
   mainWindow.webContents.on("before-input-event", (event, input) => {
@@ -91,7 +107,6 @@ async function createWindow() {
 
 const loadPage = async (pageName: string, url: string) => {
   const queryParam = url?.split("id=")[1];
-
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
@@ -105,7 +120,11 @@ const loadPage = async (pageName: string, url: string) => {
     | undefined
   )[] = [];
 
-  if (item?.failedAudits && item?.failedAudits.length && item.failedAudits[0] !== '[]') {
+  if (
+    item?.failedAudits &&
+    item?.failedAudits.length &&
+    item.failedAudits[0] !== "[]"
+  ) {
     JSON.parse(item.failedAudits).forEach((audit: AuditI) => {
       let itemFound;
       if (item.type === "Comune") {
@@ -122,19 +141,15 @@ const loadPage = async (pageName: string, url: string) => {
         itemFound ? { ...itemFound, status: audit?.status } : undefined,
       );
     });
-  }else{
-    if (item?.type === "Comune" || item?.type === 'municipality') {
-      municipalityAudits.forEach(audit => {
-        mappedAuditsFailedObject.push(
-            {...audit, status: 'undone' }
-        );
-      })
+  } else {
+    if (item?.type === "Comune" || item?.type === "municipality") {
+      municipalityAudits.forEach((audit) => {
+        mappedAuditsFailedObject.push({ ...audit, status: "undone" });
+      });
     } else {
-      schoolAudits.forEach(audit => {
-        mappedAuditsFailedObject.push(
-            {...audit, status: 'undone' }
-        );
-      })
+      schoolAudits.forEach((audit) => {
+        mappedAuditsFailedObject.push({ ...audit, status: "undone" });
+      });
     }
   }
 
@@ -185,10 +200,7 @@ const loadPage = async (pageName: string, url: string) => {
   if (pageName == "history") {
     if (url) {
       const queryParam = url?.split("page=")[1];
-      data.historyData = await getItems(
-        queryParam ? Number(queryParam) : 1,
-        8,
-      );
+      data.historyData = await getItems(queryParam ? Number(queryParam) : 1, 8);
     } else {
       data.historyData = await getItems(1, 8);
     }
@@ -228,8 +240,6 @@ ipcMain.on("start-node-program", async (event, data) => {
   if (!concurrentPages) concurrentPages = 20;
 
   const itemValues = await insertItem(website, data);
-
-  console.log(" SEARCH URL ", await searchURL("save"));
 
   const reportFolder = itemValues?.reportFolder;
   const itemId = itemValues?.id;
@@ -282,6 +292,10 @@ ipcMain.on("start-node-program", async (event, data) => {
 
   nodeProcess = fork(commandPath, args, {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
+    env: {
+      ...process.env,
+      PUPPETEER_EXECUTABLE_PATH: getChromePath(),
+    },
   });
 
   if (nodeProcess.stdout) {
@@ -305,15 +319,15 @@ ipcMain.on("start-node-program", async (event, data) => {
     });
   }
 
-  nodeProcess.on("exit", (code, signal) => {
+  nodeProcess.on("exit", async (code, signal) => {
     if (signal) {
       console.log(`Processo figlio terminato tramite segnale ${signal}`);
     } else {
       console.log(`Processo figlio terminato con codice ${code}`);
     }
 
-    if(code){
-      if(code){
+    if (code) {
+      if (code) {
         const logString = cleanConsoleOutput(code.toString());
         event.sender.send("log-update", logString);
         logStream.write(logString);
@@ -323,27 +337,26 @@ ipcMain.on("start-node-program", async (event, data) => {
       logStream.close();
     }
 
-    console.log(' console.log(passo);', itemId, reportFolder);
+    console.log(" console.log(passo);", itemId, reportFolder);
 
-    updateItem(
-        itemId,
-        type === "municipality" ? "Comune" : "Scuola",
-        undefined,
-        -2,
-        '[]',
-        undefined,
-        undefined,
-        undefined,
+    await updateItem(
+      itemId,
+      type === "municipality" ? "Comune" : "Scuola",
+      undefined,
+      -2,
+      "[]",
+      undefined,
+      undefined,
+      undefined,
+      accuracy,
+      timeout,
+      concurrentPages,
+      scope,
     );
-
-    event.sender.send("scan-finished", [itemId]);
   });
 
-  nodeProcess.on("close", (code) => {
-    console.log('passo');
-    if(!killedManually){
-
-      console.log('passaaaaaa');
+  nodeProcess.on("close", async (code) => {
+    if (!killedManually) {
       const endTime = Date.now();
       const executionTime = endTime - startTime;
 
@@ -363,18 +376,16 @@ ipcMain.on("start-node-program", async (event, data) => {
         errorCount,
       } = getDataFromJSONReport(`${reportFolder}/report.json`);
 
-      event.sender.send("scan-finished", [itemId]);
-
       const referenceArray =
-          type === "municipality" ? municipalityAudits : schoolAudits;
+        type === "municipality" ? municipalityAudits : schoolAudits;
       const mappedAudit: (AuditI | undefined)[] = referenceArray.map((item) => {
         if (
-            failedAudits.find(
-                (el) => el.text === item.innerId || el.text === item.id,
-            )
+          failedAudits.find(
+            (el) => el.text === item.innerId || el.text === item.id,
+          )
         ) {
           return failedAudits.find(
-              (el) => el.text === item.innerId || el.text === item.id,
+            (el) => el.text === item.innerId || el.text === item.id,
           );
         } else {
           return {
@@ -384,32 +395,31 @@ ipcMain.on("start-node-program", async (event, data) => {
         }
       });
 
-      updateItem(
-          itemId,
-          type === "municipality" ? "Comune" : "Scuola",
-          executionTime,
-          generalResult,
-          JSON.stringify(mappedAudit),
-          successCount,
-          failedCount,
-          errorCount,
-          accuracy,
-          timeout,
-          concurrentPages,
-          scope,
+      await updateItem(
+        itemId,
+        type === "municipality" ? "Comune" : "Scuola",
+        executionTime,
+        generalResult,
+        JSON.stringify(mappedAudit),
+        successCount,
+        failedCount,
+        errorCount,
+        accuracy,
+        timeout,
+        concurrentPages,
+        scope,
       );
-
-      event.sender.send("open-report", `${reportFolder}/report.html`);
     }
 
     killedManually = false;
+    event.sender.send("scan-finished", [itemId]);
   });
 });
 
-ipcMain.on("kill-process", async (event, {data}) => {
+ipcMain.on("kill-process", async () => {
   killedManually = true;
-  nodeProcess.kill('SIGKILL');
-})
+  nodeProcess.kill("SIGKILL");
+});
 
 ipcMain.on("start-type", async (event, data) => {
   let urls: string[] | Item[] | undefined = await searchURL(data, 1, 10);
@@ -427,6 +437,7 @@ ipcMain.on("recover-report", async (event, data) => {
   const item = await getItemById(data ?? "");
   event.sender.send("return-report-item", item);
 });
+
 ipcMain.on("download-report", async (event, data) => {
   const item: Item | null = await getItemById(data["reportId"]);
 
@@ -434,14 +445,14 @@ ipcMain.on("download-report", async (event, data) => {
     return;
   }
 
-  const filePath = getFolderWithId(item.id) + `/report_${item.url.toString().replace('https://', '').replace('/', '')}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
-
+  const saveFilename = `/report_${item.url.toString().replace("https://", "").replace("/", "")}_${new Date(item.date).toISOString().split(".")[0].replace("T", "_").replace(/[-:]/g, ".")}.html`;
   const { filePath: savePath } = await dialog.showSaveDialog({
-    defaultPath: path.basename(filePath),
+    defaultPath: path.basename(saveFilename),
   });
 
   if (savePath) {
-    fs.copyFile(filePath, savePath, (err) => {
+    const sourceFile = getFolderWithId(data.reportId) + "/report.html";
+    fs.copyFile(sourceFile, savePath, (err) => {
       if (err) {
         console.error("Errore durante il download:", err);
       } else {

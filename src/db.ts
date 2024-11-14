@@ -1,10 +1,10 @@
-import {DataSource, FindOptionsOrderValue, Repository} from "typeorm";
-import {Item} from "./entities/Item.js";
+import { DataSource, FindOptionsOrderValue, Repository } from "typeorm";
+import { Item } from "./entities/Item.js";
 import path from "path";
-import {app} from "electron";
-import {Status} from "./types/types.js";
-import {accessSync, mkdirSync} from "fs";
-import {QueryDeepPartialEntity} from "typeorm/query-builder/QueryPartialEntity";
+import { app } from "electron";
+import { Status } from "./types/types.js";
+import { accessSync, mkdirSync } from "fs";
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 
 const __dirname = import.meta.dirname;
 const saveDirname = app.getPath("userData");
@@ -114,9 +114,12 @@ const insertItem = async (url: string, args?: Record<string, unknown>) => {
   try {
     const newItem = new Item();
     newItem.url = url;
-    newItem.type = args?.type === 'municipality' ? 'Comune' : args?.type === 'school' ? 'Scuola' :  args?.type as string;
-
-    // Set optional fields
+    newItem.type =
+      args?.type === "municipality"
+        ? "Comune"
+        : args?.type === "school"
+          ? "Scuola"
+          : (args?.type as string);
 
     if (args?.audits !== undefined)
       newItem.auditsExecuted = args.audits as string[];
@@ -162,7 +165,7 @@ const updateItem = async (
   failedAudits: string,
   successCount: number | undefined,
   failedCount: number | undefined,
-  errorCount: number| undefined,
+  errorCount: number | undefined,
   accuracy?: string,
   timeout?: number,
   concurrentPages?: number,
@@ -180,8 +183,6 @@ const updateItem = async (
     if (!insertedItem) {
       throw new Error(`Item with id=${id} not found`);
     }
-
-    console.log(accuracy, insertedItem.accuracy);
 
     await itemRepo.update(id, {
       executionTime: executionTime,
@@ -204,7 +205,7 @@ const updateItem = async (
       scope: scope,
     });
 
-    console.log("UPDATED ITEM ID", id);
+    console.log("UPDATED ITEM ID", id, score);
 
     return;
   } catch (error) {
@@ -270,18 +271,15 @@ const createFolderWithId = (id: string): string | null => {
 
 const getFolderWithId = (id: string): string | null => {
   const folderPath = path.join(dbFolder, "reports", id);
-
-  console.log("DIRNAME", __dirname);
-
   const absoluteFolderPath = path.resolve(folderPath);
 
-  console.log("CREATE INTO", absoluteFolderPath);
+  console.log("CREATE INTO 2", absoluteFolderPath);
 
   try {
     accessSync(absoluteFolderPath);
     return absoluteFolderPath;
   } catch {
-    console.log("error return folder");
+    console.log("error return folder", absoluteFolderPath);
     throw new Error("error return folder");
   }
 };

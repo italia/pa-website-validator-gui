@@ -7,9 +7,9 @@
   </div>
   <div class="d-flex gap-3 align-items-center">
     <button
-      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
       data-open-report="<%=mock.id%>"
-      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
     >
       <svg class="icon icon-primary me-1">
         <use href="#it-password-visible"></use>
@@ -18,9 +18,9 @@
     </button>
 
     <button
-      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= mock.results.status === 'pending' ? 'disabled' : '' %>"
+      class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
       data-download="<%= mock.id %>"
-      <%= mock.results.status === 'pending' ? 'disabled' : '' %>
+      <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>
     >
       <svg class="icon icon-white me-1">
         <use href="#it-download"></use>
@@ -90,36 +90,38 @@
         aria-labelledby="accordion-header-errors"
       >
         <div class="accordion-body p-3">
-          <div class="legend">
-            <b>Legenda:</b>
-            <div class="legend-item">
-              <div class="circle pass">
+          <div class="d-flex justify-content-between gap-lg-3 gap-1 align-items-center mb-3 flex-wrap">
+            <div class="legend">
+              <b>Legenda:</b>
+              <div class="legend-item">
+                <div class="circle pass">
+                </div>
+                <p>Superato</p>
               </div>
-              <p>Superato</p>
-            </div>
-            <div class="legend-item">
-              <div class="circle fail">
+              <div class="legend-item">
+                <div class="circle fail">
+                </div>
+                <p>Fallito</p>
               </div>
-              <p>Fallito</p>
-            </div>
-            <div class="legend-item">
-              <div class="circle error">
-                x
+              <div class="legend-item">
+                <div class="circle error">
+                  x
+                </div>
+                <p>Errore</p>
               </div>
-              <p>Errore</p>
-            </div>
 
-            <div class="legend-item">
-              <div class="circle undone">
-                x
+              <div class="legend-item">
+                <div class="circle undone">
+                  x
+                </div>
+                <p>Non eseguito</p>
               </div>
-              <p>Non eseguito</p>
+            </div>
+            
+            <div class="d-flex justify-content-end gap-1">
+              <a href="#" data-select-all><span>Seleziona tutto</span></a> / <a href="#" data-deselect-all><span>Deseleziona tutto</span></a>
             </div>
           </div>
-
-          <button data-deselect-all class="btn btn-primary btn-xs w-100 text-nowrap">
-            <span>Deseleziona tutto</span>
-          </button>
 
           <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
             <% if(mock.redo_audits && mock.redo_audits.length ){ %> <%
