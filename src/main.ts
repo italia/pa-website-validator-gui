@@ -81,11 +81,11 @@ async function createWindow() {
     });
 
     popupWindow.loadURL(details.url);
-    
+
     popupWindow.webContents.setWindowOpenHandler((nestedDetails) => {
       shell.openExternal(nestedDetails.url);
 
-      return { action: 'deny' };
+      return { action: "deny" };
     });
 
     return { action: "deny" };
@@ -138,13 +138,13 @@ const loadPage = async (
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
-      title: string | undefined;
-      code: string | undefined;
-      id: string | undefined;
-      innerId: string | undefined;
-      weight: number | undefined;
-      status: string | undefined;
-    }
+        title: string | undefined;
+        code: string | undefined;
+        id: string | undefined;
+        innerId: string | undefined;
+        weight: number | undefined;
+        status: string | undefined;
+      }
     | undefined
   )[] = [];
 

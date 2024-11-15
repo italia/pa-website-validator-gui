@@ -32,23 +32,20 @@ window.electronAPI?.receive("return-report-item", (item: Item) => {
   };
 
   document
-      .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
-      ?.setAttribute("data-url", item.url);
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url", item.url);
   document
-      .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
-      ?.setAttribute("data-url-type", item.type);
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-type", item.type);
   document
-      .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
-      ?.setAttribute("data-url-accuracy", item.accuracy);
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-accuracy", item.accuracy);
   document
-      .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
-      ?.setAttribute("data-url-timeout", item.timeout.toString());
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-timeout", item.timeout.toString());
   document
-      .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
-      ?.setAttribute(
-          "data-url-pages",
-          item.concurrentPages.toString(),
-      );
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-pages", item.concurrentPages.toString());
   document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
 
   window.electronAPI.send("start-node-program", args);
