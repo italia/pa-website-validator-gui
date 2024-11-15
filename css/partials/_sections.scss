@@ -4,9 +4,11 @@
 
 #logs {
   width: 100%;
-  // magic number (header, footer & previous content);
-  height: calc(100vh - 440px);
   overflow-y: scroll;
+}
+
+#logs-report {
+  min-height: 320px;
 }
 
 #report-container {

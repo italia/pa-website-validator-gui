@@ -65,10 +65,30 @@ async function createWindow() {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     if (details.url.startsWith("http")) {
       shell.openExternal(details.url);
+
       return { action: "deny" };
     }
 
-    return { action: "allow" };
+    const popupWindow = new BrowserWindow({
+      width: 1200,
+      height: 800,
+      webPreferences: {
+        preload: path.join(__dirname, "preload.mjs"),
+        nodeIntegration: true,
+        contextIsolation: true,
+        zoomFactor: 1,
+      },
+    });
+
+    popupWindow.loadURL(details.url);
+    
+    popupWindow.webContents.setWindowOpenHandler((nestedDetails) => {
+      shell.openExternal(nestedDetails.url);
+
+      return { action: 'deny' };
+    });
+
+    return { action: "deny" };
   });
 
   mainWindow.webContents.on("before-input-event", (event, input) => {
@@ -105,18 +125,26 @@ async function createWindow() {
   await loadPage("home", "");
 }
 
-const loadPage = async (pageName: string, url: string, scanningWebsite?: string, scanningWebsiteType?: string, accuracy?: string, timeout?: string, pages?: string) => {
+const loadPage = async (
+  pageName: string,
+  url: string,
+  scanningWebsite?: string,
+  scanningWebsiteType?: string,
+  accuracy?: string,
+  timeout?: string,
+  pages?: string,
+) => {
   const queryParam = url?.split("id=")[1];
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
     | {
-        title: string | undefined;
-        code: string | undefined;
-        id: string | undefined;
-        innerId: string | undefined;
-        weight: number | undefined;
-        status: string | undefined;
-      }
+      title: string | undefined;
+      code: string | undefined;
+      id: string | undefined;
+      innerId: string | undefined;
+      weight: number | undefined;
+      status: string | undefined;
+    }
     | undefined
   )[] = [];
 
@@ -192,7 +220,7 @@ const loadPage = async (pageName: string, url: string, scanningWebsite?: string,
         ? readFileSync(`${getFolderWithId(queryParam)}/logs.txt`, "utf8")
         : "",
       scanningWebsite: scanningWebsite,
-      scanningWebsiteType: scanningWebsiteType
+      scanningWebsiteType: scanningWebsiteType,
     },
     defaultAudits: municipalityAudits,
     reportId: queryParam,
@@ -229,7 +257,15 @@ const loadPage = async (pageName: string, url: string, scanningWebsite?: string,
 };
 
 ipcMain.on("navigate", async (event, data) => {
-  await loadPage(data.pageName, data.url, data.scanningWebsite, data.scanningWebsiteType, data.accuracy, data.timeout, data.pages);
+  await loadPage(
+    data.pageName,
+    data.url,
+    data.scanningWebsite,
+    data.scanningWebsiteType,
+    data.accuracy,
+    data.timeout,
+    data.pages,
+  );
 });
 
 /** flow for 'Avvia scansione' */
@@ -296,7 +332,7 @@ ipcMain.on("start-node-program", async (event, data) => {
 
   nodeProcess = fork(commandPath, args, {
     stdio: ["pipe", "pipe", "pipe", "ipc"],
-    execArgv: ['--max-old-space-size=16384'],
+    execArgv: ["--max-old-space-size=16384"],
     env: {
       ...process.env,
       PUPPETEER_EXECUTABLE_PATH: getChromePath(),

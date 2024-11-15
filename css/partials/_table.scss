@@ -1,13 +1,8 @@
 @use "variables" as *;
 
 .table-wrapper {
-  min-height: calc(100vh - 461px);
   overflow: auto;
   contain: paint;
-
-  @media screen and (max-width: 992px) {
-    //min-height: calc(100vh - 370px);
-  }
 
   .table {
     border-collapse: separate;

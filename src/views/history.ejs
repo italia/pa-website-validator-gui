@@ -1,5 +1,6 @@
-<h1 class="h2 my-3">Storico scansioni</h1>
+<h1 class="h2">Storico scansioni</h1>
 <%- include('partials/table-history', { items: items });  %>
 <%- include('partials/components/pagination', { pagination: pagination }); %>
 <%- include('partials/modal-confirm-delete'); %>
 <script src="<%- basePathJs %>downloadButtons.js" type="module"></script>
+<script src="<%- basePathJs %>setTableHeight.js" type="module"></script>

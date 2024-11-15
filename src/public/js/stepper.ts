@@ -5,7 +5,6 @@ import {
   LOGS_TEXTAREA,
   REPORT_FRAME,
   AUTOCOMPLETE_LIST,
-  TYPE_SELECT,
   URL_FORM_PENDING,
 } from "./elements.js";
 import {
@@ -88,11 +87,24 @@ URL_FORM?.addEventListener("submit", (e) => {
   };
 
   console.log("start");
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url', website);
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url-type', type);
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url-accuracy', settingsFormValues?.accuracy as string);
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url-timeout', settingsFormValues?.timeout as string);
-  document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.setAttribute('data-url-pages', settingsFormValues?.concurrentPages as string);
+  document
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url", website);
+  document
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-type", type);
+  document
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-accuracy", settingsFormValues?.accuracy as string);
+  document
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute("data-url-timeout", settingsFormValues?.timeout as string);
+  document
+    .querySelector<HTMLAnchorElement>('[data-page="scanning"]')
+    ?.setAttribute(
+      "data-url-pages",
+      settingsFormValues?.concurrentPages as string,
+    );
   document.querySelector<HTMLAnchorElement>('[data-page="scanning"]')?.click();
 
   console.log("type", type);
@@ -145,7 +157,8 @@ window.electronAPI?.receive("open-report", (reportPath) => {
 
 URL_FORM_PENDING?.addEventListener("submit", (e) => {
   e.preventDefault();
-  (document.querySelector('.progress-bar-label') as HTMLElement).innerText = 'Annullamento in corso';
+  (document.querySelector(".progress-bar-label") as HTMLElement).innerText =
+    "Annullamento in corso...";
   window.electronAPI.send("kill-process", {
     id: document.querySelector("#stop-process")?.getAttribute("data-item-id"),
   });

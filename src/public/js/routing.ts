@@ -12,7 +12,15 @@ document.querySelectorAll("a[data-page]").forEach((link) => {
         const timeout = link.getAttribute("data-url-timeout");
         const pages = link.getAttribute("data-url-pages");
 
-        window.electronAPI.send("navigate", { pageName: pageName, url: url, scanningWebsite: website, scanningWebsiteType: websiteType, accuracy: accuracy, timeout: timeout, pages: pages });
+        window.electronAPI.send("navigate", {
+          pageName: pageName,
+          url: url,
+          scanningWebsite: website,
+          scanningWebsiteType: websiteType,
+          accuracy: accuracy,
+          timeout: timeout,
+          pages: pages,
+        });
       }
     }
   });

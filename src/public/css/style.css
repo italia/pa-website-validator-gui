@@ -334,7 +334,7 @@
   src: local(""), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff2") format("woff2"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.woff") format("woff"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.ttf") format("truetype"), url("../fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.svg#TitilliumWeb") format("svg");
 }
 .footer-spacer {
-  height: 48px;
+  height: 30px;
 }
 
 footer {
@@ -676,8 +676,11 @@ select,
 
 #logs {
   width: 100%;
-  height: calc(100vh - 440px);
   overflow-y: scroll;
+}
+
+#logs-report {
+  min-height: 320px;
 }
 
 #report-container {
@@ -686,7 +689,6 @@ select,
 }
 
 .table-wrapper {
-  min-height: calc(100vh - 461px);
   overflow: auto;
   contain: paint;
 }

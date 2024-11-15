@@ -2,8 +2,8 @@
   <div class="select-wrapper">
     <label for="type-select">Tipologia ente</label>
     <select id="type-select" name="type" <%- currentPage === "scanning" ? "disabled" : "required" %>>
-      <option value="municipality" <%- locals.scanningWebsiteType === "municipality" ? "selected" : "" %>>Comune</option>
-      <option value="school" <%- locals.scanningWebsiteType === "school" ? "selected" : "" %>>Scuola</option>
+      <option value="municipality" <%- locals.scanningWebsiteType === "municipality" || locals.scanningWebsiteType === "Comune" ? "selected" : "" %>>Comune</option>
+      <option value="school" <%- locals.scanningWebsiteType === "school" || locals.scanningWebsiteType === "Scuola" ? "selected" : "" %>>Scuola</option>
     </select>
   </div>
   <div class="form-group">
