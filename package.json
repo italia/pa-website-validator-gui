@@ -22,7 +22,6 @@
   "license": "BSD-3-Clause",
   "description": "Applicativo desktop a supporto degli sviluppatori che aiuta a valutare la qualità dei siti istituzionali di Comuni e scuole.",
   "dependencies": {
-    "@parcel/watcher": "^2.5.0",
     "@types/express": "^5.0.0",
     "copyfiles": "^2.4.1",
     "dotenv": "^16.4.5",
