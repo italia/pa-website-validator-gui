@@ -31,13 +31,13 @@
 }
 
 #auditsRedoForm {
-  margin-top: 8px;
+  //margin-top: 8px;
 }
 
 form {
   &.settings-wrapper,
   &.audits-wrapper {
-    margin-top: 1rem;
+    //margin-top: 1rem;
   }
 
   &.settings-wrapper {
@@ -102,13 +102,15 @@ input:read-only {
 
   @media screen and (max-width: 992px) {
     font-size: 0.875rem !important;
+    line-height: 1.2;
+    padding-top: 6px;
   }
 }
 
 .form-check {
-  margin-bottom: 0.25rem !important;
+  margin-bottom: 0.25rem;
 
   + .form-check {
-    margin-top: 0.25rem !important;
+    margin-top: 0.25rem;
   }
 }

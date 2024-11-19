@@ -1,12 +1,12 @@
 <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 mb-3 mb-lg-0">
   <div class="d-flex align-items-center gap-3">
-    <svg class="icon icon-xl" alt="<%= mock?.type %>">
+    <svg class="icon icon-xl flex-shrink-0" alt="<%= mock?.type %>">
       <use href="<%= mock?.type === 'Scuola' ? '#it-scuole' : '#it-comuni' %>"></use>
     </svg>
-    <span class="h4 mb-0"><%= mock?.website %></span>
+    <span class="h4 mb-0 text-break"><%= mock?.website %></span>
   </div>
   <div class="d-flex gap-3 align-items-center">
-    <span class="disabled-wrapper">
+    <span class="disabled-wrapper w-100">
       <button
         class="btn btn-outline-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
         data-open-report="<%=mock.id%>"
@@ -19,7 +19,7 @@
       </button>
     </span>
 
-    <span class="disabled-wrapper">
+    <span class="disabled-wrapper w-100">
       <button
         class="btn btn-primary btn-xs btn-icon w-100 text-nowrap justify-content-center <%= (mock.results.status === 'pending' || mock.results.status === 'cancelled') ? 'disabled' : '' %>"
         data-download="<%= mock.id %>"
@@ -34,28 +34,7 @@
   </div>
 </div>
 
-<div class="d-flex flex-column flex-lg-row justify-content-between gap-2 gap-lg-3">
-  <div class="d-flex justify-content-between gap-2 flex-wrap w-100">
-    <span>
-      <b>Data:</b> <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle:
-      "short" }).format(new Date(mock.date)) %>
-    </span>
-    <span>
-      <b>Accuratezza:</b>
-      <%-
-        mock.accuracy === 'all'
-        ? 'Completa (Tutte le pagine)'
-        : mock.accuracy === 'high'
-        ? 'Alta (10 pagine)'
-        : mock.accuracy === 'suggested'
-        ? 'Media (5 pagine)'
-        : mock.accuracy === 'min'
-        ? 'Bassa (1 pagina)'
-        : 'Non definita'
-      %>
-    </span>
-  </div>
-</div>
+<%- include('partials/info-scanning', { date: mock.date, accuracy: mock.accuracy, timeout: mock.timeout, numberOfPages: mock.numberOfPages }); %>
 
 <div id="report-container">
   <!--
@@ -94,77 +73,80 @@
         aria-labelledby="accordion-header-errors"
       >
         <div class="accordion-body p-3">
-          <div class="d-flex justify-content-between gap-lg-3 gap-1 align-items-center mb-3 flex-wrap">
-            <div class="legend">
-              <b>Legenda:</b>
-              <div class="legend-item">
-                <div class="circle pass">
-                </div>
-                <p>Superato</p>
-              </div>
-              <div class="legend-item">
-                <div class="circle fail">
-                </div>
-                <p>Fallito</p>
-              </div>
-              <div class="legend-item">
-                <div class="circle error">
-                  x
-                </div>
-                <p>Errore</p>
-              </div>
-
-              <div class="legend-item">
-                <div class="circle undone">
-                  x
-                </div>
-                <p>Non eseguito</p>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end gap-1">
-              <a href="#" data-select-all><span>Seleziona tutto</span></a> / <a href="#" data-deselect-all><span>Deseleziona tutto</span></a>
-            </div>
-          </div>
-
           <form id="auditsRedoForm" data-report-id="<%=mock.id%>">
-            <% if(mock.redo_audits && mock.redo_audits.length ){ %> <%
-            mock.redo_audits.forEach(function(audit) { if(audit.code.length >
-            0){ %>
-            <div class="form-check">
-              <div class="circle <%= audit.status %>">
-                <%if (audit.status === 'undone' || audit.status === 'error') { %>
-                  x
-                <%}%>
-              </div>
-              <%if (audit.status === 'fail' || audit.status === 'error') { %>
-              <input
-                class="form-check-input"
-                id="<%= audit.id %>"
-                type="checkbox"
-                name="audits"
-                checked
-              />
-                <%} else {%>
-                  <input
-                    class="form-check-input"
-                    id="<%= audit.id %>"
-                    type="checkbox"
-                    name="audits"
-                  />
-                <%}%>
+            <fieldset>
+              <legend><span class="visually-hidden">Test da ripetere</span></legend>
 
-              <% if(audit.code.toUpperCase() === audit.title.toUpperCase()) {%>
-                <label class="form-check-label" for="<%= audit.id %>"><%= audit.title.toUpperCase() %></label>
-              <%} else {%>
-                <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
-              <%} %>
-            </div>
-            <% }}); %> <% } %>
+              <div class="d-flex justify-content-between gap-3 flex-wrap flex-column-reverse flex-md-row">
+                <div class="form-check mb-0">
+                  <div class="circle mt-1"></div>
+                  <input id="checkAll" class="form-check-input" type="checkbox" />
+                  <label class="form-check-label" for="checkAll">Seleziona tutto</label>
+                </div>
+
+                <div class="d-flex gap-3">
+                  <b aria-hidden="true">Legenda:</b>
+                  <ul class="legend" role="list" title="Legenda">
+                    <li class="legend-item">
+                      <div class="circle pass"></div>
+                      <p id="legend-pass">Superato</p>
+                    </li>
+
+                    <li class="legend-item">
+                      <div class="circle fail"></div>
+                      <p id="legend-fail">Fallito</p>
+                    </li>
+
+                    <li class="legend-item">
+                      <div class="circle error" aria-hidden="true">&times;</div>
+                      <p id="legend-error">Errore</p>
+                    </li>
+
+                    <li class="legend-item">
+                      <div class="circle undone" aria-hidden="true">&times;</div>
+                      <p id="legend-undone" class="text-nowrap">Non eseguito</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <hr class="my-2" />
+
+              <% if (mock.redo_audits && mock.redo_audits.length) { %>
+                <% mock.redo_audits.forEach(function(audit) { %>
+                  <% if (audit.code.length > 0) { %>
+                    <div class="form-check align-items-start">
+                      <div class="circle mt-1 <%= audit.status %>" aria-hidden="true">
+                        <% if (audit.status === 'undone' || audit.status === 'error') { %>
+                          &times;
+                        <% } %>
+                      </div>
+                      <input
+                        class="form-check-input"
+                        id="<%= audit.id %>"
+                        type="checkbox"
+                        name="audits"
+                        aria-describedby="legend-<%= audit.status %>"
+                        <%- audit.status === 'fail' || audit.status === 'error' ? "checked" : "" %>
+                      />
+                      <% if (audit.code.toUpperCase() === audit.title.toUpperCase()) { %>
+                        <label class="form-check-label" for="<%= audit.id %>"><%= audit.title.toUpperCase() %></label>
+                      <% } else { %>
+                        <label class="form-check-label" for="<%= audit.id %>"><%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %></label>
+                      <% } %>
+                    </div>
+                  <% } %>
+                <% }); %>
+              <% } %>
+            </fieldset>
+
+            <button id="auditsRedoBtn" class="btn btn-primary btn-xs btn-icon">
+              <svg class="icon icon-white me-1">
+                <use href="#it-refresh"></use>
+              </svg>
+              <span>Riavvia scansione</span>
+            </button>
           </form>
-          <button id="auditsRedoBtn" class="btn btn-primary btn-xs mt-3">
-            Riavvia scansione
-          </button>
         </div>
       </div>
     </div>

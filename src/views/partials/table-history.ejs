@@ -6,6 +6,8 @@
         <th>Url sito</th>
         <th>Durata</th>
         <th>% Successo</th>
+          <th>Risultato</th>
+          <th>Criteri eseguiti</th>
         <th>Data</th>
         <th style="width: 0" ><span class="visually-hidden">Azioni</span></th>
       </tr>
@@ -32,6 +34,16 @@
               <%= isNaN(Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100)) ? 0 : Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100) %>%
             <% } %>
           </td>
+            <td>
+                <% if (item.status === 'pending' || item.status === 'cancelled') { %>
+                    -
+                <% } else { %>
+                        <%= item.errorCount > 0 ? 'Errore' : item.failedCount > 0 ? 'KO' : 'OK' %>
+                    <% } %>
+            </td>
+            <td>
+                <%= item.successCount + item.failedCount + item.errorCount %>
+            </td>
           <td>
             <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %>
           </td>

@@ -1,98 +1,43 @@
 @use "variables" as *;
 
-.audits-list {
-  border-right: 1px solid $border-color;
-}
-
-.legend {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.legend .legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legend .legend-item p {
-  margin: 0;
-  font-size: 15px;
-}
-
-.legend .legend-item .circle,
 .circle {
-  max-width: 20px;
-  min-width: 20px;
+  width: 20px;
   height: 20px;
   border-radius: 50%;
+  flex-shrink: 0;
+
+  &.pass {
+    background-color: $success;
+  }
+
+  &.fail {
+    background-color: $error;
+  }
+
+  &.error,
+  &.undone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    padding-bottom: 4px;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  &.error {
+    color: $error;
+    border: 2px solid $error;
+  }
+
+  &.undone {
+    color: #545151;
+    border: 2px solid #545151;
+  }
 }
 
 .form-check {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.legend b {
-  font-size: 18px;
-}
-
-.legend .legend-item .circle.pass,
-.circle.pass {
-  background-color: $success;
-}
-.legend .legend-item .circle.fail,
-.circle.fail {
-  background-color: $error;
-}
-.legend .legend-item .circle.error,
-.circle.error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $error;
-  text-transform: uppercase;
-  border: 2px solid $error;
-}
-.legend .legend-item .circle.undone,
-.circle.undone {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #545151;
-  text-transform: uppercase;
-  border: 2px solid #545151;
-}
-
-.audit-content {
-  overflow-y: auto;
-  padding: 2rem 0 1rem 3rem;
-
-  p {
-    font-size: 1rem;
-  }
-
-  .audit-title {
-    margin-bottom: 1.5rem;
-    position: relative;
-
-    svg {
-      position: absolute;
-      top: 5px;
-      left: -40px;
-
-      &.pass {
-        stroke: $success;
-      }
-      &.average {
-        stroke: $warning;
-      }
-      &.fail {
-        stroke: $error;
-      }
-    }
-  }
 }

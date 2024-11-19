@@ -80,6 +80,10 @@
             &::before {
               background: $error;
             }
+
+            .progressbar-text {
+              font-size: 1.25rem;
+            }
           }
 
           .result-donut {
@@ -109,10 +113,32 @@
         padding: 24px;
         column-gap: 16px !important;
 
-        .card-content .result-point {
-          width: 110px;
-          height: 110px;
-          margin-inline: 9px;
+        .card-content {
+          .result-point {
+            width: 110px;
+            height: 110px;
+            margin-inline: 9px;
+          }
+
+          /* Override Bootstrap media query (note: this is more specific thanks to "screen") */
+          .progress-donut-wrapper {
+            width: 128px;
+            height: 128px;
+
+            &:before {
+              width: 110px;
+              height: 110px;
+            }
+
+            &:after {
+              width: 67px;
+              height: 67px;
+            }
+
+            .progressbar-text {
+              font-size: 1rem;
+            }
+          }
         }
       }
     }

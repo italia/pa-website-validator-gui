@@ -71,3 +71,65 @@ body {
 .disabled-wrapper:has(> button:disabled) {
   cursor: not-allowed;
 }
+
+.button-as-link {
+  all: unset;
+  outline: revert;
+
+  color: var(--bs-link-color);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--bs-link-hover-color);
+  }
+}
+
+dl.info-scanning {
+  font-size: 1rem;
+
+  dt,
+  dd {
+    display: inline;
+  }
+
+  @media screen and (max-width: 992px) {
+    row-gap: 0 !important;
+  }
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-end;
+
+  b {
+    font-size: 18px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    p {
+      margin: 0;
+      font-size: 15px;
+    }
+  }
+}
+
+.button-legend {
+  @media screen and (max-width: 992px) {
+    row-gap: 0.5rem !important;
+    justify-content: start !important;
+
+    b {
+      width: 100%;
+    }
+    .icon {
+      width: 28px;
+      height: 28px;
+    }
+  }
+}

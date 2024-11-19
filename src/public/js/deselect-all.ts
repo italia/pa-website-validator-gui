@@ -1,19 +1,35 @@
-document
-  .querySelector("[data-deselect-all]")
-  ?.addEventListener("click", (e) => {
-    e.preventDefault();
+function checkAllSetup(wrapperId: string) {
+  const wrapper = document.getElementById(wrapperId);
+  if (!wrapper) return;
 
-    document.querySelectorAll('input[name="audits"]').forEach((item) => {
-      item.removeAttribute("checked");
-      (item as HTMLInputElement).checked = false;
+  const checkAll = wrapper.querySelector(
+    'input[type="checkbox"]',
+  ) as HTMLInputElement;
+  const checkboxes = wrapper.querySelectorAll(
+    'input[type="checkbox"]',
+  ) as NodeListOf<HTMLInputElement>;
+  const cbs = Array.from(checkboxes).slice(1);
+
+  function setCheckAll() {
+    const checkedCount = cbs.filter((checkbox) => checkbox.checked).length;
+    checkAll.checked = checkedCount === cbs.length;
+    checkAll.indeterminate = checkedCount > 0 && checkedCount < cbs.length;
+    checkAll.classList.toggle("semi-checked", checkAll.indeterminate);
+  }
+
+  if (checkAll) setCheckAll();
+
+  checkAll?.addEventListener("change", () => {
+    cbs.forEach((checkbox) => (checkbox.checked = checkAll.checked));
+    setCheckAll();
+  });
+
+  cbs.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => {
+      setCheckAll();
     });
   });
+}
 
-document.querySelector("[data-select-all]")?.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  document.querySelectorAll('input[name="audits"]').forEach((item) => {
-    item.setAttribute("checked", "");
-    (item as HTMLInputElement).checked = true;
-  });
-});
+checkAllSetup("auditsForm");
+checkAllSetup("auditsRedoForm");

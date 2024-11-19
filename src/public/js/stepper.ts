@@ -131,9 +131,15 @@ URL_FORM?.addEventListener("submit", (e) => {
 });
 
 window.electronAPI?.receive("log-update", (data) => {
-  if (LOGS_TEXTAREA) {
+  if (!LOGS_TEXTAREA) return;
+
+  // Scroll to bottom if user hasn't scrolled
+  const { scrollTop, scrollHeight, clientHeight } = LOGS_TEXTAREA;
+  if (Math.ceil(scrollTop) + clientHeight >= scrollHeight) {
     (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
     LOGS_TEXTAREA.scrollTop = LOGS_TEXTAREA.scrollHeight;
+  } else {
+    (LOGS_TEXTAREA as HTMLTextAreaElement).value += data;
   }
 });
 /* SCAN WEBSITE FLOW END */

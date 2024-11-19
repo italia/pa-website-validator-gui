@@ -1,4 +1,42 @@
 <h1 class="h2">Storico scansioni</h1>
+
+<div class="button-legend d-flex align-items-center justify-content-end gap-3 flex-wrap mb-3">
+  <b aria-hidden="true">Legenda:</b>
+  <ul class="legend" role="list" title="Legenda">
+    <li class="legend-item">
+      <svg class="icon flex-shrink-0">
+        <use href="#it-note"></use>
+      </svg>
+      <p>Dettaglio</p>
+    </li>
+
+    <li class="legend-item">
+      <svg class="icon flex-shrink-0">
+        <use href="#it-password-visible"></use>
+      </svg>
+      <p class="text-nowrap">
+        Apri
+        <span class="visually-hidden">dettaglio</span>
+        in una nuova scheda
+      </p>
+    </li>
+
+    <li class="legend-item">
+      <svg class="icon flex-shrink-0">
+        <use href="#it-download"></use>
+      </svg>
+      <p>Scarica</p>
+    </li>
+
+    <li class="legend-item">
+      <svg class="icon flex-shrink-0">
+        <use href="#it-delete"></use>
+      </svg>
+      <p>Elimina</p>
+    </li>
+  </ul>
+</div>
+
 <%- include('partials/table-history', { items: items });  %>
 <%- include('partials/components/pagination', { pagination: pagination }); %>
 <%- include('partials/modal-confirm-delete'); %>

@@ -1,18 +1,30 @@
-<div class="d-flex justify-content-start mb-2 gap-2 flex-wrap">
-  <span>
-    <b>Accuratezza:</b>
-    <%-
+<dl class="info-scanning d-flex justify-content-start mb-2 gap-2 flex-wrap">
+  <% if (locals.date) { %>
+    <div>
+      <dt>Data:</dt>
+      <dd><%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "short" }).format(new Date(date)) %>;</dd>
+    </div>
+  <% } %>
+  <div>
+    <dt>Accuratezza:</dt>
+    <dd><%-
       accuracy === 'all'
-        ? 'Completa (Tutte le pagine)'
-        : accuracy === 'high'
-        ? 'Alta (10 pagine)'
-        : accuracy === 'suggested'
-        ? 'Media (5 pagine)'
-        : accuracy === 'min'
-        ? 'Bassa (1 pagina)'
-        : 'Non definita'
-    %>;
-  </span>
-  <span><b>Timeout (ms):</b> <%- timeout %>;</span>
-  <span><b>Pagine scansionate simultaneamente:</b> <%- numberOfPages %></span>
-</div>
+      ? 'Completa (Tutte le pagine)'
+      : accuracy === 'high'
+      ? 'Alta (10 pagine)'
+      : accuracy === 'suggested'
+      ? 'Media (5 pagine)'
+      : accuracy === 'min'
+      ? 'Bassa (1 pagina)'
+      : 'Non definita'
+    %>;</dd>
+  </div>
+  <div>
+    <dt>Pagine scansionate simultaneamente:</dt>
+    </dd><%- numberOfPages %>;</dd>
+  </div>
+  <div>
+    <dt>Timeout (ms):</dt>
+    <dd><%- timeout %>;</dd>
+  </div>
+</dl>
