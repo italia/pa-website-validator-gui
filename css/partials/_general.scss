@@ -119,17 +119,26 @@ dl.info-scanning {
   }
 }
 
-.button-legend {
-  @media screen and (max-width: 992px) {
-    row-gap: 0.5rem !important;
-    justify-content: start !important;
 
-    b {
-      width: 100%;
-    }
-    .icon {
-      width: 28px;
-      height: 28px;
+.history-title{
+  @media screen and (max-width: 992px) {
+    flex-direction: column;
+    margin-bottom: 0 !important;
+    .legend-space{
+      align-items: flex-start !important;
+      .button-legend {
+          row-gap: 0.5rem !important;
+          justify-content: start !important;
+
+          b {
+            width: 100%;
+          }
+          .icon {
+            width: 28px;
+            height: 28px;
+          }
+      }
     }
   }
+
 }

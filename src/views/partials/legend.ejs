@@ -1,0 +1,26 @@
+<div class="d-flex gap-3">
+    <% if(!locals.hideTitle) {%>
+    <b aria-hidden="true">Legenda:</b>
+    <%}%>
+    <ul class="legend" role="list" title="Legenda">
+        <li class="legend-item">
+            <div class="circle pass"></div>
+            <p id="legend-pass">Superato</p>
+        </li>
+
+        <li class="legend-item">
+            <div class="circle fail"></div>
+            <p id="legend-fail">Fallito</p>
+        </li>
+
+        <li class="legend-item">
+            <div class="circle error" aria-hidden="true">&times;</div>
+            <p id="legend-error">Errore</p>
+        </li>
+
+        <li class="legend-item">
+            <div class="circle undone" aria-hidden="true">&times;</div>
+            <p id="legend-undone" class="text-nowrap">Non eseguito</p>
+        </li>
+    </ul>
+</div>

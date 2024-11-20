@@ -17,25 +17,32 @@
 
       th {
         border-bottom: 3px solid $secondary;
-        white-space: nowrap;
       }
     }
 
     tr {
       th,
       td {
-        padding: 0.75rem;
+        padding: 0.5rem;
+        vertical-align: bottom;
+      }
+
+      td{
         white-space: nowrap;
+        vertical-align: middle;
       }
 
       th:first-child,
       td:first-child {
-        padding-left: 1.5rem;
+        padding-left: 0.75rem;
+        padding-right: 0;
+        width: 0;
       }
 
       th:last-child,
       td:last-child {
-        padding-right: 1.5rem;
+        padding-right: 0.75rem;
+        width: 0;
       }
     }
   }

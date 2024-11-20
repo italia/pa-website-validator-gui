@@ -2,22 +2,35 @@
   <table class="table table-striped mb-0">
     <thead>
       <tr>
+        <th><span class="visually-hidden">Risultato</span></th>
         <th>Tipologia</th>
         <th>Url sito</th>
         <th>Durata</th>
-        <th>% Successo</th>
-          <th>Risultato</th>
-          <th>Criteri eseguiti</th>
+        <th class="text-nowrap">% Successo</th>
+          <th>Criteri selezionati</th>
         <th>Data</th>
-        <th style="width: 0" ><span class="visually-hidden">Azioni</span></th>
+        <th><span class="visually-hidden">Azioni</span></th>
       </tr>
     </thead>
     <tbody>
       <% items.forEach(item => { %>
         <tr>
+          <td>
+            <% if (item.status === 'pending' || item.status === 'cancelled') { %>
+              <div class="legend-item">
+                <div aria-labelledby="legend-undone" class="circle undone" aria-hidden="true">&times;</div>
+              </div>
+            <% } else { %>
+                <div class="legend-item">
+                  <div aria-labelledby="legend-<%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>" class="circle <%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>">
+                    <%- item.errorCount > 0 ? '&times;' : '' %>
+                  </div>
+                </div>
+            <% } %>
+          </td>
           <td><%- item.type %></td>
           <td>
-            <%- item.url %>
+            <a href="<%- item.url %>"><%- item.url %></a>
             <span class="visually-hidden"> - apre in una nuova scheda</span>
           </td>
           <td>
@@ -34,18 +47,12 @@
               <%= isNaN(Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100)) ? 0 : Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100) %>%
             <% } %>
           </td>
-            <td>
-                <% if (item.status === 'pending' || item.status === 'cancelled') { %>
-                    -
-                <% } else { %>
-                        <%= item.errorCount > 0 ? 'Errore' : item.failedCount > 0 ? 'KO' : 'OK' %>
-                    <% } %>
-            </td>
+
             <td>
                 <%= item.successCount + item.failedCount + item.errorCount %>
             </td>
           <td>
-            <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "medium" }).format(new Date(item.date)) %>
+            <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "short" }).format(new Date(item.date)) %>
           </td>
           <td>
             <div class="d-flex align-items-end gap-2">

@@ -519,14 +519,21 @@ dl.info-scanning dd {
 }
 
 @media screen and (max-width: 992px) {
-  .button-legend {
+  .history-title {
+    flex-direction: column;
+    margin-bottom: 0 !important;
+  }
+  .history-title .legend-space {
+    align-items: flex-start !important;
+  }
+  .history-title .legend-space .button-legend {
     row-gap: 0.5rem !important;
     justify-content: start !important;
   }
-  .button-legend b {
+  .history-title .legend-space .button-legend b {
     width: 100%;
   }
-  .button-legend .icon {
+  .history-title .legend-space .button-legend .icon {
     width: 28px;
     height: 28px;
   }
@@ -723,20 +730,26 @@ ul[role=list] {
 }
 .table-wrapper .table thead th {
   border-bottom: 3px solid var(--bs-secondary);
-  white-space: nowrap;
 }
 .table-wrapper .table tr th,
 .table-wrapper .table tr td {
-  padding: 0.75rem;
+  padding: 0.5rem;
+  vertical-align: bottom;
+}
+.table-wrapper .table tr td {
   white-space: nowrap;
+  vertical-align: middle;
 }
 .table-wrapper .table tr th:first-child,
 .table-wrapper .table tr td:first-child {
-  padding-left: 1.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0;
+  width: 0;
 }
 .table-wrapper .table tr th:last-child,
 .table-wrapper .table tr td:last-child {
-  padding-right: 1.5rem;
+  padding-right: 0.75rem;
+  width: 0;
 }
 @media screen and (max-width: 992px) {
   .table-wrapper .icon {
