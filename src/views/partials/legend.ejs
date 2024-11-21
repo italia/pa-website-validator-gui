@@ -1,26 +1,61 @@
-<div class="d-flex gap-3">
-    <% if(!locals.hideTitle) {%>
+<div class="d-flex gap-3 flex-wrap">
+  <% if (!locals.hideTitle) { %>
     <b aria-hidden="true">Legenda:</b>
-    <%}%>
-    <ul class="legend" role="list" title="Legenda">
-        <li class="legend-item">
-            <div class="circle pass"></div>
-            <p id="legend-pass">Superato</p>
-        </li>
+  <% } %>
 
-        <li class="legend-item">
-            <div class="circle fail"></div>
-            <p id="legend-fail">Fallito</p>
-        </li>
+  <% if (locals.variation === "results") { %>
+    <ul class="legend" role="list" title="Legenda risultato">
+      <li class="legend-item">
+        <div class="circle pass"></div>
+        <p id="legend-pass">Superato</p>
+      </li>
 
-        <li class="legend-item">
-            <div class="circle error" aria-hidden="true">&times;</div>
-            <p id="legend-error">Errore</p>
-        </li>
+      <li class="legend-item">
+        <div class="circle fail"></div>
+        <p id="legend-fail">Fallito</p>
+      </li>
 
-        <li class="legend-item">
-            <div class="circle undone" aria-hidden="true">&times;</div>
-            <p id="legend-undone" class="text-nowrap">Non eseguito</p>
-        </li>
+      <li class="legend-item">
+        <div class="circle error" aria-hidden="true">&times;</div>
+        <p id="legend-error">Errore</p>
+      </li>
+
+      <li class="legend-item">
+        <div class="circle undone" aria-hidden="true">&times;</div>
+        <p id="legend-undone">Non eseguito</p>
+      </li>
     </ul>
+  <% } %>
+
+  <% if (locals.variation === "buttons") { %>
+    <ul class="legend" role="list" title="Legenda azioni disponibili">
+      <li class="legend-item">
+        <svg class="icon">
+          <use href="#it-note"></use>
+        </svg>
+        <p>Dettaglio scansione</p>
+      </li>
+
+      <li class="legend-item">
+        <svg class="icon">
+          <use href="#it-password-visible"></use>
+        </svg>
+        <p>Visualizza report</p>
+      </li>
+
+      <li class="legend-item">
+        <svg class="icon">
+          <use href="#it-download"></use>
+        </svg>
+        <p>Scarica report</p>
+      </li>
+
+      <li class="legend-item">
+        <svg class="icon">
+          <use href="#it-delete"></use>
+        </svg>
+        <p>Elimina report</p>
+      </li>
+    </ul>
+  <% } %>
 </div>
