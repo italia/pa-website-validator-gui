@@ -99,9 +99,15 @@ dl.info-scanning {
 
 .legend {
   display: flex;
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 4px;
   align-items: center;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+
+  /* force it on two rows @mobile */
+  @media screen and (max-width: 768px) {
+    max-width: 440px;
+  }
 
   b {
     font-size: 18px;
@@ -111,6 +117,8 @@ dl.info-scanning {
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
+    flex-shrink: 0;
 
     p {
       margin: 0;
@@ -123,19 +131,17 @@ dl.info-scanning {
   @media screen and (max-width: 992px) {
     flex-direction: column;
     margin-bottom: 0 !important;
-    .legend-space {
-      align-items: flex-start !important;
-      .button-legend {
-        row-gap: 0.5rem !important;
-        justify-content: start !important;
 
-        b {
-          width: 100%;
-        }
-        .icon {
-          width: 28px;
-          height: 28px;
-        }
+    .legends-container {
+      align-items: flex-start !important;
+
+      .icon {
+        width: 28px;
+        height: 28px;
+      }
+
+      .circle {
+        margin: 4px;
       }
     }
   }

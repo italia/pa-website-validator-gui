@@ -501,9 +501,16 @@ dl.info-scanning dd {
 
 .legend {
   display: flex;
-  gap: 16px;
+  column-gap: 16px;
+  row-gap: 4px;
   align-items: center;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  /* force it on two rows @mobile */
+}
+@media screen and (max-width: 768px) {
+  .legend {
+    max-width: 440px;
+  }
 }
 .legend b {
   font-size: 18px;
@@ -512,6 +519,8 @@ dl.info-scanning dd {
   display: flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .legend .legend-item p {
   margin: 0;
@@ -523,19 +532,15 @@ dl.info-scanning dd {
     flex-direction: column;
     margin-bottom: 0 !important;
   }
-  .history-title .legend-space {
+  .history-title .legends-container {
     align-items: flex-start !important;
   }
-  .history-title .legend-space .button-legend {
-    row-gap: 0.5rem !important;
-    justify-content: start !important;
-  }
-  .history-title .legend-space .button-legend b {
-    width: 100%;
-  }
-  .history-title .legend-space .button-legend .icon {
+  .history-title .legends-container .icon {
     width: 28px;
     height: 28px;
+  }
+  .history-title .legends-container .circle {
+    margin: 4px;
   }
 }
 
@@ -730,6 +735,7 @@ ul[role=list] {
 }
 .table-wrapper .table thead th {
   border-bottom: 3px solid var(--bs-secondary);
+  line-height: 1;
 }
 .table-wrapper .table tr th,
 .table-wrapper .table tr td {
