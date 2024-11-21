@@ -73,7 +73,7 @@ const getDataFromJSONReport = (reportPath: string) => {
 };
 
 const cleanConsoleOutput = (consoleOutput: string) => {
-  return consoleOutput.replace("[32m", "").replace("[0m", "");
+  return consoleOutput.replace("[32m", "").replace("[0m", "").replaceAll("", "");
 };
 
 const getPathDirectoryInDirectory = (startPath: string) => {
