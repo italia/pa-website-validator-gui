@@ -49,7 +49,7 @@ section.metrics {
       margin: 0;
 
       &.result {
-        font-size: 32px;
+        font-size: var(--fs-32px);
         font-weight: 700;
       }
     }

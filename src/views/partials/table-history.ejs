@@ -1,13 +1,13 @@
-<div class="table-wrapper">
+<div id="history-table" class="table-wrapper">
   <table class="table table-striped mb-0">
     <thead>
       <tr>
-        <th><span class="visually-hidden">Risultato</span></th>
         <th>Tipologia</th>
         <th>Url sito</th>
         <th>Durata</th>
-        <th class="text-nowrap">% Successo</th>
-        <th>Criteri selezionati</th>
+        <th><span class="visually-hidden">Risultato</span></th>
+        <th class="text-center">Criteri superati</th>
+        <th class="text-center">Criteri eseguiti</th>
         <th>Data</th>
         <th><span class="visually-hidden">Azioni disponibili</span></th>
       </tr>
@@ -15,22 +15,6 @@
     <tbody>
       <% items.forEach(item => { %>
         <tr>
-          <td>
-            <% if (item.status === 'pending' || item.status === 'cancelled') { %>
-              <div class="legend-item">
-                <div aria-labelledby="legend-undone" class="circle undone"><span aria-hidden="true">&times;</span></div>
-              </div>
-            <% } else { %>
-                <div class="legend-item">
-                  <div
-                    aria-labelledby="legend-<%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>"
-                    class="circle <%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>"
-                  >
-                    <span aria-hidden="true"><%- item.errorCount > 0 ? '&times;' : '' %></span>
-                  </div>
-                </div>
-            <% } %>
-          </td>
           <td><%- item.type %></td>
           <td>
             <a target="_blank" href="<%- item.url %>"><%- item.url %></a>
@@ -45,13 +29,33 @@
           </td>
           <td>
             <% if (item.status === 'pending' || item.status === 'cancelled') { %>
-              Interrotta
+              <div class="legend-item">
+                <div aria-labelledby="legend-undone" class="circle undone"><span aria-hidden="true">&times;</span></div>
+              </div>
             <% } else { %>
-              <%= isNaN(Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100)) ? 0 : Math.round((item.successCount / (item.successCount + item.failedCount + item.errorCount)) * 100) %>%
+              <div class="legend-item">
+                <div
+                        aria-labelledby="legend-<%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>"
+                        class="circle <%- item.errorCount > 0 ? 'error' : item.failedCount > 0 ? 'fail' : 'pass' %>"
+                >
+                  <span aria-hidden="true"><%- item.errorCount > 0 ? '&times;' : '' %></span>
+                </div>
+              </div>
             <% } %>
           </td>
-          <td>
+          <td class="text-center">
+            <% if (item.status === 'pending' || item.status === 'cancelled') { %>
+              Interrotta
+            <% } else { %>
+              <%= item.successCount %>
+            <% } %>
+          </td>
+          <td class="text-center">
+            <% if (item.status === 'pending' || item.status === 'cancelled') { %>
+              Interrotta
+            <% } else { %>
             <%= item.successCount + item.failedCount + item.errorCount %>
+              <% } %>
           </td>
           <td>
             <%- new Intl.DateTimeFormat('it-IT', { dateStyle: "short", timeStyle: "short" }).format(new Date(item.date)) %>

@@ -16,6 +16,7 @@ footer {
   a {
     color: $white;
     text-decoration: none;
+    display: inline-block; /* Trick to trim whitespace */
 
     &:hover,
     &:visited {
