@@ -2,7 +2,7 @@
 
 .it-header-wrapper {
   background-color: #06c;
-  z-index: 11; // to stay on top of footer
+  z-index: 11; /* to stay on top of footer */
 
   .ex-container {
     width: 100%;
@@ -12,6 +12,7 @@
     .it-header-center-wrapper {
       height: auto;
       min-height: 80px;
+      background-color: transparent; /* override */
 
       @media screen and (max-width: 992px) {
         * {

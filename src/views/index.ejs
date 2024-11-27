@@ -11,11 +11,12 @@
 
 <body>
   <%- include('partials/icons'); %>
+
   <!-- HEADER -->
   <%- include('partials/header'); %>
 
   <!-- MAIN SECTION -->
-  <main>
+  <main id="main" tabindex="-1">
     <div id="content" class="container">
       <% if (currentPage === 'home' || currentPage === '') { %>
       <%- include('home') %>
@@ -28,7 +29,6 @@
       <% } else { %>
       <p>Page not found <%= currentPage %></p>
       <% } %>
-
     </div>
   </main>
 
@@ -46,6 +46,7 @@
   <script src="<%- basePathJs %>delete-record.js" type="module"></script>
   <script src="<%- basePathJs %>deselect-all.js" type="module"></script>
   <script src="<%- basePathJs %>setElHeight.js" type="module"></script>
+  <script src="<%- basePathJs %>modalAutofocus.js" type="module"></script>
 </body>
 
 </html>

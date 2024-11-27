@@ -84,6 +84,59 @@ body {
   }
 }
 
+/* Fix bootstrap keyboard focus style */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: rgb(0, 82.62, 165.24);
+  color: #fff;
+  border-color: rgb(0, 76.5, 153);
+}
+
+.btn-danger:hover,
+.btn-danger:focus-visible {
+  background-color: hsl(350, 60%, 40.5%);
+  color: #fff;
+  border-color: hsl(350, 60%, 37.5%);
+}
+
+.btn-success:hover,
+.btn-success:focus-visible {
+  background-color: rgb(0, 103.275, 68.85);
+  color: #fff;
+  border-color: rgb(0, 95.625, 63.75);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background-color: hsl(210, 17%, 35.64%);
+  color: #fff;
+  border-color: hsl(210, 17%, 33%);
+}
+
+:focus:not(.focus--mouse),
+.form-check .toggles label:has(input[type="checkbox"]:focus:not(.focus--mouse)),
+.form-check [type="checkbox"]:focus + label,
+.form-check [type="radio"]:focus + label,
+.toggles label input[type="checkbox"]:focus + .lever,
+.it-carousel-wrapper .splide__pagination button:focus:not(.focus--mouse),
+.upload:focus:not(.focus--mouse) + label,
+.upload-dragdrop-input:focus[type="file"]:not(.focus--mouse) + label,
+.avatar-upload:focus-within:not(.focus--mouse),
+.rating input:focus:not(.focus--mouse) + label svg {
+  border-color: transparent !important;
+  border-radius: 2px !important;
+  box-shadow:
+    0 0 0 2px $white,
+    0 0 0 5px var(--bs-primary) !important;
+  outline: 3px solid var(--bs-primary) !important;
+  outline-offset: 3px;
+}
+
+.btn,
+.page-link {
+  transition: none;
+}
+
 dl.info-scanning {
   font-size: 1rem;
 

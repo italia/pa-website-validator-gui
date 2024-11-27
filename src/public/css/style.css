@@ -1,4 +1,3 @@
-@charset "UTF-8";
 .accordion-header .accordion-button {
   display: block;
   color: #000000;
@@ -78,23 +77,25 @@
   justify-content: center;
 }
 .circle::before {
-  font-size: var(--fs-14px);
-  line-height: 1.42857;
-  font-weight: bold;
+  content: "";
+  display: block;
+  width: inherit;
+  height: inherit;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 .circle.pass {
   background-color: #5cc98d;
 }
 .circle.pass::before {
-  content: "✓"; /* check */
-  color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1.5'%3E%3Cpath d='M9.6 16.9 4 11.4l.8-.7 4.8 4.8 8.5-8.4.7.7-9.2 9.1z'%3E%3C/path%3E%3C/svg%3E");
 }
 .circle.fail {
   background-color: #b42d43;
 }
 .circle.fail::before {
-  content: "✕"; /* times */
-  color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='1.5'%3E%3Cpath d='m12.7 12 3.7 3.6-.8.8-3.6-3.7-3.6 3.7-.8-.8 3.7-3.6-3.7-3.6.8-.8 3.6 3.7 3.6-3.7.8.8-3.7 3.6z'%3E%3C/path%3E%3C/svg%3E");
 }
 .circle.error {
   color: #b42d43;
@@ -102,8 +103,7 @@
   outline-offset: -2px;
 }
 .circle.error::before {
-  content: "✕"; /* times */
-  color: #b42d43;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23B42D43' stroke='%23B42D43' stroke-width='1.5'%3E%3Cpath d='m12.7 12 3.7 3.6-.8.8-3.6-3.7-3.6 3.7-.8-.8 3.7-3.6-3.7-3.6.8-.8 3.6 3.7 3.6-3.7.8.8-3.7 3.6z'%3E%3C/path%3E%3C/svg%3E");
 }
 .circle.undone {
   color: #545151;
@@ -111,10 +111,7 @@
   outline-offset: -2px;
 }
 .circle.undone::before {
-  content: "−"; /* minus */
-  color: #545151;
-  font-size: var(--fs-16px);
-  line-height: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23545151' stroke='%23545151' stroke-width='1.5'%3E%3Cpath d='M14 12.5H7v-1h10v1z'/%3E%3C/svg%3E");
 }
 
 .form-check {
@@ -549,6 +546,57 @@ body {
   color: var(--bs-link-hover-color);
 }
 
+/* Fix bootstrap keyboard focus style */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background-color: rgb(0, 82.62, 165.24);
+  color: #fff;
+  border-color: rgb(0, 76.5, 153);
+}
+
+.btn-danger:hover,
+.btn-danger:focus-visible {
+  background-color: hsl(350, 60%, 40.5%);
+  color: #fff;
+  border-color: hsl(350, 60%, 37.5%);
+}
+
+.btn-success:hover,
+.btn-success:focus-visible {
+  background-color: rgb(0, 103.275, 68.85);
+  color: #fff;
+  border-color: rgb(0, 95.625, 63.75);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background-color: hsl(210, 17%, 35.64%);
+  color: #fff;
+  border-color: hsl(210, 17%, 33%);
+}
+
+:focus:not(.focus--mouse),
+.form-check .toggles label:has(input[type=checkbox]:focus:not(.focus--mouse)),
+.form-check [type=checkbox]:focus + label,
+.form-check [type=radio]:focus + label,
+.toggles label input[type=checkbox]:focus + .lever,
+.it-carousel-wrapper .splide__pagination button:focus:not(.focus--mouse),
+.upload:focus:not(.focus--mouse) + label,
+.upload-dragdrop-input:focus[type=file]:not(.focus--mouse) + label,
+.avatar-upload:focus-within:not(.focus--mouse),
+.rating input:focus:not(.focus--mouse) + label svg {
+  border-color: transparent !important;
+  border-radius: 2px !important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 5px var(--bs-primary) !important;
+  outline: 3px solid var(--bs-primary) !important;
+  outline-offset: 3px;
+}
+
+.btn,
+.page-link {
+  transition: none;
+}
+
 dl.info-scanning {
   font-size: 1rem;
 }
@@ -609,7 +657,7 @@ dl.info-scanning dd {
 
 .it-header-wrapper {
   background-color: #06c;
-  z-index: 11;
+  z-index: 11; /* to stay on top of footer */
 }
 .it-header-wrapper .ex-container {
   width: 100%;
@@ -617,6 +665,7 @@ dl.info-scanning dd {
 .it-header-wrapper .it-nav-wrapper .it-header-center-wrapper {
   height: auto;
   min-height: 80px;
+  background-color: transparent; /* override */
 }
 @media screen and (max-width: 992px) {
   .it-header-wrapper .it-nav-wrapper .it-header-center-wrapper * {
