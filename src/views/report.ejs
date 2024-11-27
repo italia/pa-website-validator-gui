@@ -93,10 +93,11 @@
                 <% mock.redo_audits.forEach(function(audit) { %>
                   <% if (audit.code.length > 0) { %>
                     <div class="form-check align-items-start">
-                      <div class="circle mt-1 <%= audit.status %>" aria-hidden="true">
-                        <% if (audit.status === 'undone' || audit.status === 'error') { %>
-                          &times;
-                        <% } %>
+                      <div
+                        class="circle mt-1 <%= audit.status %>"
+                        title="<%- audit.status === 'error' ? 'Errore' : audit.status === 'fail' ? 'Fallito' : audit.status === 'undone' ? 'Non eseguito' : 'Superato' %>"
+                        aria-hidden="true"
+                        >
                       </div>
                       <input
                         class="form-check-input"

@@ -106,11 +106,11 @@ dl.info-scanning {
 
   /* force it on two rows @mobile */
   @media screen and (max-width: 768px) {
-    max-width: 440px;
+    max-width: 420px;
   }
 
   b {
-    font-size: 18px;
+    font-size: var(--fs-18px);
   }
 
   .legend-item {
@@ -122,7 +122,7 @@ dl.info-scanning {
 
     p {
       margin: 0;
-      font-size: 15px;
+      font-size: var(--fs-14px);
     }
   }
 }

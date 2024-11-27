@@ -43,6 +43,27 @@ PA Website Validator utilizza le seguenti tecnologie
 
 L'applicativo necessita un computer con almeno 16GB di RAM per una corretta esecuzione.
 
+## Abilitazione app su MacOS
+
+Potresti ricevere un avviso da MacOS che indica che l’app proviene da uno sviluppatore non riconosciuto. Per abilitare l’app, segui questi passaggi dopo aver scaricato il file ZIP:
+
+1. Apri il Terminale.
+2. Esegui il seguente comando:
+
+```sh
+xattr -rd com.apple.quarantine DTD-AppDiValutazione-XYZ-mac.zip
+```
+
+Questo comando rimuove le restrizioni impostate dal sistema per consentire l’apertura del file.
+
+## Abilitazione app su Windows
+
+Potresti ricevere un avviso da Windows che indica che l’app proviene da uno sviluppatore non riconosciuto. Per procedere con l’installazione, segui questi passaggi dopo aver scaricato il file ZIP:
+
+1. Fai clic sul file .exe.
+2. Nella finestra di avviso, clicca su “Ulteriori informazioni”.
+3. Seleziona il pulsante “Esegui comunque” per avviare l’app.
+
 ## Plugins
 
 PA Website validator utilizza le seguenti dipendenze esterne principali

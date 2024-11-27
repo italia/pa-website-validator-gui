@@ -29,3 +29,8 @@ export const REPORT_FRAME = document.getElementById("reportFrame");
 export const REPORT_DOWNLOAD_BTN = document.getElementById("reportDownloadBtn");
 export const AUDITS_REDO_FORM = document.getElementById("auditsRedoForm");
 export const AUDITS_REDO_BTN = document.getElementById("auditsRedoBtn");
+
+// HISTORY PAGE
+export const HISTORY_TABLE = document.getElementById(
+  "history-table",
+) as HTMLDivElement;

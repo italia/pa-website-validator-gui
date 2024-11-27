@@ -2,7 +2,7 @@
 
 .top-text p {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--fs-14px);
   line-height: 22px;
 }
 
@@ -36,7 +36,7 @@
         }
 
         .card-title {
-          font-size: 20px;
+          font-size: var(--fs-20px);
           margin: 0;
           color: $primary;
           width: 100%;
@@ -52,7 +52,7 @@
             align-items: center;
             justify-content: center;
             color: $white;
-            font-size: 44px;
+            font-size: var(--fs-44px);
             font-weight: bold;
             text-transform: uppercase;
 
@@ -87,12 +87,12 @@
           }
 
           .result-donut {
-            font-size: 16px;
+            font-size: var(--fs-16px);
             margin-top: 8px;
             text-align: center;
 
             span {
-              font-size: 18px;
+              font-size: var(--fs-18px);
               font-weight: bold;
               color: $success-text;
             }

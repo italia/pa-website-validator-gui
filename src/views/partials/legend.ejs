@@ -1,4 +1,4 @@
-<div class="d-flex gap-3 flex-wrap">
+<div class="d-flex gap-3 flex-wrap align-items-center">
   <% if (!locals.hideTitle) { %>
     <b aria-hidden="true">Legenda:</b>
   <% } %>
@@ -6,22 +6,22 @@
   <% if (locals.variation === "results") { %>
     <ul class="legend" role="list" title="Legenda risultato">
       <li class="legend-item">
-        <div class="circle pass"></div>
+        <div class="circle pass" aria-hidden="true"></div>
         <p id="legend-pass">Superato</p>
       </li>
 
       <li class="legend-item">
-        <div class="circle fail"></div>
+        <div class="circle fail" aria-hidden="true"></div>
         <p id="legend-fail">Fallito</p>
       </li>
 
       <li class="legend-item">
-        <div class="circle error" aria-hidden="true">&times;</div>
+        <div class="circle error" aria-hidden="true"></div>
         <p id="legend-error">Errore</p>
       </li>
 
       <li class="legend-item">
-        <div class="circle undone" aria-hidden="true">&times;</div>
+        <div class="circle undone" aria-hidden="true"></div>
         <p id="legend-undone">Non eseguito</p>
       </li>
     </ul>
