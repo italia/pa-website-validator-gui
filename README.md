@@ -43,16 +43,16 @@ PA Website Validator utilizza le seguenti tecnologie
 
 L'applicativo necessita un computer con almeno 16GB di RAM per una corretta esecuzione.
 
-## Elenco tipologia file eseguibili 
+## Elenco tipologia file eseguibili
 
 Di seguito sono elencati i file eseguibili di PA Website Validator, suddivisi per sistema operativo e architettura supportata
 
-| Sistema operativo              | Nome applicativo                        |
-| ------------------- | --------------------------------- |
-| MacOS (arm64)                 | DTD-AppDiValutazione-XYZ-arm64-mac.zip |
-| MacOS Intel                | DTD-AppDiValutazione-XYZ-mac.zip |
-| Windows                 | DTD-AppDiValutazione-XYZ-win.zip |
-| Linux                 | DTD-AppDiValutazione-XYZ.AppImage |
+| Sistema operativo | Nome applicativo                       |
+| ----------------- | -------------------------------------- |
+| MacOS (arm64)     | DTD-AppDiValutazione-XYZ-arm64-mac.zip |
+| MacOS Intel       | DTD-AppDiValutazione-XYZ-mac.zip       |
+| Windows           | DTD-AppDiValutazione-XYZ-win.zip       |
+| Linux             | DTD-AppDiValutazione-XYZ.AppImage      |
 
 ## Abilitazione app su MacOS
 
