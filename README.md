@@ -43,7 +43,7 @@ PA Website Validator utilizza le seguenti tecnologie
 
 L'applicativo necessita un computer con almeno 16GB di RAM per una corretta esecuzione.
 
-## Tipologia download applicativo
+## Elenco tipologia file eseguibili 
 
 Di seguito sono elencati i file eseguibili di PA Website Validator, suddivisi per sistema operativo e architettura supportata
 
