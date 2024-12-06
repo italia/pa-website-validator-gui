@@ -18,6 +18,7 @@ import {
   cleanConsoleOutput,
   AuditI,
   getChromePath,
+  checkNewerRelease,
 } from "./utils.js";
 import { municipalityAudits, schoolAudits } from "./storage/auditMapping.js";
 import { Item } from "./entities/Item";
@@ -134,6 +135,8 @@ const loadPage = async (
   timeout?: string,
   pages?: string,
 ) => {
+  const checkVersionResult = await checkNewerRelease();
+
   const queryParam = url?.split("id=")[1];
   const item = await getItemById(queryParam ?? "");
   const mappedAuditsFailedObject: (
@@ -184,6 +187,12 @@ const loadPage = async (
   const data = {
     crawlerVersion: VERSION_VALIDATOR,
     guiVersion: VERSION,
+    isLatestVersion: checkVersionResult?.isLatest,
+    latestVersion: checkVersionResult?.latestVersion,
+    latestVersionURL:
+      checkVersionResult?.isLatest == false
+        ? checkVersionResult.latestVersionURL
+        : "",
     basePathCss: path.join(__dirname, "public/css/"),
     basePathJs: path.join(__dirname, "public/js/"),
     basePathImages: path.join(__dirname, "public/images/"),

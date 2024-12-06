@@ -1,11 +1,17 @@
 import { readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
 import puppeteer from "puppeteer";
+import { VERSION as currentVersion } from "./versions.js";
 
 export interface AuditI {
   text: string;
   status: string;
 }
+
+const GITHUBReleaseUrl =
+  "https://api.github.com/repos/italia/pa-website-validator-gui/releases/latest";
+
+let releaseInfo: null | any = null;
 
 const getDataFromJSONReport = (reportPath: string) => {
   let successCount = 0;
@@ -120,4 +126,40 @@ const getChromePath = () => {
   }
 };
 
-export { getDataFromJSONReport, cleanConsoleOutput, getChromePath };
+const checkNewerRelease = async () => {
+  if (releaseInfo) return releaseInfo;
+
+  try {
+    const response = await fetch(GITHUBReleaseUrl);
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.statusText}`);
+    }
+    const latestRelease = await response.json();
+    const latestVersion = latestRelease.tag_name;
+    const latestVersionURL = latestRelease.html_url;
+
+    const isLatest = currentVersion >= latestVersion.replace("v", "");
+
+    releaseInfo = {
+      isLatest,
+      currentVersion,
+      latestVersion,
+      latestVersionURL,
+    };
+  } catch (error) {
+    if (error instanceof Error) console.log(`${error.message}`);
+    releaseInfo = {
+      isLatest: true,
+      currentVersion,
+    };
+  }
+
+  return releaseInfo;
+};
+
+export {
+  getDataFromJSONReport,
+  cleanConsoleOutput,
+  getChromePath,
+  checkNewerRelease,
+};

@@ -1,3 +1,8 @@
+<% if (!isLatestVersion ) { %>
+<div class="alert alert-warning mb-0" role="alert">
+  E' disponibile una nuova versione dell'app di valutazione! <a href="<%- latestVersionURL %>" class="alert-link" target="_blank" rel="noopener noreferrer">Puoi scaricarla qui: <%- latestVersion %></a>.
+</div>
+<% } %>
 <header class="it-header-wrapper mb-4">
   <%- include('components/skip-links'); %>
   <div class="it-nav-wrapper container">
@@ -8,15 +13,14 @@
             <div class="it-header-center-content-wrapper">
               <div class="it-brand-wrapper">
                 <a>
-                  <img class="border border-white me-2 me-lg-3" src="<%- basePathImages %>dtd_logo.png" alt=""
-                    width="48" height="48">
+                  <img class="border border-white me-2 me-lg-3" src="<%- basePathImages %>dtd_logo.png" alt="" width="48" height="48">
                   <div class="it-brand-text">
                     <div class="it-brand-title h4">
                       App di valutazione
                     </div>
                   </div>
                 </a>
-              </div>
+              </div class=" text-white">
               <div class="it-right-zone">
                 <p>Versione GUI: <%- guiVersion %></p>
                 <p>Versione validatore: <%- crawlerVersion %></p>
@@ -32,9 +36,7 @@
           <div class="col-12">
             <!--start nav-->
             <nav class="navbar navbar-expand-lg" aria-label="Navigazione principale">
-              <button class="custom-navbar-toggler" type="button" aria-controls="headerNav" aria-expanded="false"
-                aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible"
-                data-bs-target="#headerNav">
+              <button class="custom-navbar-toggler" type="button" aria-controls="headerNav" aria-expanded="false" aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#headerNav">
                 <svg class="icon">
                   <use href="#it-burger"></use>
                 </svg>
@@ -52,19 +54,12 @@
                 <div class="menu-wrapper">
                   <ul class="navbar-nav">
                     <li class="nav-item <%- currentPage === 'home' ? 'active' : '' %>">
-                      <a class="nav-link <%- currentPage === 'home' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>"
-                        data-page="home" href="/home" aria-current="<%- currentPage === 'home' ? 'page' : 'false' %>"
-                        aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>"
-                        tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>">
+                      <a class="nav-link <%- currentPage === 'home' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>" data-page="home" href="/home" aria-current="<%- currentPage === 'home' ? 'page' : 'false' %>" aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>" tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>">
                         Nuova scansione
                       </a>
                     </li>
                     <li class="nav-item <%- currentPage === 'history' ? 'active' : '' %>">
-                      <a class="nav-link <%- currentPage === 'history' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>"
-                        data-page="history" href="/history"
-                        aria-current="<%- currentPage === 'history' ? 'page' : 'false' %>"
-                        aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>"
-                        tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>">
+                      <a class="nav-link <%- currentPage === 'history' ? 'active' : '' %> <%- currentPage === 'scanning' ? 'disabled' : '' %>" data-page="history" href="/history" aria-current="<%- currentPage === 'history' ? 'page' : 'false' %>" aria-disabled="<%- currentPage === 'scanning' ? 'true' : 'false' %>" tabindex="<%- currentPage === 'scanning' ? '-1' : '0' %>">
                         Storico scansioni
                       </a>
                     </li>
