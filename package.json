@@ -26,7 +26,7 @@
     "copyfiles": "^2.4.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.13",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20",
