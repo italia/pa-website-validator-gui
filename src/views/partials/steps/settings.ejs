@@ -74,41 +74,8 @@
         role="region" aria-labelledby="heading-audits">
         <div class="accordion-body">
           <form id="auditsForm" class="audits-wrapper">
-            <% if (defaultAudits.length === 0) { %>
-              <p>Devi prima selezionare una tipologia di scansione (scuola/comune).</p>
-            <% } else { %>
-              <fieldset>
-                <legend><span class="visually-hidden">Test da ripetere</span></legend>
-
-                <div class="d-flex justify-content-between gap-3 flex-wrap flex-column-reverse flex-md-row pe-1">
-                  <div class="form-check mb-0">
-                    <input id="checkAll" class="form-check-input" type="checkbox" />
-                    <label class="form-check-label" for="checkAll">Seleziona tutto</label>
-                  </div>
-
-                  Seleziona i criteri e le raccomandazione che vuoi verificare.
-                </div>
-
-                <hr class="my-2" />
-
-                <% defaultAudits.forEach(function(audit) { %>
-                  <% if (audit.code.length > 0) { %>
-                    <div class="form-check">
-                      <input class="form-check-input" id="<%= audit.id %>" type="checkbox" name="audits" checked>
-                      <% if (audit.code.toUpperCase() === audit.title.toUpperCase()) { %>
-                        <label class="form-check-label" for="<%= audit.id %>">
-                          <%= audit.title.toUpperCase() %>
-                        </label>
-                      <% } else { %>
-                        <label class="form-check-label" for="<%= audit.id %>">
-                          <%= audit.code.toUpperCase() + ' - ' + audit.title.toUpperCase() %>
-                        </label>
-                      <% } %>
-                    </div>
-                  <% } %>
-                <% }); %>
-              </fieldset>
-            <% } %>
+            <%- include('../audit-checkboxes', { id: "municipalityAudits", audits: municipalityAudits }); %>
+            <%- include('../audit-checkboxes', { id: "schoolAudits", audits: schoolAudits }); %>
           </form>
         </div>
       </div>

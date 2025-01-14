@@ -114,3 +114,17 @@ input:read-only {
     margin-top: 0.25rem;
   }
 }
+
+/* Show set of checkboxes based on selected type */
+#municipalityAudits,
+#schoolAudits {
+  display: none;
+}
+
+:root:has(select [value="municipality"]:checked) #municipalityAudits {
+  display: unset;
+}
+
+:root:has(select [value="school"]:checked) #schoolAudits {
+  display: unset;
+}

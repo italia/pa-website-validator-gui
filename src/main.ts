@@ -231,8 +231,8 @@ const loadPage = async (
       scanningWebsite: scanningWebsite,
       scanningWebsiteType: scanningWebsiteType,
     },
-    defaultAudits: municipalityAudits,
-    reportId: queryParam,
+    municipalityAudits,
+    schoolAudits,
     historyData: {},
   };
 

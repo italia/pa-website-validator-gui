@@ -4,10 +4,6 @@ import {
   URL_FORM,
   TYPE_SELECT,
 } from "./elements.js";
-import {
-  municipalityAudits,
-  schoolAudits,
-} from "../../storage/auditMapping.js";
 
 export const getUrlInputFormValues = () => {
   if (URL_FORM) {
@@ -17,6 +13,7 @@ export const getUrlInputFormValues = () => {
     return formObject;
   }
 };
+
 export const getSettingsFormValues = () => {
   if (SETTINGS_FORM) {
     const formData = new FormData(SETTINGS_FORM);
@@ -24,49 +21,18 @@ export const getSettingsFormValues = () => {
     return formObject;
   }
 };
+
 export const getAuditsFormValues = () => {
-  // Seleziona tutte le checkbox con il nome "options"
+  // Seleziona tutte le checkbox con il nome "audits" filtrate per type
+  const type = TYPE_SELECT?.value;
   const checkboxes = AUDITS_FORM?.querySelectorAll(
-    'input[name="audits"]:checked',
+    `#${type}Audits input[name="audits"]:checked`,
   );
+
   const finalAudits: string[] = [];
   checkboxes?.forEach((checkbox) => {
     finalAudits.push(checkbox.id);
   });
+
   return finalAudits;
-};
-
-TYPE_SELECT?.addEventListener("change", () => {
-  getAuditsFromSettings();
-});
-
-const getAuditsFromSettings = (e?: Event) => {
-  e?.preventDefault();
-  const type = TYPE_SELECT?.value;
-  let audits: {
-    title: string;
-    code: string;
-    id: string;
-    innerId: string;
-    weight: number;
-  }[] = [];
-  if (type == "municipality") {
-    audits = municipalityAudits;
-  } else {
-    audits = schoolAudits;
-  }
-
-  if (AUDITS_FORM) {
-    AUDITS_FORM.innerHTML = "";
-    audits.forEach((audit) => {
-      if (audit.code.length > 0) {
-        (AUDITS_FORM as HTMLElement).innerHTML += `
-        <div class="form-check">
-          <input class="form-check-input" id="${audit.id}" type="checkbox" name="audits" checked>
-          <label class="form-check-label" for="${audit.id}">${audit.title.toUpperCase() === audit.code.toUpperCase() ? audit.title.toUpperCase() : audit.code.toUpperCase() + " - " + audit.title.toUpperCase()}</label>
-        </div>
-      `;
-      }
-    });
-  }
 };

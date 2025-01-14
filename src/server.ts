@@ -1,6 +1,7 @@
 import express from "express";
 import { readFileSync } from "fs";
 import path from "path";
+import { municipalityAudits, schoolAudits } from "./storage/auditMapping";
 
 const __dirname = import.meta.dirname;
 const app = express();
@@ -24,8 +25,9 @@ const data = {
   crawlerVersion: "1.0.0",
   currentPage: "",
   mock: null,
-  defaultAudits: [],
-  hystoryData: {},
+  municipalityAudits: municipalityAudits,
+  schoolAudits: schoolAudits,
+  historyData: {},
 };
 
 app.get(["/", "/home"], (req, res) => {

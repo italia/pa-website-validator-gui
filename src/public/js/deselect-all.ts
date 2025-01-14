@@ -31,5 +31,6 @@ function checkAllSetup(wrapperId: string) {
   });
 }
 
-checkAllSetup("auditsForm");
+checkAllSetup("municipalityAudits");
+checkAllSetup("schoolAudits");
 checkAllSetup("auditsRedoForm");
