@@ -1,6 +1,6 @@
 {
   "name": "pa-website-validator-ng-gui",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
@@ -27,7 +27,7 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
-    "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.20",
+    "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.21",
     "sqlite3": "^5.1.7",
     "typeorm": "^0.3.20",
     "yargs": "^17.7.2",
