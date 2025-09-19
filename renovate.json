@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", "js-app"],
+  "extends": ["config:best-practices", "config:js-app"],
   "lockFileMaintenance": {
     "enabled": true
   }
