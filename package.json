@@ -22,28 +22,28 @@
   "license": "BSD-3-Clause",
   "description": "Applicativo desktop a supporto degli sviluppatori che aiuta a valutare la qualità dei siti istituzionali di Comuni e scuole.",
   "dependencies": {
-    "@types/express": "^5.0.0",
-    "copyfiles": "^2.4.1",
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.21.2",
+    "@types/express": "5.0.0",
+    "copyfiles": "2.4.1",
+    "dotenv": "16.4.5",
+    "ejs": "3.1.10",
+    "express": "4.21.2",
     "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.30",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20",
-    "yargs": "^17.7.2",
-    "yargs-parser": "^21.1.1"
+    "sqlite3": "5.1.7",
+    "typeorm": "0.3.20",
+    "yargs": "17.7.2",
+    "yargs-parser": "21.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.14.0",
-    "@types/ejs": "^3.1.5",
-    "@types/yargs": "^17.0.33",
+    "@eslint/js": "9.14.0",
+    "@types/ejs": "3.1.5",
+    "@types/yargs": "17.0.33",
     "electron": "^32.2.0",
-    "electron-builder": "^25.1.7",
-    "eslint": "^9.14.0",
-    "eslint-config-prettier": "^9.1.0",
-    "globals": "^15.12.0",
-    "prettier": "^3.3.3",
-    "sass": "^1.80.4",
-    "typescript-eslint": "^8.13.0"
+    "electron-builder": "25.1.7",
+    "eslint": "9.14.0",
+    "eslint-config-prettier": "9.1.0",
+    "globals": "15.12.0",
+    "prettier": "3.3.3",
+    "sass": "1.80.4",
+    "typescript-eslint": "8.13.0"
   }
 }
