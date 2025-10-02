@@ -1,6 +1,5 @@
 import { readFileSync, readdirSync, statSync } from "fs";
 import path from "path";
-import puppeteer from "puppeteer";
 import { VERSION as currentVersion } from "./versions.js";
 
 export interface AuditI {
@@ -99,31 +98,24 @@ const getPathDirectoryInDirectory = (startPath: string) => {
 };
 
 const getChromePath = () => {
-  try {
-    return puppeteer.executablePath();
-  } catch {
-    let chromeFilePath = path.join(
-      import.meta.dirname,
-      "../",
-      "chrome-headless-shell",
-    );
-    if (process.env.NODE_ENV?.toString().trim() !== "development") {
-      chromeFilePath = path.join(
-        process.resourcesPath,
-        "chrome-headless-shell",
-      );
-    }
-
-    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
-    chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
-    chromeFilePath = path.join(chromeFilePath, "chrome-headless-shell");
-
-    if (process.platform === "win32") {
-      chromeFilePath += ".exe";
-    }
-
-    return chromeFilePath;
+  let chromeFilePath = path.join(
+    import.meta.dirname,
+    "../",
+    "chrome-headless-shell",
+  );
+  if (process.env.NODE_ENV?.toString().trim() !== "development") {
+    chromeFilePath = path.join(process.resourcesPath, "chrome-headless-shell");
   }
+
+  chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+  chromeFilePath = getPathDirectoryInDirectory(chromeFilePath);
+  chromeFilePath = path.join(chromeFilePath, "chrome-headless-shell");
+
+  if (process.platform === "win32") {
+    chromeFilePath += ".exe";
+  }
+
+  return chromeFilePath;
 };
 
 const checkNewerRelease = async () => {
