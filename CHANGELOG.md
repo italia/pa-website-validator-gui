@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.51](https://github.com/italia/pa-website-validator-gui/compare/v1.0.50...v1.0.51) (2025-10-02)
+
+
+### Bug Fixes
+
+* do not use local Chrome in Puppeteer ([e9362d5](https://github.com/italia/pa-website-validator-gui/commit/e9362d54cabbd78c80833b47bd74c74d8b1c24f1))
+
 ## [1.0.50](https://github.com/italia/pa-website-validator-gui/compare/v1.0.49...v1.0.50) (2025-10-01)
 
 
