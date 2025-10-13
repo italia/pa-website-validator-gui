@@ -77,6 +77,6 @@ jobs:
           path: dist/**/*.${{ matrix.target.build-type-file }}
 
       - name: Update GitHub Release with artifacts
-        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v1
+        uses: softprops/action-gh-release@6da8fa9354ddfdc4aeace5fc48d7f679b5214090 # v2
         with:
           files: dist/**/*.${{ matrix.target.build-type-file }}
