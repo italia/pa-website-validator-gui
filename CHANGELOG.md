@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.54](https://github.com/italia/pa-website-validator-gui/compare/v1.0.53...v1.0.54) (2025-10-31)
+
+
+### Bug Fixes
+
+* add reflect-metadata dependency ([dc446a9](https://github.com/italia/pa-website-validator-gui/commit/dc446a923669a8e6bc45330b6864c5aa3c2e584f))
+
 ## [1.0.53](https://github.com/italia/pa-website-validator-gui/compare/v1.0.52...v1.0.53) (2025-10-22)
 
 
