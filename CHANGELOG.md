@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.55](https://github.com/italia/pa-website-validator-gui/compare/v1.0.54...v1.0.55) (2025-10-31)
+
+
+### Bug Fixes
+
+* downgrade electron-builder ([3ab4f93](https://github.com/italia/pa-website-validator-gui/commit/3ab4f93884ff48aee3623b3c3a2981eb7c30bf17))
+
 ## [1.0.54](https://github.com/italia/pa-website-validator-gui/compare/v1.0.53...v1.0.54) (2025-10-31)
 
 
