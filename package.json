@@ -28,6 +28,7 @@
     "ejs": "3.1.10",
     "express": "4.21.2",
     "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.34",
+    "reflect-metadata": "0.2.2",
     "sqlite3": "5.1.7",
     "typeorm": "0.3.27",
     "yargs": "17.7.2",
