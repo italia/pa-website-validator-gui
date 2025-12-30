@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.57](https://github.com/italia/pa-website-validator-gui/compare/v1.0.56...v1.0.57) (2025-12-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v17 ([43c6a43](https://github.com/italia/pa-website-validator-gui/commit/43c6a43808d36556d6dafecf175a3f2b9b19d05f))
+
 ## [1.0.56](https://github.com/italia/pa-website-validator-gui/compare/v1.0.55...v1.0.56) (2025-12-30)
 
 
