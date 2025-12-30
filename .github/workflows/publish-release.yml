@@ -15,19 +15,19 @@ jobs:
         target:
           - arch: arm64
             os: mac
-            runner: macos-latest
+            runner: macos-15
             build-type-file: zip
           - arch: intel
             os: mac
-            runner: macos-13
+            runner: macos-15-intel
             build-type-file: zip
           - arch: x64
             os: linux
-            runner: ubuntu-latest
+            runner: ubuntu-24.04
             build-type-file: AppImage
           - arch: x64
             os: win
-            runner: windows-latest
+            runner: windows-2025
             build-type-file: zip
         node-version: [20]
     runs-on: ${{ matrix.target.runner }}
