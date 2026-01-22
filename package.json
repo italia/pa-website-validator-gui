@@ -30,7 +30,7 @@
     "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.36",
     "reflect-metadata": "0.2.2",
     "sqlite3": "5.1.7",
-    "typeorm": "0.3.27",
+    "typeorm": "0.3.28",
     "yargs": "17.7.2",
     "yargs-parser": "21.1.1"
   },
