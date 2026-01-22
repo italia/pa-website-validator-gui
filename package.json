@@ -1,6 +1,6 @@
 {
   "name": "pa-website-validator-ng-gui",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
