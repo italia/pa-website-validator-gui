@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.59](https://github.com/italia/pa-website-validator-gui/compare/v1.0.58...v1.0.59) (2026-01-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pa-website-validator-ng to v1.1.37 ([b349ba7](https://github.com/italia/pa-website-validator-gui/commit/b349ba727ada8b6bf1c6192acf5c9fd9728f1a87))
+* **deps:** update dependency typeorm to v0.3.28 ([77610fa](https://github.com/italia/pa-website-validator-gui/commit/77610fa6a2ecf011679eefdc1b20a9d326cd7810))
+
 ## [1.0.58](https://github.com/italia/pa-website-validator-gui/compare/v1.0.57...v1.0.58) (2026-01-22)
 
 
