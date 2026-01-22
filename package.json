@@ -27,7 +27,7 @@
     "dotenv": "17.2.3",
     "ejs": "3.1.10",
     "express": "4.22.1",
-    "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.35",
+    "pa-website-validator-ng": "github:italia/pa-website-validator-ng#v1.1.36",
     "reflect-metadata": "0.2.2",
     "sqlite3": "5.1.7",
     "typeorm": "0.3.27",
