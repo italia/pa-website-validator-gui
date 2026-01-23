@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.60](https://github.com/italia/pa-website-validator-gui/compare/v1.0.59...v1.0.60) (2026-01-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency pa-website-validator-ng to v1.1.38 ([f6b53d8](https://github.com/italia/pa-website-validator-gui/commit/f6b53d8d5dcef4719e37ced1195b92edc781f550))
+
 ## [1.0.59](https://github.com/italia/pa-website-validator-gui/compare/v1.0.58...v1.0.59) (2026-01-22)
 
 
